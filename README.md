@@ -6,7 +6,7 @@ SimpleQBN is a quality-based narrative (QBN) generic framework. While it draws h
 
 ## History and Documentation
 
-HonKit is used to create a history and documentation of this project.
+HonKit is used to create [a history and documentation of this project](https://videlais.github.io/simple-qbn/).
 
 ## Scripts
 
