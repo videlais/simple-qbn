@@ -69,7 +69,6 @@ class Deck {
     // - Size of the hand wanted
     // - If the card is available
     hand = this.cards.filter((card) => {
-      console.log('Inside loop');
       // Default condition is false
       let condition = false;
 
@@ -77,7 +76,6 @@ class Deck {
       if (count <= size && card.available) {
         // Card can be added
         condition = true;
-        console.log('Should be true', condition);
       }
 
       // Increase count

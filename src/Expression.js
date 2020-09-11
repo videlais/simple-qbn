@@ -19,9 +19,9 @@ import State from './State.js';
 */
 export default class Expression {
   // Save the parsed expression's parts
-  #argument1 = '';
+  #quality1 = '';
   #operator = '';
-  #argument2 = '';
+  #quality2 = '';
 
   // Is this a valid expression?
   valid = false;
@@ -61,16 +61,16 @@ export default class Expression {
       this.valid = false;
     } else {
       // Save the arguments and operator
-      this.#argument1 = match[1];
+      this.#quality1 = match[1];
       this.#operator = match[2];
-      this.#argument2 = match[3];
+      this.#quality2 = match[3];
 
       // To prevent value coercion, we have to now test for numerics.
       // If the operation is not between two variables, test if numeric.
       // (This does not understand decimal values currently.)
       if (!this.#operator.includes('var')) {
-        if (!isNaN(parseFloat(this.#argument2)) && isFinite(this.#argument2)) {
-          this.#argument2 = parseInt(this.#argument2, 10);
+        if (!isNaN(parseFloat(this.#quality2)) && isFinite(this.#quality2)) {
+          this.#quality2 = parseInt(this.#quality2, 10);
         }
       }
 
@@ -116,7 +116,7 @@ export default class Expression {
     if (this.valid) {
       // Using the parsed arguments and operator,
       //  consult the possible operators and update the internal value
-      this.value = this.#operators[this.#operator](this.#argument1, this.#argument2);
+      this.value = this.#operators[this.#operator](this.#quality1, this.#quality2);
     } else {
       // If this is not a valid expression, return false (the value of this.#valid)
       this.value = this.valid;
