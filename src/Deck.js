@@ -15,39 +15,8 @@ class Deck {
   }
 
   add (obj = {}) {
-    // Create empty object
-    const cardObject = {};
-
-    // Does the passed object have 'content'?
-    if (Object.prototype.hasOwnProperty.call(obj, 'content')) {
-      cardObject.content = obj.content;
-    } else {
-      cardObject.content = '';
-    }
-
-    // Do we have a string?
-    if (Object.prototype.toString.call(cardObject.content) !== '[object String]') {
-      throw new Error('Content must be expressed as a string property!');
-    }
-
-    // Does the passed object have 'qualities'?
-    if (Object.prototype.hasOwnProperty.call(obj, 'qualities')) {
-      cardObject.qualities = obj.qualities;
-    } else {
-      cardObject.qualities = [];
-    }
-
-    // Is this an array?
-    if (!Array.isArray(cardObject.qualities)) {
-      throw new Error('Qualities must be expressed as an array property!');
-    }
-
     // Create a new card and pass it the current state
-    const c = new Card(this.state);
-
-    for (const quality of cardObject.qualities) {
-      c.addQuality(quality);
-    }
+    const c = new Card(this.state, obj);
 
     // Add a card to the existing deck
     this.cards.push(c);
@@ -57,6 +26,15 @@ class Deck {
     this.cards = this.cards.filter((entry) => {
       return entry !== c;
     });
+  }
+
+  shuffle () {
+    // Fisher-Yates shuffle
+    for (let i = this.cards.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      // Swap positions using destructuring assignment
+      [this.cards[i], this.cards[j]] = [this.cards[j], this.cards[i]];
+    }
   }
 
   draw (size = 1) {

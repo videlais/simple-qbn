@@ -18,7 +18,7 @@ describe('add()', () => {
       content: 'Some content!',
       qualities: ['test-eq-1', 'example-neq-2']
     });
-    expect(d.cards).toHaveLength(1);
+    expect(d.cards[0].content).toBe('Some content!');
   });
 
   test('add() - add card by invalid object, throw content error', () => {
@@ -92,5 +92,48 @@ describe('draw()', () => {
 
     let c = d.draw(2);
     expect(c).toHaveLength(2);
+  });
+});
+
+describe('shuffle()', () => {
+  test('shuffle() - randomly sorts cards in Deck', () => {
+    const s = new State();
+    s.add('test', 1);
+    
+    const d = new Deck(s);
+    
+    d.add({
+      content: 'First!',
+      qualities: ['test-eq-1']
+    });
+
+    d.add({
+      content: 'Second!',
+      qualities: ['test-eq-1']
+    });
+
+    d.add({
+      content: 'Third!',
+      qualities: ['test-eq-1']
+    });
+
+    d.add({
+      content: 'Fourth!',
+      qualities: ['test-eq-1']
+    });
+
+    d.add({
+      content: 'Fifth!',
+      qualities: ['test-eq-1']
+    });
+
+    // Draw cards in order added
+    const hand = d.draw(d.cards.length);
+
+    // Shuffle cards
+    d.shuffle();
+
+    // Order is now different
+    expect(hand).not.toStrictEqual(d.cards);
   });
 });
