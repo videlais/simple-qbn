@@ -2,7 +2,6 @@ import Expression from '../src/Expression.js';
 import State from '../src/State.js';
 
 describe('constructor()', () => {
-
   let e = null;
 
   beforeAll(() => {
@@ -12,15 +11,13 @@ describe('constructor()', () => {
   test('constructor() - has a State', () => {
     expect(e.state instanceof State).toBe(true);
   });
-  
+
   test('constructor() - value to be false on empty string', () => {
     expect(e.value).toBe(false);
   });
-
 });
 
 describe('#parseExpression()', () => {
-
   test('constructor() - parses a valid expression, variable-op-value', () => {
     const e = new Expression(new State(), 'variable-eq-value');
     expect(e.valid).toBe(true);
@@ -35,24 +32,20 @@ describe('#parseExpression()', () => {
     const e = new Expression(new State(), null);
     expect(e.valid).toBe(false);
   });
-
 });
 
 describe('change()', () => {
-
   test('change() - parse new value string expression', () => {
-    let e = new Expression(new State(), null);
+    const e = new Expression(new State(), null);
     expect(e.expression).toBe(null);
     expect(e.valid).toBe(false);
     e.change('variable-eq-value');
     expect(e.expression).toBe('variable-eq-value');
     expect(e.valid).toBe(true);
   });
-
 });
 
 describe('check()', () => {
-
   let e = null;
   let s = null;
 
@@ -61,12 +54,12 @@ describe('check()', () => {
     e = new Expression(s, null);
     s.add('test', 1);
     s.add('test 2', 2);
-  })
+  });
 
   test('check() - equality, variable to value', () => {
-   e.change('test-eq-1');
-   expect(e.valid).toBe(true);
-   expect(e.check()).toBe(true);
+    e.change('test-eq-1');
+    expect(e.valid).toBe(true);
+    expect(e.check()).toBe(true);
   });
 
   test('check() - inequality, variable to value', () => {
@@ -134,5 +127,4 @@ describe('check()', () => {
     expect(e.valid).toBe(true);
     expect(e.check()).toBe(true);
   });
-
 });

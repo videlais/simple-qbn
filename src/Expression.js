@@ -17,7 +17,12 @@ import State from './State.js';
     -- ltevar
     -- gtevar
 */
-export default class Expression {
+
+/**
+ * @class Expression
+ * @module Expression
+ */
+class Expression {
   // Save the parsed expression's parts
   #quality1 = '';
   #operator = '';
@@ -42,7 +47,12 @@ export default class Expression {
     gtevar: (a, b) => { return this.state.get(a) >= this.state.get(b); }
   };
 
-  // Parse the string expression into arguments and an operator
+  /**
+   * Parse the string expression into arguments and an operator
+   *
+   * @function parseExpression
+   * @param {string} e - Expression to parse
+   */
   #parseExpression (e = '') {
     let regex = '';
     let match = null;
@@ -79,11 +89,12 @@ export default class Expression {
     }
   }
 
-  /*
-    Expressions need access to:
-    - Current state
-    - String to parse
-  */
+  /**
+   * Create a Deck
+   *
+   * @param {State} state - Instance of global state
+   * @param {string} expression - String
+   */
   constructor (state = new State(), expression = '') {
     // Check that state is a State
     if (!(state instanceof State)) {
@@ -100,7 +111,12 @@ export default class Expression {
     this.value = this.check();
   }
 
-  // Allow for changing the expression from a string
+  /**
+   * Allow for changing the expression from a string
+   *
+   * @function change
+   * @param {string} s - Expression to change
+   */
   change (s = '') {
     this.expression = s;
 
@@ -111,6 +127,12 @@ export default class Expression {
     this.value = this.check();
   }
 
+  /**
+   * Check if expression is valid
+   *
+   * @function check
+   * @returns {boolean} If the expression is valid or not
+   */
   check () {
     // Only check valid expressions
     if (this.valid) {
@@ -126,3 +148,5 @@ export default class Expression {
     return this.value;
   }
 }
+
+export default Expression;

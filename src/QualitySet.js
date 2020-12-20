@@ -1,8 +1,16 @@
 import Expression from './Expression.js';
 import State from './State.js';
 
-// A QualitySet is a Set of Expressions
-export default class QualitySet {
+/**
+ * @class QualitySet
+ * @module QualitySet
+ */
+class QualitySet {
+  /**
+   * Create a QualitySet
+   *
+   * @param {State} state - Instance of global state
+   */
   constructor (state = new State()) {
     // Check that state is a State
     if (!(state instanceof State)) {
@@ -15,7 +23,12 @@ export default class QualitySet {
     this.set = new Set();
   }
 
-  // Add a new expression to the set
+  /**
+   * Add Expression to QualitySet
+   *
+   * @function add
+   * @param {string} expression - Expression to add to set
+   */
   add (expression = '') {
     // Based on a string, create a new Expression
     // Pass it the current state and string
@@ -24,6 +37,13 @@ export default class QualitySet {
     this.set.add(e);
   }
 
+  /**
+   * Find expression in set
+   *
+   * @function find
+   * @param {string} s - Expression to find
+   * @returns {Expression|null} Expression or null
+   */
   find (s = '') {
     // Create default return value
     let result = null;
@@ -41,7 +61,13 @@ export default class QualitySet {
     return result;
   }
 
-  // Remove an expression from the Set
+  /**
+   * Remove expression from set
+   *
+   * @function find
+   * @param {string} s - Expression to find
+   * @returns {Expression} Expression removed
+   */
   remove (s = '') {
     // Look for the expression in the Set
     const result = this.find(s);
@@ -56,6 +82,12 @@ export default class QualitySet {
     return result;
   }
 
+  /**
+   * Check (validate) the entire set
+   *
+   * @function check
+   * @returns {boolean} If set is valid
+   */
   check () {
     // Create default return value
     let result = true;
@@ -76,7 +108,12 @@ export default class QualitySet {
     return result;
   }
 
-  // Show all of the qualities and current values
+  /**
+   * Print the entire set
+   *
+   * @function print
+   * @returns {string} Printed set of expressions
+   */
   print () {
     // Create default value
     let result = 'Qualities:\n';
@@ -94,3 +131,5 @@ export default class QualitySet {
     return result;
   }
 }
+
+export default QualitySet;

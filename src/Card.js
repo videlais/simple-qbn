@@ -1,14 +1,20 @@
 import QualitySet from './QualitySet.js';
 import State from './State.js';
+import crypto from 'crypto';
+/**
+ * @class Card
+ * @module Card
+ */
+class Card {
+  // Private hash
+  #_hash = null;
 
-/*
-  Cards should have:
-  - Content (String)
-  - Availability (Boolean value)
-  - Qualities (QualitySet)
-*/
-
-export default class Card {
+  /**
+   * Create a Card
+   *
+   * @param {State} state - Instance of global state
+   * @param {object} obj - Object literal for building Card
+   */
   constructor (state = new State(), obj = {}) {
     // Check that state is a State
     if (!(state instanceof State)) {
@@ -41,6 +47,13 @@ export default class Card {
     // String content for this card
     this.content = obj.content;
 
+    // Each card must have a unique value
+    // Use current time + content to prevent future collisions
+    this.#_hash = crypto
+      .createHash('sha256')
+      .update(Date.now().toString() + this.content, 'binary')
+      .digest('hex');
+
     // Cards have qualities (set of qualities)
     this.qualities = new QualitySet(this.state);
 
@@ -50,23 +63,46 @@ export default class Card {
     });
   }
 
+  // Hash is access-only
+  // Once set, cannot change
+  get hash () {
+    return this.#_hash;
+  }
+
   // A card is available if and only if all of its qualities are currently true
   get available () {
     return this.qualities.check();
   };
 
-  // Add a quality (Expression) to the Set based on a string
+  /**
+   * Add a quality to the Card
+   *
+   * @function addQuality
+   * @param {string} s - The quality to add
+   */
   addQuality (s = '') {
+    // Add a quality to the Card
     this.qualities.add(s);
   }
 
-  // Remove a quality (Expression) from the Set based on a string
+  /**
+   * Remove a quality from the Card
+   *
+   * @function removeQuality
+   * @param {string} s - The quality to remove
+   */
   removeQuality (s = '') {
     this.qualities.remove(s);
   }
 
-  // Show all the qualities
+  /**
+   * Show all the qualities of the Card
+   *
+   * @function showQualities
+   */
   showQualities () {
     console.log(this.qualities.print());
   }
 }
+
+export default Card;

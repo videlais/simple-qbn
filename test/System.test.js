@@ -1,0 +1,119 @@
+import Deck from '../src/Deck';
+import State from '../src/State.js';
+
+test('Adding and updating', () => {
+  // Create state
+  const s = new State();
+  // Add new key-value pair
+  s.add('test', 1);
+  // Add another key-value pair
+  s.add('discard', 0);
+
+  // Create a deck
+  const d = new Deck();
+  // Update the deck's state
+  d.state = s;
+
+  // Add a card
+  d.add({
+    content: 'Content!',
+    qualities: ['test-eq-1']
+  });
+
+  // Add a card
+  d.add({
+    content: 'Content!',
+    qualities: ['test-eq-1']
+  });
+
+  // Draw a card (array) and take first entry
+  const card = d.draw(1)[0];
+
+  // Test availability
+  expect(card.available).toBe(true);
+
+  // Add a discard quality
+  card.addQuality('discard-eq-1');
+
+  // Should no longer be available
+  expect(card.available).toBe(false);
+
+  // Update the card
+  d.updateCard(card);
+
+  // Draw other card
+  const card2 = d.draw(1)[0];
+  // Add a discard quality
+  card2.addQuality('discard-eq-1');
+  // Discard it
+  d.updateCard(card2);
+
+  // Attempt another draw
+  const cards = d.draw(1);
+
+  // No more cards are available, so the length should be 0
+  expect(cards).toHaveLength(0);
+
+  // Add a new card to the deck
+  d.add({
+    content: 'Third!',
+    qualities: ['test-eq-1']
+  });
+
+  // Test for size()
+  expect(d.size()).toBe(3);
+
+  // Draw one card from deck
+  const cs = d.draw();
+
+  // Test length of hand (which should be 1)
+  expect(cs).toHaveLength(1);
+
+  // Test the content of the last card
+  expect(cs[0].content).toBe('Third!');
+});
+
+test('Adding and removing', () => {
+  // Create state
+  const s = new State();
+  // Add new key-value pair
+  s.add('test', 1);
+
+  // Create a deck
+  const d = new Deck();
+  // Update the deck's state
+  d.state = s;
+
+  // Add a card
+  d.add({
+    content: 'Content!',
+    qualities: ['test-eq-1']
+  });
+
+  // Add a card
+  d.add({
+    content: 'Content!',
+    qualities: ['test-eq-1']
+  });
+
+  // Draw a card (array) and take first entry
+  const card = d.draw(1)[0];
+
+  // Test size of deck
+  expect(d.size()).toBe(2);
+
+  // Remove card from the deck
+  d.remove(card);
+
+  // Test size of deck
+  expect(d.size()).toBe(1);
+
+  // Add a card
+  d.add({
+    content: 'Content!',
+    qualities: ['test-eq-1']
+  });
+
+  // Test size of deck
+  expect(d.size()).toBe(2);
+});

@@ -6,7 +6,8 @@
   "scripts": {
     "build": "webpack",
     "lint": "eslint src/* --fix",
-    "test": "jest",
+    "lint:test": "eslint test/* --fix",
+    "test": "jest --runInBand",
     "docs": "cp README.md ./notes/README.md && honkit build && cp -r _book/* docs",
     "docs-serve": "cp README.md ./notes/README.md && honkit serve"
   },
@@ -44,6 +45,7 @@
     "eslint-config-standard": "^14.1.1",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jest": "^23.20.0",
+    "eslint-plugin-jsdoc": "^30.7.9",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.1.0",

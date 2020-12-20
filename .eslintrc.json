@@ -6,7 +6,8 @@
     },
     "extends": [
         "standard",
-        "plugin:jest/recommended"
+        "plugin:jest/recommended",
+        "plugin:jsdoc/recommended"
     ],
     "parserOptions": {
         "ecmaVersion": 11,
@@ -15,6 +16,10 @@
     "rules": {
         "semi": ["error", "always"]
     },
-    "plugins": ["jest", "@babel"],
+    "plugins": [
+        "jest",
+        "@babel",
+        "jsdoc"
+    ],
     "parser": "@babel/eslint-parser"
 }
