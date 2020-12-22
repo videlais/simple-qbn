@@ -1,6 +1,6 @@
 import QualitySet from './QualitySet.js';
+import { v4 as uuidv4 } from 'uuid';
 import State from './State.js';
-import crypto from 'crypto';
 /**
  * @class Card
  * @module Card
@@ -9,69 +9,83 @@ class Card {
   // Private hash
   #_hash = null;
 
+  // Private qualities
+  #_qualities = null;
+
+  // Private content
+  #_content = '';
+
   /**
    * Create a Card
    *
-   * @param {State} state - Instance of global state
-   * @param {object} obj - Object literal for building Card
+   * @param {string} content - Text content of card
+   * @param {Array} qualities - Array of qualities
    */
-  constructor (state = new State(), obj = {}) {
-    // Check that state is a State
-    if (!(state instanceof State)) {
-      throw new Error('state must be an instance of State!');
-    }
+  constructor (content = '', qualities = []) {
+    // Update internal content
+    this.content = content;
 
-    // Update the internal state
-    this.state = state;
-
-    // Does the passed object have 'content'?
-    if (!Object.prototype.hasOwnProperty.call(obj, 'content')) {
-      throw new Error('Card must have content property!');
-    }
-
-    // Do we have a string?
-    if (Object.prototype.toString.call(obj.content) !== '[object String]') {
-      throw new Error('Content must be expressed as a string property!');
-    }
-
-    // Does the passed object have 'qualities'?
-    if (!Object.prototype.hasOwnProperty.call(obj, 'qualities')) {
-      throw new Error('Card must have qualities property!');
-    }
-
-    // Is this an array?
-    if (!Array.isArray(obj.qualities)) {
-      throw new Error('Qualities must be expressed as an array property!');
-    }
-
-    // String content for this card
-    this.content = obj.content;
+    // Update internal qualities
+    this.qualities = qualities;
 
     // Each card must have a unique value
-    // Use current time + content to prevent future collisions
-    this.#_hash = crypto
-      .createHash('sha256')
-      .update(Date.now().toString() + this.content, 'binary')
-      .digest('hex');
+    this.#_hash = uuidv4();
+  }
+
+  // Get the internal content
+  get content () {
+    return this.#_content;
+  }
+
+  // Content must be a String
+  set content (s) {
+    // Do we have a string?
+    if (typeof s === 'string') {
+      this.#_content = s;
+    } else {
+      throw new Error('Content must be expressed as a string!');
+    }
+  }
+
+  // QualityState is access-only once set
+  get qualities () {
+    return this.#_qualities;
+  }
+
+  // Pass an array and convert to QualitySet internally
+  set qualities (q) {
+    // Is this an array?
+    if (!Array.isArray(q)) {
+      throw new Error('Qualities must be expressed as an array!');
+    }
 
     // Cards have qualities (set of qualities)
-    this.qualities = new QualitySet(this.state);
+    this.#_qualities = new QualitySet(this.state);
 
     // Add all the qualities to the card
-    obj.qualities.forEach(element => {
+    q.forEach(element => {
       this.addQuality(element);
     });
   }
 
-  // Hash is access-only
-  // Once set, cannot change
+  // Hash is access-only once set
   get hash () {
     return this.#_hash;
   }
 
-  // A card is available if and only if all of its qualities are currently true
-  get available () {
-    return this.qualities.check();
+  /**
+   * Check if card is available
+   *
+   * @function isAvailable
+   * @param {State} s - State to check against
+   * @returns {boolean} If card is available
+   */
+  isAvailable (s) {
+    if (s instanceof State) {
+      return this.#_qualities.check(s);
+    } else {
+      throw new Error('Must be passed State to check if available');
+    }
   };
 
   /**
@@ -80,9 +94,12 @@ class Card {
    * @function addQuality
    * @param {string} s - The quality to add
    */
-  addQuality (s = '') {
-    // Add a quality to the Card
-    this.qualities.add(s);
+  addQuality (s) {
+    if (typeof s === 'string') {
+      this.#_qualities.add(s);
+    } else {
+      throw new Error('Qualities must be string values!');
+    }
   }
 
   /**
@@ -91,17 +108,12 @@ class Card {
    * @function removeQuality
    * @param {string} s - The quality to remove
    */
-  removeQuality (s = '') {
-    this.qualities.remove(s);
-  }
-
-  /**
-   * Show all the qualities of the Card
-   *
-   * @function showQualities
-   */
-  showQualities () {
-    console.log(this.qualities.print());
+  removeQuality (s) {
+    if (typeof s === 'string') {
+      this.#_qualities.remove(s);
+    } else {
+      throw new Error('Qualities must be string values!');
+    }
   }
 }
 

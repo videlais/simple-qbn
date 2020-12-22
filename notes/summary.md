@@ -1,6 +1,6 @@
 # Introduction
 
-## History of Storylet & QBN
+## Storylet & QBN
 
 * [Storylet](./Storylet.md)
 * [Quality-Based Narrative](./qbn.md)
@@ -12,3 +12,6 @@
 * [Card](./Card.md)
 * [Deck](./Deck.md)
 * [State](./State.md)
+
+## Examples
+

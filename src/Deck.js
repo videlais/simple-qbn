@@ -32,6 +32,7 @@ class Deck {
    * @function getCard
    * @param {number} index - Position of card within deck
    * @returns {Card|null} Returns Card or null
+   * @memberof Deck
    */
   getCard (index = -1) {
     // Set a default
@@ -50,7 +51,7 @@ class Deck {
    * Update card based on its internal hash
    *
    * @function updateCard
-   * @param {Card|null} c - Card to update in deck
+   * @param {Card} c - Card to update in deck
    */
   updateCard (c) {
     if (c instanceof Card) {
@@ -77,12 +78,23 @@ class Deck {
   /**
    * Add a Card to the Deck
    *
-   * @function add
-   * @param {object} obj - Card to add to deck
+   * @function addCard
+   * @param {string} content - Text of card
+   * @param {Array} qualities - Array of Expressions
    */
-  add (obj = {}) {
+  addCard (content, qualities = []) {
+    // Can't add non-String content
+    if (typeof content !== 'string') {
+      throw new Error('Card content must be string!');
+    }
+
+    // Can't pass non-array qualities
+    if (!Array.isArray(qualities)) {
+      throw new Error('Qualities must be passed as array!');
+    }
+
     // Create a new card and pass it the current state
-    const c = new Card(this.#_state, obj);
+    const c = new Card(content, qualities);
 
     // Add a card to the existing deck
     this.#cards.push(c);
@@ -125,17 +137,16 @@ class Deck {
     // Create a hand
     let hand = [];
 
-    // Find all available cards
-    hand = this.#cards.filter((card) => {
-      return card.available;
-    });
+    // Prevent negative sizes
+    if (size > 0) {
+      // Find all available cards
+      hand = this.#cards.filter((card) => {
+        // Pass the current state to the card
+        return card.isAvailable(this.state);
+      });
 
-    // Slice a hand from all those available
-    if (size <= this.size() && size >= 0) {
+      // Slice out a sub-set of available cards
       hand = hand.slice(0, size);
-    } else {
-      // If size was invalid, reset hand
-      hand = [];
     }
 
     return hand;

@@ -28,48 +28,44 @@ class Expression {
   #operator = '';
   #quality2 = '';
 
-  // Is this a valid expression?
-  valid = false;
-
   // Save all possible operations as a series of arrow functions
   #operators = {
-    eq: (a, b) => { return this.state.get(a) === b; },
-    neq: (a, b) => { return this.state.get(a) !== b; },
-    lt: (a, b) => { return this.state.get(a) < b; },
-    gt: (a, b) => { return this.state.get(a) > b; },
-    lte: (a, b) => { return this.state.get(a) <= b; },
-    gte: (a, b) => { return this.state.get(a) >= b; },
-    eqvar: (a, b) => { return this.state.get(a) === this.state.get(b); },
-    neqvar: (a, b) => { return this.state.get(a) !== this.state.get(b); },
-    ltvar: (a, b) => { return this.state.get(a) < this.state.get(b); },
-    gtvar: (a, b) => { return this.state.get(a) > this.state.get(b); },
-    ltevar: (a, b) => { return this.state.get(a) <= this.state.get(b); },
-    gtevar: (a, b) => { return this.state.get(a) >= this.state.get(b); }
+    eq: (s, a, b) => { return s.get(a) === b; },
+    neq: (s, a, b) => { return s.get(a) !== b; },
+    lt: (s, a, b) => { return s.get(a) < b; },
+    gt: (s, a, b) => { return s.get(a) > b; },
+    lte: (s, a, b) => { return s.get(a) <= b; },
+    gte: (s, a, b) => { return s.get(a) >= b; },
+    eqvar: (s, a, b) => { return s.get(a) === s.get(b); },
+    neqvar: (s, a, b) => { return s.get(a) !== s.get(b); },
+    ltvar: (s, a, b) => { return s.get(a) < s.get(b); },
+    gtvar: (s, a, b) => { return s.get(a) > s.get(b); },
+    ltevar: (s, a, b) => { return s.get(a) <= s.get(b); },
+    gtevar: (s, a, b) => { return s.get(a) >= s.get(b); }
   };
 
+  // Private expression
+  #_expression = '';
+
   /**
-   * Parse the string expression into arguments and an operator
+   * Parse the internal string expression into arguments and an operator
    *
    * @function parseExpression
-   * @param {string} e - Expression to parse
+   * @returns {boolean} If the internal expression is valid or not
    */
-  #parseExpression (e = '') {
+  #parseExpression () {
     let regex = '';
     let match = null;
+    let result = false;
 
     try {
       regex = /^(.*)-(eq|ne|lt|gt|le|ge|neq|lte|gte|eqvar|neqvar|ltvar|gtvar|ltevar|gtevar)-(.*)/g;
-      match = regex.exec(e);
+      match = regex.exec(this.#_expression);
     } catch (e) {
-      // Only accept valid expressions!
-      this.valid = false;
     }
 
     // Is the match null?
-    if (match == null) {
-      // Only accept valid expressions!
-      this.valid = false;
-    } else {
+    if (match !== null) {
       // Save the arguments and operator
       this.#quality1 = match[1];
       this.#operator = match[2];
@@ -84,31 +80,45 @@ class Expression {
         }
       }
 
-      // Reset validity
-      this.valid = true;
+      result = true;
+    }
+
+    return result;
+  }
+
+  // Internal validity
+  #_valid = false;
+
+  // Get the internal valid
+  get valid () {
+    return this.#_valid;
+  }
+
+  // Get the string expression
+  get expression () {
+    return this.#_expression;
+  }
+
+  // Update expression
+  set expression (e) {
+    if (typeof e !== 'string') {
+      throw new Error('Expressions must be string values!');
+    } else {
+      // Update internal expression
+      this.#_expression = e;
+      // Attempt to parse and set internal validity
+      this.#_valid = this.#parseExpression(e);
     }
   }
 
   /**
-   * Create a Deck
+   * Create an Expression
    *
-   * @param {State} state - Instance of global state
    * @param {string} expression - String
    */
-  constructor (state = new State(), expression = '') {
-    // Check that state is a State
-    if (!(state instanceof State)) {
-      throw new Error('state must be an instance of State!');
-    }
-
-    this.state = state;
+  constructor (expression) {
+    // Update internal expression
     this.expression = expression;
-
-    // Parse the expression into parts
-    this.#parseExpression(this.expression);
-
-    // Do an initial check on the expression
-    this.value = this.check();
   }
 
   /**
@@ -117,35 +127,29 @@ class Expression {
    * @function change
    * @param {string} s - Expression to change
    */
-  change (s = '') {
-    this.expression = s;
-
-    // Parse the expression into parts
-    this.#parseExpression(this.expression);
-
-    // Do a check on the expression
-    this.value = this.check();
+  change (s) {
+    // Test if value is string
+    if (typeof s === 'string') {
+      // Update internal expression
+      this.expression = s;
+    } else {
+      throw new Error('Expressions must be string values!');
+    }
   }
 
   /**
-   * Check if expression is valid
+   * Check if expression is valid, given a state
    *
    * @function check
+   * @param {State} s - State to used to check expressions
    * @returns {boolean} If the expression is valid or not
    */
-  check () {
-    // Only check valid expressions
-    if (this.valid) {
-      // Using the parsed arguments and operator,
-      //  consult the possible operators and update the internal value
-      this.value = this.#operators[this.#operator](this.#quality1, this.#quality2);
+  check (s) {
+    if (s instanceof State) {
+      return this.#operators[this.#operator](s, this.#quality1, this.#quality2);
     } else {
-      // If this is not a valid expression, return false (the value of this.#valid)
-      this.value = this.valid;
+      throw new Error('Must be instance of State!');
     }
-
-    // Return the saved internal value
-    return this.value;
   }
 }
 

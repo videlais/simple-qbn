@@ -1,18 +1,29 @@
 import Deck from '../src/Deck.js';
 import State from '../src/State.js';
+import Card from '../src/Card';
 
 describe('State', () => {
   test('set state - updated state', () => {
-    const d = new Deck();
+    // Create a new state
     const s = new State();
+
+    // Add a new key-value
     s.add('discard', 0);
+
+    // Create a new deck
+    const d = new Deck();
+
+    // Update the state with the new state
     d.state = s;
-    d.add({
-      content: 'Some content!',
-      qualities: ['discard-eq-0']
-    });
+
+    // Add a new card
+    d.addCard('Some content!', ['discard-eq-0']);
+
+    // Get the first card
     const c = d.getCard(0);
-    expect(c.available).toBe(true);
+
+    // With the updated state, it should be available
+    expect(c.isAvailable(d.state)).toBe(true);
   });
 
   test('set state - Throw error when trying to update state with non-State object', () => {
@@ -21,37 +32,33 @@ describe('State', () => {
       d.state = 1;
     }).toThrow();
   });
+
+  test('get state - returns state', () => {
+    const d = new Deck();
+    expect(d.state instanceof State).toBe(true);
+  });
 });
 
-describe('add()', () => {
-  test('add() - add card by valid object', () => {
+describe('addCard()', () => {
+  test('addCard() - add card by valid object', () => {
     const d = new Deck();
-    d.add({
-      content: 'Some content!',
-      qualities: ['test-eq-1', 'example-neq-2']
-    });
+    d.addCard('Some content!', ['test-eq-1', 'example-neq-2']);
 
     const c = d.getCard(0);
     expect(c.content).toBe('Some content!');
   });
 
-  test('add() - add card by invalid object, throw content error', () => {
+  test('addCard() - throw error if content is not String', () => {
     const d = new Deck();
     expect(() => {
-      d.add({
-        content: null,
-        qualities: ['test-eq-1', 'example-neq-2']
-      });
+      d.addCard(null, []);
     }).toThrow();
   });
 
-  test('add() - add card by invalid object, throw qualities error', () => {
+  test('addCard() - throw error if qualities is not array', () => {
     const d = new Deck();
     expect(() => {
-      d.add({
-        content: 'String value!',
-        qualities: null
-      });
+      d.addCard('String value!', null);
     }).toThrow();
   });
 });
@@ -59,14 +66,9 @@ describe('add()', () => {
 describe('remove()', () => {
   test('remove() - remove by card', () => {
     const d = new Deck();
-    d.add({
-      content: 'Some content!',
-      qualities: ['test-eq-1', 'example-neq-2']
-    });
-
+    d.addCard('Some content!', ['test-eq-1', 'example-neq-2']);
     const c = d.getCard(0);
     d.remove(c);
-
     expect(d.size()).toBe(0);
   });
 });
@@ -74,11 +76,7 @@ describe('remove()', () => {
 describe('getCard()', () => {
   test('getCard() - get card based on position', () => {
     const d = new Deck();
-    d.add({
-      content: 'Content!',
-      qualities: []
-    });
-
+    d.addCard('Content!');
     const c = d.getCard(0);
     expect(c.content).toBe('Content!');
   });
@@ -89,19 +87,16 @@ describe('getCard()', () => {
     expect(c).toBe(null);
   });
 
+  test('getCard() - return null if no index given', () => {
+    const d = new Deck();
+    const c = d.getCard();
+    expect(c).toBe(null);
+  });
+
   test('getCard() - get null if index greater than length', () => {
     const d = new Deck();
-
-    d.add({
-      content: 'Content!',
-      qualities: []
-    });
-
-    d.add({
-      content: 'Content!',
-      qualities: []
-    });
-
+    d.addCard('Content!');
+    d.addCard('Content!');
     const c = d.getCard(4);
     expect(c).toBe(null);
   });
@@ -109,52 +104,36 @@ describe('getCard()', () => {
 
 describe('draw()', () => {
   test('draw() - draw one card', () => {
-    const s = new State();
-    s.add('test', 1);
-    s.add('example', 1);
     const d = new Deck();
-    d.state = s;
-    d.add({
-      content: 'Some content!',
-      qualities: ['test-eq-1', 'example-neq-2']
-    });
-
+    d.state.add('test', 1);
+    d.state.add('example', 1);
+    d.addCard('Some content!', ['test-eq-1', 'example-neq-2']);
     const c = d.draw(1);
     expect(c).toHaveLength(1);
   });
 
-  test('draw() - draw two cards', () => {
-    const s = new State();
-    s.add('test', 1);
+  test('draw() - return empty array if index invalid', () => {
     const d = new Deck();
-    d.state = s;
-    d.add({
-      content: 'Some content!',
-      qualities: ['test-eq-1']
-    });
-    d.add({
-      content: 'Some content!',
-      qualities: ['test-neq-1']
-    });
-    d.add({
-      content: 'Some content!',
-      qualities: ['test-neq-3']
-    });
+    const h = d.draw(-1);
+    expect(h).toHaveLength(0);
+  });
+
+  test('draw() - draw two cards', () => {
+    const d = new Deck();
+    d.state.add('test', 1);
+    d.addCard('Some content!', ['test-eq-1']);
+    d.addCard('Some content!', ['test-neq-1']);
+    d.addCard('Some content!', ['test-neq-3']);
 
     const c = d.draw(2);
     expect(c).toHaveLength(2);
   });
 
   test('draw() - draw, update, add, and draw again', () => {
-    const s = new State();
-    s.add('test', 1);
     const d = new Deck();
-    d.state = s;
+    d.state.add('test', 1);
 
-    d.add({
-      content: 'Some content!',
-      qualities: ['test-eq-1']
-    });
+    d.addCard('Some content!', ['test-eq-1']);
 
     const c = d.draw();
     // Hand should be one card
@@ -166,10 +145,8 @@ describe('draw()', () => {
     // Update the card in the deck
     d.updateCard(c[0]);
 
-    d.add({
-      content: 'Some content!',
-      qualities: ['test-eq-1']
-    });
+    // Add a card
+    d.addCard('Some content!', ['test-eq-1']);
 
     // Draw one card
     const c2 = d.draw();
@@ -181,36 +158,14 @@ describe('draw()', () => {
 
 describe('shuffle()', () => {
   test('shuffle() - randomly sorts cards in Deck', () => {
-    const s = new State();
-    s.add('test', 1);
-
     const d = new Deck();
-    d.state = s;
+    d.state.add('test', 1);
 
-    d.add({
-      content: 'First!',
-      qualities: ['test-eq-1']
-    });
-
-    d.add({
-      content: 'Second!',
-      qualities: ['test-eq-1']
-    });
-
-    d.add({
-      content: 'Third!',
-      qualities: ['test-eq-1']
-    });
-
-    d.add({
-      content: 'Fourth!',
-      qualities: ['test-eq-1']
-    });
-
-    d.add({
-      content: 'Fifth!',
-      qualities: ['test-eq-1']
-    });
+    d.addCard('First!', ['test-eq-1']);
+    d.addCard('Second!', ['test-eq-1']);
+    d.addCard('Third!', ['test-eq-1']);
+    d.addCard('Fourth!', ['test-eq-1']);
+    d.addCard('Fifth!', ['test-eq-1']);
 
     // Draw cards in order added
     const hand = d.draw(d.size());
@@ -225,41 +180,71 @@ describe('shuffle()', () => {
 
 describe('updateCard()', () => {
   test('Should update card based on hash', () => {
-    const s = new State();
-    s.add('test', 1);
-
+    // Create Deck
     const d = new Deck();
-    d.state = s;
+    // Add quality
+    d.state.add('test', 1);
 
-    d.add({
-      content: 'First!',
-      qualities: []
-    });
+    // Add a card
+    d.addCard('First!');
 
     // Get first card
     const c = d.draw(1)[0];
-    // Add a quality
-    c.addQuality('test-eq-2');
+    // Add quality
+    c.addQuality('test-eq-1');
 
     // Update the card in the overall deck
     d.updateCard(c);
 
     // Should not have any cards
-    const c2 = d.draw(1);
+    const c2 = d.draw(1)[0];
 
-    // Should have length of 0
-    expect(c2).toHaveLength(0);
+    // Hashes should be the same
+    expect(c.hash).toBe(c2.hash);
+
+    // Test if re-drawn card has expression or not
+    expect(c2.qualities.has('test-eq-1')).toBe(true);
   });
 
   test('Should throw error if given non-Card', () => {
-    const s = new State();
-    s.add('test', 1);
-
     const d = new Deck();
-    d.state = s;
 
     expect(() => {
       d.updateCard(1);
     }).toThrow();
+  });
+
+  test('Nothing should happen if Card does not match existing one', () => {
+    // Create a deck
+    const d = new Deck();
+
+    // Add a key-value to the state
+    d.state.add('e', 1);
+
+    // Add a card
+    d.addCard('Test', ['e-eq-1']);
+
+    // Get card
+    const c = d.getCard(0);
+
+    // Create a new card
+    const c2 = new Card('Test');
+
+    // Add a quality
+    c2.addQuality('e-eq-2');
+    // Add another
+    c2.addQuality('e-eq-3');
+
+    // Verify that the hashes are not equal
+    expect(c.hash).not.toBe(c2.hash);
+
+    // Attempt to update
+    d.updateCard(c2);
+
+    // Get card
+    const c3 = d.getCard(0);
+
+    // Test that card has not changed number of qualities
+    expect(c3.qualities.size()).toBe(1);
   });
 });
