@@ -1,17 +1,20 @@
 # Introduction
 
-## Storylet & QBN
+* [Introduction](./README.md)
 
-* [Storylet](./Storylet.md)
+## History of Related Terms
+
+* [Sculptural Hypertext Model](./sculpturalmodel.md)
+* [Storylet](./storylet.md)
 * [Quality-Based Narrative](./qbn.md)
 
-## API
+## Metaphors in SimpleQBN
 
-* [Expression](./Expression.md)
-* [QualitySet](./QualitySet.md)
-* [Card](./Card.md)
-* [Deck](./Deck.md)
-* [State](./State.md)
+* [Expression and QualitySet](./expressions.md)
+* [Deck and Cards](./cards.md)
+* [State Management](./state.md)
 
 ## Examples
 
+* [Deck Building](./examples/deckbuilding.md)
+* [Story Gates](./examples/storygates.md)

@@ -7,7 +7,15 @@ import State from './State.js';
  */
 class QualitySet {
   // Create private Set
-  #_set = [];
+  #_set = null;
+
+  /**
+   * Create a QualitySet
+   */
+  constructor () {
+    // Set the internal set to an array
+    this.#_set = [];
+  }
 
   // Access-only internal Set
   get set () {

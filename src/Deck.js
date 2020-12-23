@@ -7,10 +7,21 @@ import State from './State.js';
  */
 class Deck {
   // Private array of cards
-  #cards = [];
+  #cards = null;
 
   // Private state
   #_state = new State();
+
+  /**
+   * Create a Deck
+   */
+  constructor () {
+    // Set the internal cards to an empty array
+    this.#cards = [];
+
+    // Set the internal state to a new State()
+    this.#_state = new State();
+  }
 
   // Get current state
   get state () {
@@ -103,10 +114,10 @@ class Deck {
   /**
    * Remove a Card from the Deck
    *
-   * @function remove
+   * @function removeCard
    * @param {object} c - Card to remove from deck
    */
-  remove (c) {
+  removeCard (c) {
     this.#cards = this.#cards.filter((entry) => {
       return entry !== c;
     });

@@ -3,11 +3,10 @@
 <html lang="" >
     <head>
         <meta charset="UTF-8">
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <title>Storylet · HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="HonKit 3.6.6">
+        <meta name="generator" content="HonKit 3.6.16">
         
         
         
@@ -60,13 +59,13 @@
     <link rel="next" href="qbn.html" />
     
     
-    <link rel="prev" href="./" />
+    <link rel="prev" href="sculpturalmodel.html" />
     
 
     </head>
     <body>
         
-<div class="book">
+<div class="book honkit-cloak">
     <div class="book-summary">
         
             
@@ -87,8 +86,6 @@
 
     
         
-        <li class="header">History of Storylet & QBN</li>
-        
         
     
         <li class="chapter " data-level="1.1" data-path="./">
@@ -104,9 +101,29 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.2" data-path="Storylet.html">
+
+    
+        
+        <li class="header">History of Related Terms</li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="sculpturalmodel.html">
             
-                <a href="Storylet.html">
+                <a href="sculpturalmodel.html">
+            
+                    
+                    Sculptural Hypertext Model
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="2.2" data-path="storylet.html">
+            
+                <a href="storylet.html">
             
                     
                     Storylet
@@ -117,7 +134,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3" data-path="qbn.html">
+        <li class="chapter " data-level="2.3" data-path="qbn.html">
             
                 <a href="qbn.html">
             
@@ -133,16 +150,16 @@
 
     
         
-        <li class="header">API</li>
+        <li class="header">Metaphors in SimpleQBN</li>
         
         
     
-        <li class="chapter " data-level="2.1" data-path="Expression.html">
+        <li class="chapter " data-level="3.1" data-path="expressions.html">
             
-                <a href="Expression.html">
+                <a href="expressions.html">
             
                     
-                    Expression
+                    Expression and QualitySet
             
                 </a>
             
@@ -150,12 +167,12 @@
             
         </li>
     
-        <li class="chapter " data-level="2.2" data-path="QualitySet.html">
+        <li class="chapter " data-level="3.2" data-path="cards.html">
             
-                <a href="QualitySet.html">
+                <a href="cards.html">
             
                     
-                    QualitySet
+                    Deck and Cards
             
                 </a>
             
@@ -163,12 +180,12 @@
             
         </li>
     
-        <li class="chapter " data-level="2.3" data-path="Card.html">
+        <li class="chapter " data-level="3.3" data-path="state.html">
             
-                <a href="Card.html">
+                <a href="state.html">
             
                     
-                    Card
+                    State Management
             
                 </a>
             
@@ -176,12 +193,19 @@
             
         </li>
     
-        <li class="chapter " data-level="2.4" data-path="Deck.html">
+
+    
+        
+        <li class="header">Examples</li>
+        
+        
+    
+        <li class="chapter " data-level="4.1" data-path="examples/deckbuilding.html">
             
-                <a href="Deck.html">
+                <a href="examples/deckbuilding.html">
             
                     
-                    Deck
+                    Deck Building
             
                 </a>
             
@@ -189,12 +213,12 @@
             
         </li>
     
-        <li class="chapter " data-level="2.5" data-path="State.html">
+        <li class="chapter " data-level="4.2" data-path="examples/storygates.html">
             
-                <a href="State.html">
+                <a href="examples/storygates.html">
             
                     
-                    State
+                    Story Gates
             
                 </a>
             
@@ -248,50 +272,29 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="storylet">Storylet</h1>
-<p><em>This history originally appeared in a <a href="https://videlais.com/2020/09/05/working-with-tinyqbn-part-1-terms-and-concepts/" target="_blank">blog post</a> describing using TinyQBN.</em></p>
-<p>The term <em>storylet</em> originates with the studio Failbetter Games and the design of a game initially called Echo Bazaar that would later become Fallen London (2009). In a blog post explaining its narrative structure, the term &quot;storylet&quot; appears as a definition of &quot;discrete chunks of narrative&quot; (Failbetter, 2010; para. 3). Later clarified as part of a developer diary post, Failbetter Games (2012) described storylets as &quot;pieces of story like mosaic tiles, not pipes or complex machinery. Put them together. Build something wonderful&quot; (para. 11).</p>
-<p>In working with Failbetter Games and other projects, Emily Short (2019) has expanded on this term and refined its definition into three parts:</p>
+<h2 id="introducing-term">Introducing Term</h2>
+<p>The term <em>storylet</em> was coined by the studio Failbetter Games. In a design blog post explaining the narrative structure for the game initialled named <em>Echo Bazaar</em>, but would later be published as <em>Fallen London</em> (2009), the term &quot;storylet&quot; appears with the definition as &quot;discrete chunks of narrative&quot; (Failbetter, 2010; para. 3). Later, in another post two years later, the developers at Failbetter Games clarified storylets as &quot;pieces of story like mosaic tiles, not pipes or complex machinery. Put them together. Build something wonderful&quot; (Failbetter Games, 2012: para. 11).</p>
+<p>In working with Failbetter Games and other, related projects, Emily Short (2019) has expanded on this term and refined its definition into three parts:</p>
 <blockquote>
 <p>&quot;[1] there is a piece of content. It might be a line or a whole section of dialogue, it might be narration, it might be an animation or scrap of film</p>
 <p>[2] there are prerequisites that determine when the content can play</p>
 <p>[3] there are effects on the world state that result after the content has played&quot;</p>
-<p>STORYLETS: YOU WANT THEM. SHORT (2019)</p>
+<p>Storylets: You Want Them. Short (2019)</p>
 </blockquote>
-<p>A storylet, in other words, consists of some lexia whose access is granted through qualifiers. When accessed, or as a part of content within it, its output or presented player choices produce changes to values external to the storylet itself. Depending on the changes to these values, access to other storylets may be affected or an ending to the game triggered.</p>
-<p>While the term storylet is not used in descriptions of its design, Reigns (2016) has been described by both Short (2016b) and Kreminski and Wardrip-Fruin (2018) as an example using the concept. In Reigns (2016), the player is presented with a short text and two choices. Depending on the choice, one or more attributes (values) will be affected. If any of these values are decreased or increased beyond a set range as a result of choices made, the game ends.</p>
-<p>Play progresses as the player is presented with storylets based on current attribute ranges, specific sequenced previously unlocked, and random choices from the total possible storylets in the game. Each choice counts as a year in the game, with the goal to &quot;reign&quot; as as long as possible before starting with the next king in line and beginning again.</p>
-<p>King of Dragon Pass (1999) has been cited by Failbetter Games (2011) as an inspiration for Fallen London (2009). Failbetter Games (2011) writes:</p>
-<blockquote>
-<p>Every other turn or so, you are confronted by an event like this: a slice of story and a set of responses, like an Echo Bazaar storylet. The art is beautiful. The text is clean and urgent, deftly distilling conflict into a single gripping decision. Each choice has its consequences and can trigger follow-up events, with some stories unfolding over decades of play.</p>
-<p>ECHO BAZAAR INSPIRATIONS: KING OF DRAGON PASS. FAILBETTER GAMES (2011). PARA. 4.</p>
-</blockquote>
-<p>Presented as tribal leadership governed by advisors, the player navigates a series of seasons for their people within a year with random events occurring between each. These random events are chosen based on previous decisions and the current resources of the tribe. During one, the player is presented with a short amount of text and choices whose outcome may affect their current resources or standing with other tribes and peoples in the game. While the game has a fixed narrative path, a pool of hundreds of random events creates different play-through experiences each time.</p>
-<p>A Sharp, the company behind King of Dragon Pass (1999), created a scripting language, Opal Scripting Language (OSL), for its development. As shown as part of a &quot;sample&quot; posted on their website, OSL compares resources and uses conditions for influencing narrative presentation (OSL Sample, 2020).</p>
-<pre><code class="lang-Opal">text: &lt;he/she&gt; gives away clan wealth to those fiendish talking lizards.
-[n AND dragonAttitude= &apos;positive] text: Despite &lt;his/her&gt; assurance, &lt;he/she&gt; has done little to help our case with the dragonewts.
-[n AND dragonAttitude= &apos;neutral] text: &lt;he/she&gt; wastes time thinking about talking lizards, instead of clan concerns.
-[a] text: &lt;he/she&gt; sends our weaponthanes into the woods on pointless hunts for the plant-folk.
-</code></pre>
-<p>Dunham (2011) has also written about King of Dragon Pass&#x2018; (1999) development using the authoring tool mTropolis. The engine keeps track of the game&#x2019;s state and values in such a way that scenes can access and react in different ways, creating a narrative experience based on scenes shown to the user based their previous choices and values of the game&#x2019;s current state.</p>
+<h2 id="historical-game-usages">Historical Game Usages</h2>
+<p>While the term storylet is not used in descriptions of its design, <em>Reigns</em> (2016) has been described by both Short (2016b) and Kreminski and Wardrip-Fruin (2018) as an example using the concept. In <em>Reigns</em> (2016), the player is presented with some text and two choices. Depending on the choice, one or more attributes (values) will be affected. If any of these values are decreased or increased beyond a set range as a result of choices made, the game ends. Play progresses as the player is presented with storylets based on current attribute ranges, specific sequenced previously unlocked, and random choices from the total possible storylets in the game. Each choice counts as a year in the game, with the goal to &quot;reign&quot; as as long as possible before starting with the next king in line and beginning again.</p>
 <h2 id="references">References</h2>
 <p>Dunham, D. (2011). An Architecture Overview. King of Dragon Pass. Retrieved from <code>https://kingofdragonpass.blogspot.com/2011/02/architecture-overview.html</code></p>
 <p>Failbetter Games. (2010). Echo Bazaar Narrative Structures, part two. Retrieved from <code>http://www.failbettergames.com/echo-bazaar-narrative-structures-part-two/</code></p>
 <p>Failbetter Games. (2011). Echo Bazaar Inspirations: King of Dragon Pass. Retrieved from <code>https://www.failbettergames.com/echo-bazaar-inspirations-king-of-dragon-pass/</code></p>
 <p>Failbetter Games. (2012). StoryNexus Developer Diary #2: fewer spreadsheets, less swearing. Retrieved from <code>https://www.failbettergames.com/storynexus-developer-diary-2-fewer-spreadsheets-less-swearing/</code></p>
-<p>Fa&#xE7;ade (2005). Procedural Arts.</p>
-<p>Fallen London. (2009). Failbetter Games.</p>
-<p>Galatea. (2000). Emily Short.</p>
-<p>Grams, J. (2019). Tiny-QBN. GitHub. Retrieved from <code>https://github.com/JoshuaGrams/tiny-qbn</code></p>
-<p>Kennedy, A. (2017). I&#x2019;ve stopped talking about quality-based narrative, I&#x2019;ve started talking about resource narrative. Weather Factory. Retrieved from <code>https://weatherfactory.biz/qbn-to-resource-narratives/</code></p>
 <p>King of Dragon Pass (1999). A Sharp.</p>
-<p>Kreminski, M., &amp; Wardrip-Fruin, N. (2018). Sketching a Map of the Storylets Design Space. In R. Rouse, H. Koenitz, &amp; M. Haahr (Eds.), Interactive Storytelling (Vol. 11318, pp. 160&#x2013;164). Springer International Publishing. <code>https://doi.org/10.1007/978-3-030-04028-4_14</code></p>
-<p>Mateas, M. &amp; Stern, A. (2005). Structuring content in the Facade interactive drama architecture. Proceedings of the First AAAI Conference on Artificial Intelligence and Interactive Digital Entertainment. pp. 93-98.</p>
+<p>Kreminski, M., &amp; Wardrip-Fruin, N. (2018). Sketching a Map of the Storylets Design Space. In R. Rouse, H. Koenitz, &amp; M. Haahr (Eds.), Interactive Storytelling (Vol. 11318, pp. 160–164). Springer International Publishing. <code>https://doi.org/10.1007/978-3-030-04028-4_14</code></p>
 <p>OSL Sample. (2020). A Sharp. Retrieved from <code>http://a-sharp.com/kodp/osl.html</code></p>
 <p>Reigns. (2016). Nerial.</p>
-<p>Short, E. (2016a). Beyond Branching: Quality-Based, Salience-Based, and Waypoint Narrative Structures. Emily Short&#x2019;s Interactive Storytelling. Retrieved from <code>https://emshort.blog/2016/04/12/beyond-branching-quality-based-and-salience-based-narrative-structures/</code></p>
+<p>Short, E. (2016a). Beyond Branching: Quality-Based, Salience-Based, and Waypoint Narrative Structures. Emily Short’s Interactive Storytelling. Retrieved from <code>https://emshort.blog/2016/04/12/beyond-branching-quality-based-and-salience-based-narrative-structures/</code></p>
 <p>Short, E. (2016b). Reigns. Retrieved from <code>https://emshort.blog/2016/08/20/reigns/</code></p>
-<p>Short, E. (2019). Storylets: You Want Them. Emily Short&#x2019;s Interactive Storytelling. Retrieved from <code>https://emshort.blog/2019/11/29/storylets-you-want-them/</code></p>
-<p>Storychoices. (2012). Design before you write. Storychoices: Building stories with interactive narrative platforms. Retrieved from <code>http://wiki.failbettergames.com/wiki:design-before-you-write</code></p>
+<p>Short, E. (2019). Storylets: You Want Them. Emily Short’s Interactive Storytelling. Retrieved from <code>https://emshort.blog/2019/11/29/storylets-you-want-them/</code></p>
 
                                 
                                 </section>
@@ -319,7 +322,7 @@
 
             
                 
-                <a href="./" class="navigation navigation-prev " aria-label="Previous page: Introduction">
+                <a href="sculpturalmodel.html" class="navigation navigation-prev " aria-label="Previous page: Sculptural Hypertext Model">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
@@ -335,12 +338,56 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Storylet","level":"1.2","depth":1,"next":{"title":"Quality-Based Narrative","level":"1.3","depth":1,"path":"qbn.md","ref":"./qbn.md","articles":[]},"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./notes","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"Storylet.md","mtime":"2020-09-10T13:06:05.165Z","type":"markdown"},"gitbook":{"version":"3.6.6","time":"2020-09-11T06:34:19.264Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Storylet","level":"2.2","depth":1,"next":{"title":"Quality-Based Narrative","level":"2.3","depth":1,"path":"qbn.md","ref":"./qbn.md","articles":[]},"previous":{"title":"Sculptural Hypertext Model","level":"2.1","depth":1,"path":"sculpturalmodel.md","ref":"./sculpturalmodel.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./notes","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"storylet.md","mtime":"2020-12-23T16:42:31.479Z","type":"markdown"},"gitbook":{"version":"3.6.16","time":"2020-12-23T18:20:32.219Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
 
         
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
     <script src="gitbook/gitbook.js"></script>
     <script src="gitbook/theme.js"></script>
     

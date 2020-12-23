@@ -3,11 +3,10 @@
 <html lang="" >
     <head>
         <meta charset="UTF-8">
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>State · HonKit</title>
+        <title>State Management · HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="HonKit 3.6.6">
+        <meta name="generator" content="HonKit 3.6.16">
         
         
         
@@ -57,14 +56,16 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
+    <link rel="next" href="examples/deckbuilding.html" />
     
-    <link rel="prev" href="Deck.html" />
+    
+    <link rel="prev" href="cards.html" />
     
 
     </head>
     <body>
         
-<div class="book">
+<div class="book honkit-cloak">
     <div class="book-summary">
         
             
@@ -85,8 +86,6 @@
 
     
         
-        <li class="header">History of Storylet & QBN</li>
-        
         
     
         <li class="chapter " data-level="1.1" data-path="./">
@@ -102,9 +101,29 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2" data-path="Storylet.html">
+
+    
+        
+        <li class="header">History of Related Terms</li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="sculpturalmodel.html">
             
-                <a href="Storylet.html">
+                <a href="sculpturalmodel.html">
+            
+                    
+                    Sculptural Hypertext Model
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="storylet.html">
+            
+                <a href="storylet.html">
             
                     
                     Storylet
@@ -115,7 +134,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3" data-path="qbn.html">
+        <li class="chapter " data-level="2.3" data-path="qbn.html">
             
                 <a href="qbn.html">
             
@@ -131,16 +150,16 @@
 
     
         
-        <li class="header">API</li>
+        <li class="header">Metaphors in SimpleQBN</li>
         
         
     
-        <li class="chapter " data-level="2.1" data-path="Expression.html">
+        <li class="chapter " data-level="3.1" data-path="expressions.html">
             
-                <a href="Expression.html">
+                <a href="expressions.html">
             
                     
-                    Expression
+                    Expression and QualitySet
             
                 </a>
             
@@ -148,12 +167,12 @@
             
         </li>
     
-        <li class="chapter " data-level="2.2" data-path="QualitySet.html">
+        <li class="chapter " data-level="3.2" data-path="cards.html">
             
-                <a href="QualitySet.html">
+                <a href="cards.html">
             
                     
-                    QualitySet
+                    Deck and Cards
             
                 </a>
             
@@ -161,12 +180,12 @@
             
         </li>
     
-        <li class="chapter " data-level="2.3" data-path="Card.html">
+        <li class="chapter active" data-level="3.3" data-path="state.html">
             
-                <a href="Card.html">
+                <a href="state.html">
             
                     
-                    Card
+                    State Management
             
                 </a>
             
@@ -174,12 +193,19 @@
             
         </li>
     
-        <li class="chapter " data-level="2.4" data-path="Deck.html">
+
+    
+        
+        <li class="header">Examples</li>
+        
+        
+    
+        <li class="chapter " data-level="4.1" data-path="examples/deckbuilding.html">
             
-                <a href="Deck.html">
+                <a href="examples/deckbuilding.html">
             
                     
-                    Deck
+                    Deck Building
             
                 </a>
             
@@ -187,12 +213,12 @@
             
         </li>
     
-        <li class="chapter active" data-level="2.5" data-path="State.html">
+        <li class="chapter " data-level="4.2" data-path="examples/storygates.html">
             
-                <a href="State.html">
+                <a href="examples/storygates.html">
             
                     
-                    State
+                    Story Gates
             
                 </a>
             
@@ -230,7 +256,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >State</a>
+        <a href="." >State Management</a>
     </h1>
 </div>
 
@@ -245,9 +271,12 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="state">State</h1>
-<p>One of the requirements of using QBN structures is the tracking of qualities, values storied outside of a storylet. In SimpleQBN, this is <strong>State</strong>. It is a <strong>Map()</strong> of values that can be added, removed, changed, or retrieved.</p>
-<p><strong>State</strong> is used when creating a <strong>Deck</strong> and is source of tracking the measurements of qualities within the structure.</p>
+                                <h1 id="state-management">State Management</h1>
+<p>The <a href="sculpturalmodel.html">sculptural model</a> defines a &quot;context&quot; cards can access and manipulate. The QBN model also describes qualities as conditional statements testing against some values. In SimpleQBN, this is explicitly called <strong>State</strong>.</p>
+<p>Creating a <strong>Deck</strong> also creates an internal <strong>State</strong> as a property called <em>state</em>. As the <a href="expressions.html"><strong>QualitySet</strong></a> of each <strong>Card</strong> needs access, this is passed to the <strong>Card</strong> method <em>isAvailable()</em> (which passes it internally to the <em>check()</em> method of <strong>QualitySet</strong> and finally to each <strong>Expression&apos;s</strong> own <em>check()</em> method) whenever the method <em>draw()</em> is called on a <strong>Deck</strong>. In other words, this checks all <strong>Cards</strong> against the current values of the <strong>State</strong> to see if they are available and can thus be drawn.</p>
+<p>The <strong>State</strong> stores key-value pairs. These can be changed through the methods <em>add()</em>, <em>update()</em>, <em>has()</em>, <em>remove()</em>, <em>get()</em>, and <em>size()</em>. Commonly, however, the methods <em>add()</em> and <em>update()</em> can be used to add key-value pairs and then update a value based on its key. (Technically, the method <em>update()</em> can be used for both adding and updating.)</p>
+<h2 id="usage-patterns">Usage Patterns</h2>
+<p>It is common to create a new <strong>Deck</strong> and then immediately change its state to add values before adding any <strong>Cards</strong>. While, technically, <strong>Cards</strong> can be added first and then <strong>State</strong> updated, if any <strong>Cards</strong> have <em>qualities</em>, there must be some values in the <strong>State</strong> to test against before the method <em>draw()</em> is used.</p>
 
                                 
                                 </section>
@@ -275,10 +304,14 @@
 
             
                 
-                <a href="Deck.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Deck">
+                <a href="cards.html" class="navigation navigation-prev " aria-label="Previous page: Deck and Cards">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
+                
+                <a href="examples/deckbuilding.html" class="navigation navigation-next " aria-label="Next page: Deck Building">
+                    <i class="fa fa-angle-right"></i>
+                </a>
                 
             
         
@@ -287,12 +320,56 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"State","level":"2.5","depth":1,"previous":{"title":"Deck","level":"2.4","depth":1,"path":"Deck.md","ref":"./Deck.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./notes","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"State.md","mtime":"2020-09-10T13:52:53.259Z","type":"markdown"},"gitbook":{"version":"3.6.6","time":"2020-09-11T06:34:19.264Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"State Management","level":"3.3","depth":1,"next":{"title":"Deck Building","level":"4.1","depth":1,"path":"examples/deckbuilding.md","ref":"./examples/deckbuilding.md","articles":[]},"previous":{"title":"Deck and Cards","level":"3.2","depth":1,"path":"cards.md","ref":"./cards.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./notes","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"state.md","mtime":"2020-12-23T18:14:26.055Z","type":"markdown"},"gitbook":{"version":"3.6.16","time":"2020-12-23T18:20:32.219Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
 
         
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
     <script src="gitbook/gitbook.js"></script>
     <script src="gitbook/theme.js"></script>
     

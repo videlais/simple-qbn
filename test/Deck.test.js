@@ -63,12 +63,12 @@ describe('addCard()', () => {
   });
 });
 
-describe('remove()', () => {
-  test('remove() - remove by card', () => {
+describe('removeCard()', () => {
+  test('removeCard() - remove by card', () => {
     const d = new Deck();
     d.addCard('Some content!', ['test-eq-1', 'example-neq-2']);
     const c = d.getCard(0);
-    d.remove(c);
+    d.removeCard(c);
     expect(d.size()).toBe(0);
   });
 });

@@ -76,7 +76,7 @@ test('Adding and removing', () => {
   expect(d.size()).toBe(2);
 
   // Remove card from the deck
-  d.remove(card);
+  d.removeCard(card);
 
   // Test size of deck
   expect(d.size()).toBe(1);

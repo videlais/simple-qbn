@@ -1,6 +1,3 @@
-/*
-  State is a Map of key-value pairs.
-*/
 /**
  * @class State
  * @module State
@@ -68,7 +65,7 @@ class State {
    *
    * @function get
    * @param {any} key - Key to check
-   * @returns {boolean} If the State has a key
+   * @returns {any|null} Value matching key or null
    */
   get (key) {
     let value = null;
@@ -84,7 +81,7 @@ class State {
    * Return the size of the Map
    *
    * @function size
-   * @returns {number} Size of map
+   * @returns {number} Size of Map
    */
   size () {
     return this.values.size;
