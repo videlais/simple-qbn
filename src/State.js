@@ -5,6 +5,8 @@
 class State {
   /**
    * Create a State
+   *
+   * @class
    */
   constructor () {
     this.values = new Map();

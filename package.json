@@ -11,7 +11,7 @@
     "test:watch": "jest --runInBand --watch",
     "docs": "cp README.md ./notes/README.md && honkit build && cp -r _book/* docs",
     "docs:serve": "cp README.md ./notes/README.md && honkit serve",
-    "jsdocs": "jsdoc src/*.js -d docs/api",
+    "jsdocs": "jsdoc -c jsdocs.json",
     "all": "npm run lint && npm run lint:test && npm run test && npm run build && npm run docs && npm run jsdocs"
   },
   "directories": {
@@ -45,6 +45,7 @@
     "@babel/plugin-transform-runtime": "^7.12.1",
     "@babel/preset-env": "^7.12.7",
     "babel-loader": "^8.2.2",
+    "better-docs": "^2.3.2",
     "eslint": "^7.15.0",
     "eslint-config-standard": "^14.1.1",
     "eslint-plugin-import": "^2.22.1",
@@ -57,8 +58,8 @@
     "jest": "^26.6.3",
     "jsdoc": "^3.6.6",
     "typescript": "^3.9.7",
-    "webpack": "^5.10.0",
-    "webpack-cli": "^4.2.0"
+    "webpack": "^5.11.1",
+    "webpack-cli": "^4.3.1"
   },
   "type": "module"
 }

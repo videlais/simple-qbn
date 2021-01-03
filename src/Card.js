@@ -4,6 +4,7 @@ import State from './State.js';
 /**
  * @class Card
  * @module Card
+ * @see QualitySet
  */
 class Card {
   // Private hash
@@ -16,8 +17,8 @@ class Card {
   #_content = '';
 
   /**
-   * Create a Card
-   *
+   * @function Card
+   * @class
    * @param {string} content - Text content of card
    * @param {Array} qualities - Array of qualities
    */
@@ -32,12 +33,15 @@ class Card {
     this.#_hash = uuidv4();
   }
 
-  // Get the internal content
+  /**
+   * Text content of Card
+   *
+   * @type {string}
+   */
   get content () {
     return this.#_content;
   }
 
-  // Content must be a String
   set content (s) {
     // Do we have a string?
     if (typeof s === 'string') {
@@ -47,12 +51,15 @@ class Card {
     }
   }
 
-  // QualityState is access-only once set
+  /**
+   * QualitySet of qualities
+   *
+   * @type {QualitySet}
+   */
   get qualities () {
     return this.#_qualities;
   }
 
-  // Pass an array and convert to QualitySet internally
   set qualities (q) {
     // Is this an array?
     if (!Array.isArray(q)) {
@@ -68,7 +75,11 @@ class Card {
     });
   }
 
-  // Hash is access-only once set
+  /**
+   * Internal UUID Hash of Card
+   *
+   * @type {string}
+   */
   get hash () {
     return this.#_hash;
   }

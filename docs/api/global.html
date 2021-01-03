@@ -5,7 +5,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> Expression</title>
+  <title> Global</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -66,15 +66,15 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-Card.html">Card</a></li><li><a href="module-Deck.html">Deck</a></li><li><a href="module-Expression.html">Expression</a></li><li><a href="module-QualitySet.html">QualitySet</a></li><li><a href="module-State.html">State</a></li></ul><h3>Classes</h3><ul><li><a href="module-Card-Card.html">Card</a></li><li><a href="module-Deck-Deck.html">Deck</a></li><li><a href="module-Expression-Expression.html">Expression</a></li><li><a href="module-QualitySet-QualitySet.html">QualitySet</a></li><li><a href="module-State-State.html">State</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-Deck.html">Deck</a></li><li><a href="module-Expression.html">Expression</a></li><li><a href="module-QualitySet.html">QualitySet</a></li><li><a href="module-State.html">State</a></li></ul><h3>Classes</h3><ul><li><a href="Card.html">Card</a></li><li><a href="module-Deck-Deck.html">Deck</a></li><li><a href="module-Expression-Expression.html">Expression</a></li><li><a href="module-QualitySet-QualitySet.html">QualitySet</a></li><li><a href="module-State-State.html">State</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addQuality">addQuality</a></li><li><a href="global.html#isAvailable">isAvailable</a></li><li><a href="global.html#removeQuality">removeQuality</a></li></ul></div>
                 
             </nav>
         </div>
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Module</p>
-                    <h1>Expression</h1>
+                    <p>Title</p>
+                    <h1>Global</h1>
                 </header>
                 
 
@@ -85,6 +85,7 @@
 
 <header>
     
+        <h2></h2>
         
     
 </header>
@@ -95,6 +96,44 @@
         
 
         
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
     
     </div>
     
@@ -102,13 +141,6 @@
 
     
 
-    
-        <h3 class="subsection-title">Classes</h3>
-
-        <dl>
-            <dt><a href="module-Expression-Expression.html">Expression</a></dt>
-            <dd></dd>
-        </dl>
     
 
     
@@ -128,16 +160,12 @@
 
 
     
-    <h4 class="name" id="~change">
-        <a class="href-link" href="#~change">#</a>
-        
-            
-                <span class='tag'>inner</span>
-            
+    <h4 class="name" id="addQuality">
+        <a class="href-link" href="#addQuality">#</a>
         
         <span class="code-name">
             
-                change<span class="signature">(s)</span><span class="type-signature"></span>
+                addQuality<span class="signature">(s)</span><span class="type-signature"></span>
             
         </span>
     </h4>
@@ -146,7 +174,7 @@
     
     
     <div class="description">
-        Allow for changing the expression from a string
+        Add a quality to the Card
     </div>
     
 
@@ -200,7 +228,7 @@
 
   
 
-  <td class="description last">Expression to change</td>
+  <td class="description last">The quality to add</td>
 </tr>
 
 
@@ -246,9 +274,9 @@
 
     
         <p class="tag-source">
-            <a href="Expression.js.html" class="button">View Source</a>
+            <a href="Card.js.html" class="button">View Source</a>
             <span>
-                <a href="Expression.js.html">Expression.js</a>, <a href="Expression.js.html#line116">line 116</a>
+                <a href="Card.js.html">Card.js</a>, <a href="Card.js.html#line114">line 114</a>
             </span>
         </p>
     
@@ -280,16 +308,12 @@
 
 
     
-    <h4 class="name" id="~check">
-        <a class="href-link" href="#~check">#</a>
-        
-            
-                <span class='tag'>inner</span>
-            
+    <h4 class="name" id="isAvailable">
+        <a class="href-link" href="#isAvailable">#</a>
         
         <span class="code-name">
             
-                check<span class="signature">(s)</span><span class="type-signature"> &rarr; {boolean}</span>
+                isAvailable<span class="signature">(s)</span><span class="type-signature"> &rarr; {boolean}</span>
             
         </span>
     </h4>
@@ -298,7 +322,7 @@
     
     
     <div class="description">
-        Check if expression is valid, given a state
+        Check if card is available
     </div>
     
 
@@ -352,7 +376,7 @@
 
   
 
-  <td class="description last">State to used to check expressions</td>
+  <td class="description last">State to check against</td>
 </tr>
 
 
@@ -398,9 +422,9 @@
 
     
         <p class="tag-source">
-            <a href="Expression.js.html" class="button">View Source</a>
+            <a href="Card.js.html" class="button">View Source</a>
             <span>
-                <a href="Expression.js.html">Expression.js</a>, <a href="Expression.js.html#line132">line 132</a>
+                <a href="Card.js.html">Card.js</a>, <a href="Card.js.html#line99">line 99</a>
             </span>
         </p>
     
@@ -431,7 +455,7 @@
 
 <div class="columns">
     
-    <div class='param-desc column is-7'>If the expression is valid or not</div>
+    <div class='param-desc column is-7'>If card is available</div>
     
     
     <div class='column is-5 has-text-left'>
@@ -447,6 +471,154 @@
                 
         </div>
     </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="removeQuality">
+        <a class="href-link" href="#removeQuality">#</a>
+        
+        <span class="code-name">
+            
+                removeQuality<span class="signature">(s)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Remove a quality from the Card
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>s</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">string</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">The quality to remove</td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="Card.js.html" class="button">View Source</a>
+            <span>
+                <a href="Card.js.html">Card.js</a>, <a href="Card.js.html#line128">line 128</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

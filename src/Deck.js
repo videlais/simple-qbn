@@ -4,6 +4,7 @@ import State from './State.js';
 /**
  * @class Deck
  * @module Deck
+ * @see State
  */
 class Deck {
   // Private array of cards
@@ -13,7 +14,7 @@ class Deck {
   #_state = new State();
 
   /**
-   * Create a Deck
+   * @class
    */
   constructor () {
     // Set the internal cards to an empty array
@@ -23,12 +24,13 @@ class Deck {
     this.#_state = new State();
   }
 
-  // Get current state
+  /**
+   * @type {State}
+   */
   get state () {
     return this.#_state;
   }
 
-  // Prevent internal state from being anything but State
   set state (s) {
     if (s instanceof State) {
       this.#_state = s;

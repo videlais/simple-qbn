@@ -11,6 +11,8 @@ class QualitySet {
 
   /**
    * Create a QualitySet
+   *
+   * @class
    */
   constructor () {
     // Set the internal set to an array

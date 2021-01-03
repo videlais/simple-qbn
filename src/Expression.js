@@ -1,23 +1,4 @@
 import State from './State.js';
-
-/*
-  An expression is a string in form of either
-  - variable-op-value
-    -- eq
-    -- neq
-    -- lt
-    -- gt
-    -- lte
-    -- gte
-  - variable-op-variable
-    -- eqvar
-    -- neqvar
-    -- ltvar
-    -- gtvar
-    -- ltevar
-    -- gtevar
-*/
-
 /**
  * @class Expression
  * @module Expression
@@ -50,6 +31,7 @@ class Expression {
   /**
    * Parse the internal string expression into arguments and an operator
    *
+   * @private
    * @function parseExpression
    * @returns {boolean} If the internal expression is valid or not
    */
@@ -89,17 +71,26 @@ class Expression {
   // Internal validity
   #_valid = false;
 
-  // Get the internal valid
+  /**
+   * If expression is valid or not
+   *
+   * @readonly
+   * @type {boolean}
+   */
   get valid () {
     return this.#_valid;
   }
 
-  // Get the string expression
+  /**
+   * String version of expression
+   *
+   * @readonly
+   * @type {string}
+   */
   get expression () {
     return this.#_expression;
   }
 
-  // Update expression
   set expression (e) {
     if (typeof e !== 'string') {
       throw new Error('Expressions must be string values!');
@@ -114,6 +105,7 @@ class Expression {
   /**
    * Create an Expression
    *
+   * @class
    * @param {string} expression - String
    */
   constructor (expression) {
