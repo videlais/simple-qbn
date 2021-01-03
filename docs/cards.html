@@ -56,7 +56,7 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="state.html" />
+    <link rel="next" href="State.html" />
     
     
     <link rel="prev" href="expressions.html" />
@@ -121,9 +121,9 @@
             
         </li>
     
-        <li class="chapter " data-level="2.2" data-path="storylet.html">
+        <li class="chapter " data-level="2.2" data-path="Storylet.html">
             
-                <a href="storylet.html">
+                <a href="Storylet.html">
             
                     
                     Storylet
@@ -180,9 +180,9 @@
             
         </li>
     
-        <li class="chapter " data-level="3.3" data-path="state.html">
+        <li class="chapter " data-level="3.3" data-path="State.html">
             
-                <a href="state.html">
+                <a href="State.html">
             
                     
                     State Management
@@ -286,7 +286,7 @@
                                 
                                 <h1 id="deck-and-cards">Deck and Cards</h1>
 <p>Both <a href="sculpturalmodel.html">sculptural</a> and <a href="qbn.html">QBN</a> models have used the terms &quot;deck-based&quot; and &quot;card-based&quot;. Building from the metaphors used in TinyQBN by Grams (2019), SimpleQBN makes these explicit.</p>
-<p>In order to use SimpleQBN, a <strong>Deck</strong> must be created. (Internally, upon creation, each <strong>Deck</strong> has its own <a href="state.html"><strong>State</strong></a>).</p>
+<p>In order to use SimpleQBN, a <strong>Deck</strong> must be created. (Internally, upon creation, each <strong>Deck</strong> has its own <a href="state.md"><strong>State</strong></a>).</p>
 <p><strong>Cards</strong> are added to a <strong>Deck</strong> using its <em>addCard()</em> method. This accepts <em>content</em> (String) and <em>qualities</em> (array of String values). When a <strong>Card</strong> is created, it parses the array of String values and creates an internal <strong>QualitySet</strong> composed of each <strong>Expression</strong>.</p>
 <p>The <strong>Deck</strong> class has the methods <em>addCard()</em> (accepting content and array of qualities), <em>updateCard()</em> (accepting <strong>Card</strong> to update in deck), and <em>removeCard()</em> (accepting <strong>Card</strong> to remove). As <strong>Cards</strong> are added in sequence, the method <em>shuffle()</em> randomly sorts all <strong>Cards</strong> in the <strong>Deck</strong>.</p>
 <h2 id="drawing-cards">Drawing <strong>Cards</strong></h2>
@@ -327,7 +327,7 @@
                 </a>
                 
                 
-                <a href="state.html" class="navigation navigation-next " aria-label="Next page: State Management">
+                <a href="State.html" class="navigation navigation-next " aria-label="Next page: State Management">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -338,7 +338,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Deck and Cards","level":"3.2","depth":1,"next":{"title":"State Management","level":"3.3","depth":1,"path":"state.md","ref":"./state.md","articles":[]},"previous":{"title":"Expression and QualitySet","level":"3.1","depth":1,"path":"expressions.md","ref":"./expressions.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./notes","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"cards.md","mtime":"2021-01-01T18:02:37.620Z","type":"markdown"},"gitbook":{"version":"3.6.16","time":"2021-01-03T20:03:42.162Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Deck and Cards","level":"3.2","depth":1,"next":{"title":"State Management","level":"3.3","depth":1,"path":"State.md","ref":"./State.md","articles":[]},"previous":{"title":"Expression and QualitySet","level":"3.1","depth":1,"path":"expressions.md","ref":"./expressions.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./notes","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"cards.md","mtime":"2021-01-01T18:02:37.620Z","type":"markdown"},"gitbook":{"version":"3.6.16","time":"2021-01-03T21:08:34.721Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
