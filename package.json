@@ -1,6 +1,6 @@
 {
   "name": "simple-qbn",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Because nothing about quality-based narratives is actually simple.",
   "main": "index.js",
   "scripts": {
