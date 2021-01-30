@@ -1,6 +1,6 @@
 {
   "name": "simple-qbn",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "Because nothing about quality-based narratives is actually simple.",
   "main": "index.js",
   "scripts": {
@@ -13,6 +13,14 @@
     "docs:serve": "cp README.md ./notes/README.md && honkit serve",
     "jsdocs": "jsdoc -c jsdocs.json",
     "all": "npm run lint && npm run lint:test && npm run test && npm run build && npm run docs && npm run jsdocs"
+  },
+  "exports": {
+    ".": "./src/*.js",
+    "./Deck": "./src/Deck.js",
+    "./Card": "./src/Card.js",
+    "./Expression": "./src/Expression.js",
+    "./QualitySet": "./src/QualitySet.js",
+    "./State": "./src/State.js"
   },
   "directories": {
     "doc": "docs"
