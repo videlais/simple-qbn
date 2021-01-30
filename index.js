@@ -6,4 +6,13 @@ import QualitySet from './src/QualitySet.js';
 import State from './src/State.js';
 
 // Export all packages
-export default {Card, Deck, Expression, QualitySet, State};
+const SimpleQBN = {
+    Card: Card,
+    Deck: Deck,
+    Expression: Expression,
+    QualitySet: QualitySet,
+    State: State
+};
+
+// Freeze the properties
+export default Object.freeze(SimpleQBN);
