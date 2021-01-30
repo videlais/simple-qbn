@@ -1,4 +1,4 @@
-# SimpleQBN (1.2.3)
+# SimpleQBN (1.2.4)
 
 *Because nothing about quality-based narratives is actually simple.*
 
