@@ -1,9 +1,9 @@
 // Import all objects for NPM
-import Card from './Card.js';
-import Deck from './Deck.js';
-import Expression from './Expression.js';
-import QualitySet from './QualitySet.js';
-import State from './State.js';
+import Card from './src/Card.js';
+import Deck from './src/Deck.js';
+import Expression from './src/Expression.js';
+import QualitySet from './src/QualitySet.js';
+import State from './src/State.js';
 
 // Export all packages
 export {Card, Deck, Expression, QualitySet, State};
