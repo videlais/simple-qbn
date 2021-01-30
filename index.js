@@ -6,4 +6,4 @@ import QualitySet from './src/QualitySet.js';
 import State from './src/State.js';
 
 // Export all packages
-export {Card, Deck, Expression, QualitySet, State};
+export default {Card, Deck, Expression, QualitySet, State};
