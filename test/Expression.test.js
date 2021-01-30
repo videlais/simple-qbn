@@ -50,7 +50,7 @@ describe('change()', () => {
     }).toThrow();
   });
 
-  test('change() - update ', () => {
+  test('change() - update', () => {
     const c = new Expression('test');
     // Check that expression is invalid
     expect(c.valid).toBe(false);
