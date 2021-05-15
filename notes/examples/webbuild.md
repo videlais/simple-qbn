@@ -8,14 +8,14 @@ For testing purposes, GitCDN.link can be used to pull the build from GitHub like
 <html>
     <head>
         <title>SimpleQBN Testing</title>
-        <script src="https://gitcdn.link/repo/videlais/simple-qbn/v1.2.0/build/simpleqbn.bundle.js"></script>
+        <script src="https://gitcdn.link/repo/videlais/simple-qbn/v1.4.0/build/simpleqbn.bundle.js"></script>
     </head>
     <body>
         <div id="log">(Draw a card!)</div>
         <button id="loadCard">Draw a random card!</button>
         <script>
             // Create a new Deck
-            const d = new Deck();
+            const d = new SimpleQBN.Deck();
             
             // Create 52 new cards
             for(let i = 0; i < 52; i++) {

@@ -3,7 +3,7 @@
 <html lang="" >
     <head>
         <meta charset="UTF-8">
-        <title>Storylet (2010) · HonKit</title>
+        <title>Episodes and Sequences (1989) · HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="HonKit 3.6.20">
@@ -56,10 +56,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="qbn.html" />
+    <link rel="next" href="sculpturalmodel.html" />
     
     
-    <link rel="prev" href="sculpturalmodel.html" />
+    <link rel="prev" href="scenes.html" />
     
 
     </head>
@@ -121,7 +121,7 @@
             
         </li>
     
-        <li class="chapter " data-level="2.2" data-path="episodes.html">
+        <li class="chapter active" data-level="2.2" data-path="episodes.html">
             
                 <a href="episodes.html">
             
@@ -147,7 +147,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="2.4" data-path="storylet.html">
+        <li class="chapter " data-level="2.4" data-path="storylet.html">
             
                 <a href="storylet.html">
             
@@ -295,7 +295,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >Storylet (2010)</a>
+        <a href="." >Episodes and Sequences (1989)</a>
     </h1>
 </div>
 
@@ -310,26 +310,25 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="storylet">Storylet</h1>
+                                <h1 id="episodes-and-sequences-1989">Episodes and Sequences (1989)</h1>
 <h2 id="term">Term</h2>
-<p>The term <em>storylet</em> was coined by the studio Failbetter Games in 2010. In a design blog post explaining the narrative structure for the game initialled named <em>Echo Bazaar</em>, but would later be published as <em>Fallen London</em> (2009), the term &quot;storylet&quot; appears with the definition as &quot;discrete chunks of narrative&quot; (Failbetter, 2010; para. 3). Later, in another post two years later, the developers at Failbetter Games clarified storylets as &quot;pieces of story like mosaic tiles, not pipes or complex machinery. Put them together. Build something wonderful&quot; (Failbetter Games, 2012: para. 11).</p>
-<p>In working with Failbetter Games and other, related projects, Emily Short (2019) has expanded on this term and refined its definition into three parts:</p>
+<p>In a blog post now only available from the Internet Archive, Doug Sharp (1989) describes the &quot;battle&quot; of interactive fiction from a GDC 1989 talk on the same topic. Within the post, Sharp (1989) mentions a project called <em>King of Chicago</em> (1989) and how it is an &quot;honorable failure.&quot; Toward the end of the post, Sharp (1989) writes about a design of a &quot;big bags with smaller bags inside which hold clips, which I called episodes.&quot; Each one of these <em>episodes</em> would:</p>
 <blockquote>
-<p>&quot;[1] there is a piece of content. It might be a line or a whole section of dialogue, it might be narration, it might be an animation or scrap of film</p>
-<p>[2] there are prerequisites that determine when the content can play</p>
-<p>[3] there are effects on the world state that result after the content has played&quot;</p>
-<p>Storylets: You Want Them. Short (2019)</p>
+<p>specif[y] things like who is to be onscreen, chooses background graphics, switches between close-ups and medium shots, drives the character’s animation and facial expression, and feeds dialog to them. The episode script reads a lot like a playscript or screenplay. A single episode might put Pinky and his girlfriend Lola in her bedroom, and have her badger Pinky about earning more money. This episode might take two minutes of screen time.</p>
+<p>- Sharp (1989)</p>
 </blockquote>
-<h2 id="historical-usage">Historical Usage</h2>
-<p>While the term storylet is not used in descriptions of its design, <em>Reigns</em> (2016) has been described by both Short (2016b) and Kreminski and Wardrip-Fruin (2018) as an example using the concept.</p>
-<p>In <em>Reigns</em> (2016), the player is presented with some text and two choices. Depending on the choice, one or more <em>attributes</em> (values) will be affected. If any of these values are decreased or increased beyond a set range as a result of choices made, the game ends. Play progresses as the player is presented with storylets based on current attribute ranges, specific sequenced previously unlocked, and random choices from the total possible storylets in the game. Each choice counts as a year in the game, with the goal to <em>reign</em> as as long as possible before starting with the next king in line and beginning again.</p>
+<p>In the following paragraphs, Sharp (1989) relates the interface between the <em>state</em> (collection of values) and how it affects episode navigation. As Sharp (1989) writes it: &quot;The episode selector looks at all the keys of available episodes and selects the one that most closely matches current game variables. Its method is to look for a least square fit.&quot;</p>
+<p>In pulling from the model Sharp (1989) writes about, there are several major concepts:</p>
+<ul>
+<li><strong>Story</strong>: Multiple episodes, each govern by character</li>
+<li><strong>Episode</strong>: Selection of sequences influenced by player actions within rules of player interactions</li>
+<li><strong>Narrator</strong>: decides episode order and when each ends</li>
+<li><strong>Sequences</strong>: set of phases (act-like structure within an episode)</li>
+<li><strong>Actions</strong>: player input</li>
+</ul>
+<p>A <em>story</em> starts with an <em>episode</em>, composed of <em>sequences</em>. The player takes <em>actions</em>, which changes the values watched by the <em>Narrator</em>. This affects which <em>sequences</em> are chosen next, if the episode ends, and any future changes carried over into future episodes. When the episodes are exhausted, play ends.</p>
 <h2 id="references">References</h2>
-<p>Failbetter Games. (2010). Echo Bazaar Narrative Structures, part two. Retrieved from <code>http://www.failbettergames.com/echo-bazaar-narrative-structures-part-two/</code></p>
-<p>Failbetter Games. (2012). StoryNexus Developer Diary #2: fewer spreadsheets, less swearing. Retrieved from <code>https://www.failbettergames.com/storynexus-developer-diary-2-fewer-spreadsheets-less-swearing/</code></p>
-<p>Kreminski, M., &amp; Wardrip-Fruin, N. (2018). Sketching a Map of the Storylets Design Space. In R. Rouse, H. Koenitz, &amp; M. Haahr (Eds.), Interactive Storytelling (Vol. 11318, pp. 160–164). Springer International Publishing. <code>https://doi.org/10.1007/978-3-030-04028-4_14</code></p>
-<p>Reigns. (2016). Nerial.</p>
-<p>Short, E. (2016). Reigns. Retrieved from <code>https://emshort.blog/2016/08/20/reigns/</code></p>
-<p>Short, E. (2019). Storylets: You Want Them. Emily Short’s Interactive Storytelling. Retrieved from <code>https://emshort.blog/2019/11/29/storylets-you-want-them/</code></p>
+<p>Sharp, D. (1989). Story vs. Game: The Battle of Interactive Fiction. Computer Game Developer&apos;s Convention 1989. Retrieved from <code>https://web.archive.org/web/20040404061317/http://www.channelzilch.com/doug/battle.htm</code></p>
 
                                 
                                 </section>
@@ -357,12 +356,12 @@
 
             
                 
-                <a href="sculpturalmodel.html" class="navigation navigation-prev " aria-label="Previous page: Sculptural Hypertext Model (2001)">
+                <a href="scenes.html" class="navigation navigation-prev " aria-label="Previous page: Scenes and Cycles (1983)">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="qbn.html" class="navigation navigation-next " aria-label="Next page: Quality-Based Narrative (2010)">
+                <a href="sculpturalmodel.html" class="navigation navigation-next " aria-label="Next page: Sculptural Hypertext Model (2001)">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -373,7 +372,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Storylet (2010)","level":"2.4","depth":1,"next":{"title":"Quality-Based Narrative (2010)","level":"2.5","depth":1,"path":"qbn.md","ref":"./qbn.md","articles":[]},"previous":{"title":"Sculptural Hypertext Model (2001)","level":"2.3","depth":1,"path":"sculpturalmodel.md","ref":"./sculpturalmodel.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./notes","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"storylet.md","mtime":"2021-05-15T11:10:04.364Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2021-05-15T12:02:08.413Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Episodes and Sequences (1989)","level":"2.2","depth":1,"next":{"title":"Sculptural Hypertext Model (2001)","level":"2.3","depth":1,"path":"sculpturalmodel.md","ref":"./sculpturalmodel.md","articles":[]},"previous":{"title":"Scenes and Cycles (1983)","level":"2.1","depth":1,"path":"scenes.md","ref":"./scenes.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./notes","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"episodes.md","mtime":"2021-05-15T11:12:22.607Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2021-05-15T12:02:08.413Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

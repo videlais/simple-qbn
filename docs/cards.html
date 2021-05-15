@@ -3,10 +3,10 @@
 <html lang="" >
     <head>
         <meta charset="UTF-8">
-        <title>Deck and Cards · HonKit</title>
+        <title>Decks and Cards · HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="HonKit 3.6.16">
+        <meta name="generator" content="HonKit 3.6.20">
         
         
         
@@ -108,12 +108,38 @@
         
         
     
-        <li class="chapter " data-level="2.1" data-path="sculpturalmodel.html">
+        <li class="chapter " data-level="2.1" data-path="scenes.html">
+            
+                <a href="scenes.html">
+            
+                    
+                    Scenes and Cycles (1983)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="episodes.html">
+            
+                <a href="episodes.html">
+            
+                    
+                    Episodes and Sequences (1989)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="sculpturalmodel.html">
             
                 <a href="sculpturalmodel.html">
             
                     
-                    Sculptural Hypertext Model
+                    Sculptural Hypertext Model (2001)
             
                 </a>
             
@@ -121,12 +147,12 @@
             
         </li>
     
-        <li class="chapter " data-level="2.2" data-path="Storylet.html">
+        <li class="chapter " data-level="2.4" data-path="storylet.html">
             
-                <a href="Storylet.html">
+                <a href="storylet.html">
             
                     
-                    Storylet
+                    Storylet (2010)
             
                 </a>
             
@@ -134,12 +160,12 @@
             
         </li>
     
-        <li class="chapter " data-level="2.3" data-path="qbn.html">
+        <li class="chapter " data-level="2.5" data-path="qbn.html">
             
                 <a href="qbn.html">
             
                     
-                    Quality-Based Narrative
+                    Quality-Based Narrative (2010)
             
                 </a>
             
@@ -159,7 +185,7 @@
                 <a href="expressions.html">
             
                     
-                    Expression and QualitySet
+                    Expressions and QualitySet
             
                 </a>
             
@@ -172,7 +198,7 @@
                 <a href="cards.html">
             
                     
-                    Deck and Cards
+                    Decks and Cards
             
                 </a>
             
@@ -269,7 +295,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >Deck and Cards</a>
+        <a href="." >Decks and Cards</a>
     </h1>
 </div>
 
@@ -287,10 +313,9 @@
                                 <h1 id="deck-and-cards">Deck and Cards</h1>
 <p>Both <a href="sculpturalmodel.html">sculptural</a> and <a href="qbn.html">QBN</a> models have used the terms &quot;deck-based&quot; and &quot;card-based&quot;. Building from the metaphors used in TinyQBN by Grams (2019), SimpleQBN makes these explicit.</p>
 <p>In order to use SimpleQBN, a <strong>Deck</strong> must be created. (Internally, upon creation, each <strong>Deck</strong> has its own <a href="state.md"><strong>State</strong></a>).</p>
-<p><strong>Cards</strong> are added to a <strong>Deck</strong> using its <em>addCard()</em> method. This accepts <em>content</em> (String) and <em>qualities</em> (array of String values). When a <strong>Card</strong> is created, it parses the array of String values and creates an internal <strong>QualitySet</strong> composed of each <strong>Expression</strong>.</p>
 <p>The <strong>Deck</strong> class has the methods <em>addCard()</em> (accepting content and array of qualities), <em>updateCard()</em> (accepting <strong>Card</strong> to update in deck), and <em>removeCard()</em> (accepting <strong>Card</strong> to remove). As <strong>Cards</strong> are added in sequence, the method <em>shuffle()</em> randomly sorts all <strong>Cards</strong> in the <strong>Deck</strong>.</p>
 <h2 id="drawing-cards">Drawing <strong>Cards</strong></h2>
-<p>Because a <strong>Deck</strong> may have potentially hundreds or even thousands of <strong>Cards</strong>, it is often useful to &quot;draw&quot; a sub-set based on those currently available. The method <em>draw()</em> accept an argument <em>size</em> (defaulting to 1). This returns an array whose length matches the size passed to it of all <strong>Cards</strong> currently available based on the <strong>State</strong> within the <strong>Deck</strong>.</p>
+<p>Because a <strong>Deck</strong> may have potentially hundreds or even thousands of <strong>Cards</strong>, it is often useful to <em>draw</em> a sub-set based on those currently available. The method <em>draw()</em> accept an argument <em>size</em> (defaulting to 1). This returns an array whose length matches the size passed to it of all <strong>Cards</strong> currently available based on the <strong>State</strong> within the <strong>Deck</strong>.</p>
 <p>As <em>draw()</em> creates and returns a new array, <strong>Cards</strong> within the <strong>Deck</strong> are not affected. However, the method <em>updateCard()</em> can be used to update an individual <strong>Card</strong> once drawn from the <strong>Deck</strong>.</p>
 <p>If the position of <strong>Cards</strong> within the <strong>Deck</strong> is important, the method <em>getCard()</em> can be passed a specific position and will return the <strong>Card</strong> matching it, if it exists. (If the method <em>shuffle()</em> is used, the internal ordering of all <strong>Cards</strong> will be changed.)</p>
 <h2 id="references">References</h2>
@@ -322,7 +347,7 @@
 
             
                 
-                <a href="expressions.html" class="navigation navigation-prev " aria-label="Previous page: Expression and QualitySet">
+                <a href="expressions.html" class="navigation navigation-prev " aria-label="Previous page: Expressions and QualitySet">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
@@ -338,7 +363,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Deck and Cards","level":"3.2","depth":1,"next":{"title":"State Management","level":"3.3","depth":1,"path":"State.md","ref":"./State.md","articles":[]},"previous":{"title":"Expression and QualitySet","level":"3.1","depth":1,"path":"expressions.md","ref":"./expressions.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./notes","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"cards.md","mtime":"2021-01-30T06:12:30.670Z","type":"markdown"},"gitbook":{"version":"3.6.16","time":"2021-01-30T08:03:43.878Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Decks and Cards","level":"3.2","depth":1,"next":{"title":"State Management","level":"3.3","depth":1,"path":"State.md","ref":"./State.md","articles":[]},"previous":{"title":"Expressions and QualitySet","level":"3.1","depth":1,"path":"expressions.md","ref":"./expressions.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./notes","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"cards.md","mtime":"2021-05-15T11:45:19.337Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2021-05-15T12:02:08.413Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

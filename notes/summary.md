@@ -4,14 +4,16 @@
 
 ## History of Related Terms
 
-* [Sculptural Hypertext Model](./sculpturalmodel.md)
-* [Storylet](./Storylet.md)
-* [Quality-Based Narrative](./qbn.md)
+* [Scenes and Cycles (1983)](./scenes.md)
+* [Episodes and Sequences (1989)](./episodes.md)
+* [Sculptural Hypertext Model (2001)](./sculpturalmodel.md)
+* [Storylet (2010)](./storylet.md)
+* [Quality-Based Narrative (2010)](./qbn.md)
 
 ## Metaphors in SimpleQBN
 
-* [Expression and QualitySet](./expressions.md)
-* [Deck and Cards](./cards.md)
+* [Expressions and QualitySet](./expressions.md)
+* [Decks and Cards](./cards.md)
 * [State Management](./State.md)
 
 ## Examples

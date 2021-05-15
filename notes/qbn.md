@@ -1,12 +1,12 @@
-# Quality-Based Narrative
+# Quality-Based Narrative (2010)
 
-## Introducing Term
+## Term
 
-In the same blog post defining [storylet](./storylet.md), Failbetter Games (2010) also describes the use of *qualities* as "tell\[ing\] storylets what to do" (para. 4; original emphasis). In this definition, *qualities* exist as a form of conditional statements. For example, the player may need 4 Jade and to be at a location named Edge City to access a storylet. The condition `>= 4 Jade AND location = ‘Edge City'` exists as a combination *quality* for a particular storylet.
+In the same blog post defining [storylet](./storylet.md), Failbetter Games (2010) also describes the use of *qualities* as something that "tell storylets what to do" (para. 4; original emphasis). In this definition, *qualities* exist as a form of conditional statements. For example, the player may need 4 Jade and to be at a location named Edge City to access a storylet. The condition `>= 4 Jade AND location = ‘Edge City'` exists as a combination *quality* for a particular storylet.
 
 A *quality-based narrative* (QBN) is one where storylet selection is based based on its *qualities* (prerequisites).
 
-## Historical Game Usages
+## Historical Usage
 
 *King of Dragon Pass* (1999) has been cited by Failbetter Games (2011) as an inspiration for *Fallen London* (2009).
 
@@ -16,7 +16,7 @@ A *quality-based narrative* (QBN) is one where storylet selection is based based
 
 In *King of Dragon Pass* (1999), play proceeds across different decision points. Presented as small vignettes, the player must pick from a small set of choices affecting different in-world plot events and the current resources of a tribe. These vignettes are selected based on a combination of three factors: previous decisions made by the player, the current resources of their tribe, and a degree of randomness. Within the game, there is a pool of hundreds of possible vignettes, making every trip through the game unique.
 
-In developing *King of Dragon Pass* (1999), A Sharp, created a scripting language called Opal Scripting Language (OSL). In this language, different vignettes were locked behind certain conditions like `dragonAttitude= 'positive` (OSL Sample, 2020). These act as its *qualities* as shown below:
+In developing *King of Dragon Pass* (1999), A Sharp, created a scripting language called Opal Scripting Language (OSL). In this language, different vignettes were locked behind certain conditions like `dragonAttitude='positive'` (OSL Sample, 2020). These act as its *qualities* as shown below:
 
 ```text
 text: <he/she> gives away clan wealth to those fiendish talking lizards.
@@ -36,8 +36,6 @@ The term salience-based narrative (SBN) has also been proposed by Short (2016) t
 Failbetter Games. (2010). Echo Bazaar Narrative Structures, part two. Retrieved from `http://www.failbettergames.com/echo-bazaar-narrative-structures-part-two/`
 
 Failbetter Games. (2011). Echo Bazaar Inspirations: King of Dragon Pass. Retrieved from `https://www.failbettergames.com/echo-bazaar-inspirations-king-of-dragon-pass/`
-
-Failbetter Games. (2012). StoryNexus Developer Diary #2: fewer spreadsheets, less swearing. Retrieved from `https://www.failbettergames.com/storynexus-developer-diary-2-fewer-spreadsheets-less-swearing/`
 
 Façade (2005). Procedural Arts.
 

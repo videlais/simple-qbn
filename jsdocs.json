@@ -16,7 +16,6 @@
       "monospaceLinks": false
   },
   "opts": {
-    "template": "node_modules/better-docs",
     "destination": "./docs/api"
   }
 }

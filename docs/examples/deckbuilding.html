@@ -6,7 +6,7 @@
         <title>Deck Building · HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="HonKit 3.6.16">
+        <meta name="generator" content="HonKit 3.6.20">
         
         
         
@@ -108,12 +108,38 @@
         
         
     
-        <li class="chapter " data-level="2.1" data-path="../sculpturalmodel.html">
+        <li class="chapter " data-level="2.1" data-path="../scenes.html">
+            
+                <a href="../scenes.html">
+            
+                    
+                    Scenes and Cycles (1983)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="../episodes.html">
+            
+                <a href="../episodes.html">
+            
+                    
+                    Episodes and Sequences (1989)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="../sculpturalmodel.html">
             
                 <a href="../sculpturalmodel.html">
             
                     
-                    Sculptural Hypertext Model
+                    Sculptural Hypertext Model (2001)
             
                 </a>
             
@@ -121,12 +147,12 @@
             
         </li>
     
-        <li class="chapter " data-level="2.2" data-path="../Storylet.html">
+        <li class="chapter " data-level="2.4" data-path="../storylet.html">
             
-                <a href="../Storylet.html">
+                <a href="../storylet.html">
             
                     
-                    Storylet
+                    Storylet (2010)
             
                 </a>
             
@@ -134,12 +160,12 @@
             
         </li>
     
-        <li class="chapter " data-level="2.3" data-path="../qbn.html">
+        <li class="chapter " data-level="2.5" data-path="../qbn.html">
             
                 <a href="../qbn.html">
             
                     
-                    Quality-Based Narrative
+                    Quality-Based Narrative (2010)
             
                 </a>
             
@@ -159,7 +185,7 @@
                 <a href="../expressions.html">
             
                     
-                    Expression and QualitySet
+                    Expressions and QualitySet
             
                 </a>
             
@@ -172,7 +198,7 @@
                 <a href="../cards.html">
             
                     
-                    Deck and Cards
+                    Decks and Cards
             
                 </a>
             
@@ -287,12 +313,12 @@
                                 <h1 id="deck-building">Deck Building</h1>
 <h2 id="understanding-the-api">Understanding the API</h2>
 <p>One of the most common first tasks with QBN projects is building a deck of cards. In SimpleQBN, this starts with the <strong>Deck</strong> class.</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> d = <span class="hljs-keyword">new</span> Deck();
-</code></pre>
-<p>Creating a <strong>Deck</strong> also creates an internal <strong>State</strong> as its <em>state</em> property. The <strong>State</strong> API has the methods <em>add()</em>, <em>get()</em>, <em>has()</em>, <em>update()</em>, and <em>remove()</em>, which it uses to manipulate data stored as key-value pairs. Commonly, a String key is paired with a numeric value.</p>
 <blockquote>
-<p><strong>Note:</strong> Because of how <strong>Expressions</strong> are currently handled, it is strongly recommended to only use numeric or String values as part of the <strong>State</strong>. Boolean values do not work well, and decimal numbers do not work at all.</p>
+<p><strong>Note</strong>: The examples on this page assume usage in Node.js with either importing all classes or the ones specified in the examples.</p>
 </blockquote>
+<pre><code class="lang-JavaScript"><span class="hljs-keyword">const</span> d = <span class="hljs-keyword">new</span> Deck();
+</code></pre>
+<p>Creating a <strong>Deck</strong> also creates an internal <strong>State</strong> as its <em>state</em> property. The <strong>State</strong> API has the methods <em>set()</em>, <em>get()</em>, <em>exists()</em>,and <em>remove()</em>, which it uses to manipulate data stored as key-value pairs. Commonly, a String key is paired with a numeric value.</p>
 <pre><code class="lang-javascript"><span class="hljs-comment">// Create a new Deck</span>
 <span class="hljs-keyword">const</span> d = <span class="hljs-keyword">new</span> Deck();
 <span class="hljs-comment">// Add a key-value pair</span>
@@ -304,21 +330,20 @@ d.state.add(<span class="hljs-string">&apos;test&apos;</span>, <span class="hljs
 <span class="hljs-comment">// Add a key-value pair</span>
 d.state.add(<span class="hljs-string">&apos;test&apos;</span>, <span class="hljs-number">1</span>);
 <span class="hljs-comment">// Create a card</span>
-d.addCard(<span class="hljs-string">&quot;Content&quot;</span>);
+d.addCard(<span class="hljs-string">&quot;Content&quot;</span>, [{<span class="hljs-attr">test</span>: <span class="hljs-number">1</span>}]);
 </code></pre>
-<p>In quality-based narratives, a <em>quality</em> defines if content can be accessed. They are written as conditional statements. In SimpleQBN, these are created using hyphens between operators (things being compared) and the operation (how the values should be compared).</p>
-<p>For example, to test if a key, &apos;test&apos;, is equal to a numeric value, 1, it would be written as <code>test-eq-1</code>. These are known as <strong>Expressions</strong>.</p>
-<p>Qualities can be passed as either an array when using <em>addCard()</em> (of <strong>Deck</strong>) or with the <strong>Card</strong> method <em>addQuality()</em>. In either usage, qualities are expressed as String values. These then become part of a collection called a <strong>QualitySet</strong> internally in a <strong>Card</strong>. (Qualities are converted into individual <strong>Expressions</strong> internally as part of a <strong>QualitySet</strong>.)</p>
-<pre><code class="lang-javascript"><span class="hljs-comment">// Create a new Deck</span>
+<p>In quality-based narratives, a <em>quality</em> defines if content can be accessed. They are written as conditional statements. In SimpleQBN, these are created using the MongoDB query language (MQL).</p>
+<p>Qualities can be passed as either an array when using <em>addCard()</em> (of <strong>Deck</strong>) or with the <strong>Card</strong> method <em>addQuality()</em>. In either usage, qualities are expressed as object values. These then become part of a collection called a <strong>QualitySet</strong> internally in a <strong>Card</strong>.</p>
+<pre><code class="lang-JavaScript"><span class="hljs-comment">// Create a new Deck</span>
 <span class="hljs-keyword">const</span> d = <span class="hljs-keyword">new</span> Deck();
 <span class="hljs-comment">// Add a key-value pair</span>
 d.state.add(<span class="hljs-string">&apos;test&apos;</span>, <span class="hljs-number">1</span>);
 <span class="hljs-comment">// Create a card</span>
 <span class="hljs-comment">// content - &quot;Content&quot;</span>
-<span class="hljs-comment">// qualities - [&apos;test-eq-1&apos;]</span>
-d.addCard(<span class="hljs-string">&quot;Content&quot;</span>, [<span class="hljs-string">&apos;test-eq-1&apos;</span>]);
+<span class="hljs-comment">// qualities - [{test: 1}]</span>
+d.addCard(<span class="hljs-string">&quot;Content&quot;</span>, [{<span class="hljs-attr">test</span>: <span class="hljs-number">1</span>}]);
 </code></pre>
-<p>Cards are selected through the metaphor of <em>drawing</em>. A <strong>Card</strong> is drawn when it is available; a <strong>Card</strong> is available when all of the <strong>Expressions</strong> within its <strong>QualitySet</strong> are valid. The <strong>State</strong> of the <strong>Deck</strong> is used to determine this validity. For example, if the <strong>State</strong> contains a key-value pair of <code>&apos;test&apos;:1</code>, then any <strong>Cards</strong> with the quality <code>test-eq-1</code> are potentially valid.</p>
+<p>Cards are selected through the metaphor of <em>drawing</em>. A <strong>Card</strong> is drawn when it is available; a <strong>Card</strong> is available when all of the <strong>Expressions</strong> within its <strong>QualitySet</strong> are valid. The <strong>State</strong> of the <strong>Deck</strong> is used to determine this validity. For example, if the <strong>State</strong> contains a key-value pair of <code>&apos;test&apos;: 1</code>, then any <strong>Cards</strong> with the quality <code>{test: 1}</code> are potentially valid.</p>
 <p>The method <em>draw()</em> of <strong>Deck</strong> returns an array of results matching an argument up to the <em>size</em> passed to it. However, only a <strong>Card</strong> that is available can be drawn.</p>
 <pre><code class="lang-javascript"><span class="hljs-comment">// Create a new Deck</span>
 <span class="hljs-keyword">const</span> d = <span class="hljs-keyword">new</span> Deck();
@@ -326,8 +351,8 @@ d.addCard(<span class="hljs-string">&quot;Content&quot;</span>, [<span class="hl
 d.state.add(<span class="hljs-string">&apos;test&apos;</span>, <span class="hljs-number">1</span>);
 <span class="hljs-comment">// Create a card</span>
 <span class="hljs-comment">// content - &quot;Content&quot;</span>
-<span class="hljs-comment">// qualities - [&apos;test-eq-1&apos;]</span>
-d.addCard(<span class="hljs-string">&quot;Content&quot;</span>, [<span class="hljs-string">&apos;test-eq-1&apos;</span>]);
+<span class="hljs-comment">// qualities - [{test: 1}]</span>
+d.addCard(<span class="hljs-string">&quot;Content&quot;</span>, [{<span class="hljs-attr">test</span>: <span class="hljs-number">1</span>}]);
 <span class="hljs-comment">// Draw the card from the deck</span>
 <span class="hljs-keyword">const</span> hand = d.draw(<span class="hljs-number">1</span>);
 <span class="hljs-comment">// Show the content of the first (and only) drawn card</span>
@@ -340,11 +365,11 @@ d.addCard(<span class="hljs-string">&quot;Content&quot;</span>, [<span class="hl
 <span class="hljs-comment">// Add a key-value pair</span>
 d.state.add(<span class="hljs-string">&apos;test&apos;</span>, <span class="hljs-number">1</span>);
 <span class="hljs-comment">// Create a card</span>
-d.addCard(<span class="hljs-string">&quot;Content&quot;</span>, [<span class="hljs-string">&apos;test-eq-1&apos;</span>]);
+d.addCard(<span class="hljs-string">&quot;Content&quot;</span>, [{<span class="hljs-attr">test</span>: <span class="hljs-number">1</span>}]);
 <span class="hljs-comment">// Create another</span>
-d.addCard(<span class="hljs-string">&quot;More Content&quot;</span>, [<span class="hljs-string">&apos;test-eq-1&apos;</span>]);
+d.addCard(<span class="hljs-string">&quot;More Content&quot;</span>, [{<span class="hljs-attr">test</span>: <span class="hljs-number">1</span>}]);
 <span class="hljs-comment">// Create a third</span>
-d.addCard(<span class="hljs-string">&quot;Even More Content&quot;</span>, [<span class="hljs-string">&apos;test-eq-1&apos;</span>]);
+d.addCard(<span class="hljs-string">&quot;Even More Content&quot;</span>, [{<span class="hljs-attr">test</span>: <span class="hljs-number">1</span>}]);
 </code></pre>
 <p>The method <em>shuffle()</em> randomly distributes existing cards within the <strong>Deck</strong>. Because all <strong>Cards</strong> are added in sequence, this method can be used to re-sort the <strong>Cards</strong> in the <strong>Deck</strong>.</p>
 <pre><code class="lang-javascript"><span class="hljs-comment">// Create a new Deck</span>
@@ -352,11 +377,11 @@ d.addCard(<span class="hljs-string">&quot;Even More Content&quot;</span>, [<span
 <span class="hljs-comment">// Add a key-value pair</span>
 d.state.add(<span class="hljs-string">&apos;test&apos;</span>, <span class="hljs-number">1</span>);
 <span class="hljs-comment">// Create a card</span>
-d.addCard(<span class="hljs-string">&quot;Content&quot;</span>, [<span class="hljs-string">&apos;test-eq-1&apos;</span>]);
+d.addCard(<span class="hljs-string">&quot;Content&quot;</span>, [{<span class="hljs-attr">test</span>: <span class="hljs-number">1</span>}]);
 <span class="hljs-comment">// Create another</span>
-d.addCard(<span class="hljs-string">&quot;More Content&quot;</span>, [<span class="hljs-string">&apos;test-eq-1&apos;</span>]);
+d.addCard(<span class="hljs-string">&quot;More Content&quot;</span>, [{<span class="hljs-attr">test</span>: <span class="hljs-number">1</span>}]);
 <span class="hljs-comment">// Create a third</span>
-d.addCard(<span class="hljs-string">&quot;Even More Content&quot;</span>, [<span class="hljs-string">&apos;test-eq-1&apos;</span>]);
+d.addCard(<span class="hljs-string">&quot;Even More Content&quot;</span>, [{<span class="hljs-attr">test</span>: <span class="hljs-number">1</span>}]);
 <span class="hljs-comment">// Shuffle the cards</span>
 d.shuffle();
 </code></pre>
@@ -366,11 +391,11 @@ d.shuffle();
 <span class="hljs-comment">// Add a key-value pair</span>
 d.state.add(<span class="hljs-string">&apos;test&apos;</span>, <span class="hljs-number">1</span>);
 <span class="hljs-comment">// Create a card</span>
-d.addCard(<span class="hljs-string">&quot;Content&quot;</span>, [<span class="hljs-string">&apos;test-eq-1&apos;</span>]);
+d.addCard(<span class="hljs-string">&quot;Content&quot;</span>, [{<span class="hljs-attr">test</span>: <span class="hljs-number">1</span>}]);
 <span class="hljs-comment">// Create another</span>
-d.addCard(<span class="hljs-string">&quot;More Content&quot;</span>, [<span class="hljs-string">&apos;test-eq-1&apos;</span>]);
+d.addCard(<span class="hljs-string">&quot;More Content&quot;</span>, [{<span class="hljs-attr">test</span>: <span class="hljs-number">1</span>}]);
 <span class="hljs-comment">// Create a third</span>
-d.addCard(<span class="hljs-string">&quot;Even More Content&quot;</span>, [<span class="hljs-string">&apos;test-eq-1&apos;</span>]);
+d.addCard(<span class="hljs-string">&quot;Even More Content&quot;</span>, [{<span class="hljs-attr">test</span>: <span class="hljs-number">1</span>}]);
 <span class="hljs-comment">// Shuffle the cards</span>
 d.shuffle();
 <span class="hljs-comment">// Draw all cards</span>
@@ -378,7 +403,7 @@ d.shuffle();
 <span class="hljs-comment">// Get the first card in the drawn array</span>
 <span class="hljs-keyword">const</span> c = hand[<span class="hljs-number">0</span>];
 <span class="hljs-comment">// Add a new quality</span>
-c.addQuality(<span class="hljs-string">&apos;example-eq-1&apos;</span>);
+c.addQuality({<span class="hljs-attr">example</span>: <span class="hljs-number">1</span>});
 <span class="hljs-comment">// Update the deck</span>
 d.updateCard(c);
 <span class="hljs-comment">// Draw another array</span>
@@ -429,7 +454,7 @@ d.updateCard(c);
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Deck Building","level":"4.1","depth":1,"next":{"title":"Story Gates","level":"4.2","depth":1,"path":"examples/storygates.md","ref":"./examples/storygates.md","articles":[]},"previous":{"title":"State Management","level":"3.3","depth":1,"path":"State.md","ref":"./State.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./notes","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"examples/deckbuilding.md","mtime":"2021-01-30T06:12:30.671Z","type":"markdown"},"gitbook":{"version":"3.6.16","time":"2021-01-30T08:03:43.878Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Deck Building","level":"4.1","depth":1,"next":{"title":"Story Gates","level":"4.2","depth":1,"path":"examples/storygates.md","ref":"./examples/storygates.md","articles":[]},"previous":{"title":"State Management","level":"3.3","depth":1,"path":"State.md","ref":"./State.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./notes","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"examples/deckbuilding.md","mtime":"2021-05-15T11:53:51.425Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2021-05-15T12:02:08.413Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

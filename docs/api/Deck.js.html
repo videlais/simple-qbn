@@ -1,259 +1,192 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> Deck.js</title>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Deck.js</title>
 
-  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  <script src="./build/entry.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
-  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
-  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
-  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
-  <link type="text/css" rel="stylesheet" href="">
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
-
-  
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
 </head>
 
+<body>
 
+<div id="main">
 
-<body class="layout small-header">
-    <div id="stickyNavbarOverlay"></div>
+    <h1 class="page-title">Source: Deck.js</h1>
+
     
-
-<div class="top-nav">
-    <div class="inner">
-        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-        </a>
-        <div class="logo">
-            
-            
-        </div>
-        <div class="menu">
-            
-            <div class="navigation">
-                <a
-                    href="index.html"
-                    class="link"
-                >
-                    API Documentation
-                </a>
-                
-                
-                
-            </div>
-        </div>
-    </div>
-</div>
-    <div id="main">
-        <div
-            class="sidebar "
-            id="sidebarNav"
-        >
-            
-            <nav>
-                
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-Card.html">Card</a></li><li><a href="module-Deck.html">Deck</a></li><li><a href="module-Expression.html">Expression</a></li><li><a href="module-QualitySet.html">QualitySet</a></li><li><a href="module-State.html">State</a></li></ul><h3>Classes</h3><ul><li><a href="module-Card-Card.html">Card</a></li><li><a href="module-Deck-Deck.html">Deck</a></li><li><a href="module-Expression-Expression.html">Expression</a></li><li><a href="module-QualitySet-QualitySet.html">QualitySet</a></li><li><a href="module-State-State.html">State</a></li></ul></div>
-                
-            </nav>
-        </div>
-        <div class="core" id="main-content-wrapper">
-            <div class="content">
-                <header class="page-title">
-                    <p>Source</p>
-                    <h1>Deck.js</h1>
-                </header>
-                
 
 
 
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import Card from './Card.js';
-import State from './State.js';
+            <pre class="prettyprint source linenums"><code>import Card from './Card.js'
+import State from './State.js'
 
 /**
  * @class Deck
  * @module Deck
  * @see State
  */
-class Deck {
-  // Private array of cards
-  #cards = null;
-
-  // Private state
-  #_state = new State();
-
+export default class Deck {
   /**
    * @class
    */
   constructor () {
-    // Set the internal cards to an empty array
-    this.#cards = [];
+    // Set the internal cards to an empty array.
+    this.cards = []
 
-    // Set the internal state to a new State()
-    this.#_state = new State();
+    // Set the internal state to a new State().
+    this._state = new State()
   }
 
   /**
    * @type {State}
    */
   get state () {
-    return this.#_state;
+    return this._state
   }
 
   set state (s) {
     if (s instanceof State) {
-      this.#_state = s;
+      this._state = s
     } else {
-      throw new Error('Passed value is not an instance of State');
+      throw new Error('Passed value is not an instance of State')
     }
   }
 
   /**
-   * Get a card based on position
+   * Get a card based on position.
    *
    * @function getCard
-   * @param {number} index - Position of card within deck
-   * @returns {Card|null} Returns Card or null
+   * @param {number} index - Position of card within deck.
+   * @returns {Card|null} Returns Card or null.
    * @memberof Deck
    */
   getCard (index = -1) {
-    // Set a default
-    let card = null;
+    // Set a default.
+    let card = null
 
-    // If index is less than cards.length
-    if (index >= 0 &amp;&amp; index &lt; this.#cards.length) {
-      card = this.#cards[index];
+    // If index is less than cards.length.
+    if (index >= 0 &amp;&amp; index &lt; this.cards.length) {
+      card = this.cards[index]
     }
 
-    // Return Card or null
-    return card;
+    // Return Card or null.
+    return card
   }
 
   /**
-   * Update card based on its internal hash
+   * Update card based on its internal hash.
    *
    * @function updateCard
-   * @param {Card} c - Card to update in deck
+   * @param {Card} c - Card to update in deck.
    */
   updateCard (c) {
     if (c instanceof Card) {
-      this.#cards.forEach((card) => {
+      this.cards.forEach((card) => {
         if (card.hash === c.hash) {
-          card = c;
+          card = c
         }
-      });
+      })
     } else {
-      throw new Error('Updated card must be Card!');
+      throw new Error('Updated card must be Card!')
     }
   }
 
   /**
-   * Size of Deck
+   * Size of Deck.
    *
    * @function size
-   * @returns {number} Returns number of cards
+   * @returns {number} Returns number of cards.
    */
   size () {
-    return this.#cards.length;
+    return this.cards.length
   }
 
   /**
-   * Add a Card to the Deck
+   * Add a Card to the Deck.
    *
    * @function addCard
-   * @param {string} content - Text of card
-   * @param {Array} qualities - Array of Expressions
+   * @param {string} content - Text of card.
+   * @param {Array} qualities - Array of Expressions.
    */
   addCard (content, qualities = []) {
-    // Can't add non-String content
+    // Can't add non-String content.
     if (typeof content !== 'string') {
-      throw new Error('Card content must be string!');
+      throw new Error('Card content must be string!')
     }
 
-    // Can't pass non-array qualities
+    // Can't pass non-array qualities.
     if (!Array.isArray(qualities)) {
-      throw new Error('Qualities must be passed as array!');
+      throw new Error('Qualities must be passed as array!')
     }
 
-    // Create a new card and pass it the current state
-    const c = new Card(content, qualities);
+    // Create a new card and pass it the current state.
+    const c = new Card(content, qualities)
 
-    // Add a card to the existing deck
-    this.#cards.push(c);
+    // Add a card to the existing deck.
+    this.cards.push(c)
   }
 
   /**
-   * Remove a Card from the Deck
+   * Remove a Card from the Deck.
    *
    * @function removeCard
-   * @param {object} c - Card to remove from deck
+   * @param {object} c - Card to remove from deck.
    */
   removeCard (c) {
-    this.#cards = this.#cards.filter((entry) => {
-      return entry !== c;
-    });
+    this.cards = this.cards.filter((entry) => {
+      return entry !== c
+    })
   }
 
   /**
-   * Shuffle cards in Deck
+   * Shuffle cards in Deck.
    *
    * @function shuffle
    */
   shuffle () {
-    // Fisher-Yates shuffle
-    for (let i = this.#cards.length - 1; i > 0; i--) {
+    // Fisher-Yates shuffle.
+    for (let i = this.cards.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
-      // Swap positions using destructuring assignment
-      [this.#cards[i], this.#cards[j]] = [this.#cards[j], this.#cards[i]];
+      // Swap positions using destructuring assignment.
+      [this.cards[i], this.cards[j]] = [this.cards[j], this.cards[i]]
     }
   }
 
   /**
-   * Draw card from Deck
+   * Draw card from Deck.
    *
    * @function draw
-   * @param {number} size - Size of hand to draw from Deck
-   * @returns {Array} Hand of cards
+   * @param {number} size - Size of hand to draw from Deck.
+   * @returns {Array} Hand of cards.
    */
   draw (size = 1) {
-    // Create a hand
-    let hand = [];
+    // Create a hand.
+    let hand = []
 
-    // Prevent negative sizes
+    // Prevent negative sizes.
     if (size > 0) {
-      // Find all available cards
-      hand = this.#cards.filter((card) => {
-        // Pass the current state to the card
-        return card.isAvailable(this.state);
-      });
+      // Find all available cards.
+      hand = this.cards.filter((card) => {
+        // Pass the current state to the card.
+        return card.isAvailable(this.state)
+      })
 
-      // Slice out a sub-set of available cards
-      hand = hand.slice(0, size);
+      // Slice out a sub-set of available cards.
+      hand = hand.slice(0, size)
     }
 
-    return hand;
+    return hand
   }
 }
-
-export default Deck;
 </code></pre>
         </article>
     </section>
@@ -261,25 +194,19 @@ export default Deck;
 
 
 
-            </div>
-            
-            <footer class="footer">
-                <div class="content has-text-centered">
-                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a></p>
-                    <p class="sidebar-created-by">
-                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
-                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
-                    </p>
-                </div>
-            </footer>
-            
-        </div>
-        <div id="side-nav" class="side-nav">
-        </div>
-    </div>
-<script src="scripts/app.min.js"></script>
-<script>PR.prettyPrint();</script>
-<script src="scripts/linenumber.js"> </script>
+</div>
 
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Card.html">Card</a></li><li><a href="module-Deck.html">Deck</a></li><li><a href="module-QualitySet.html">QualitySet</a></li><li><a href="module-State.html">State</a></li></ul><h3>Classes</h3><ul><li><a href="module.exports_module.exports.html">exports</a></li><li><a href="module-Card-Card.html">Card</a></li><li><a href="module-Deck.html">Deck</a></li><li><a href="module-QualitySet.html">QualitySet</a></li></ul><h3>Global</h3><ul><li><a href="global.html#change">change</a></li><li><a href="global.html#check">check</a></li><li><a href="global.html#expression">expression</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Sat May 15 2021 08:02:14 GMT-0400 (Eastern Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
 </body>
 </html>

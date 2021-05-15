@@ -6,7 +6,7 @@
         <title>Bundled for Web · HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="HonKit 3.6.16">
+        <meta name="generator" content="HonKit 3.6.20">
         
         
         
@@ -106,12 +106,38 @@
         
         
     
-        <li class="chapter " data-level="2.1" data-path="../sculpturalmodel.html">
+        <li class="chapter " data-level="2.1" data-path="../scenes.html">
+            
+                <a href="../scenes.html">
+            
+                    
+                    Scenes and Cycles (1983)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="../episodes.html">
+            
+                <a href="../episodes.html">
+            
+                    
+                    Episodes and Sequences (1989)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="../sculpturalmodel.html">
             
                 <a href="../sculpturalmodel.html">
             
                     
-                    Sculptural Hypertext Model
+                    Sculptural Hypertext Model (2001)
             
                 </a>
             
@@ -119,12 +145,12 @@
             
         </li>
     
-        <li class="chapter " data-level="2.2" data-path="../Storylet.html">
+        <li class="chapter " data-level="2.4" data-path="../storylet.html">
             
-                <a href="../Storylet.html">
+                <a href="../storylet.html">
             
                     
-                    Storylet
+                    Storylet (2010)
             
                 </a>
             
@@ -132,12 +158,12 @@
             
         </li>
     
-        <li class="chapter " data-level="2.3" data-path="../qbn.html">
+        <li class="chapter " data-level="2.5" data-path="../qbn.html">
             
                 <a href="../qbn.html">
             
                     
-                    Quality-Based Narrative
+                    Quality-Based Narrative (2010)
             
                 </a>
             
@@ -157,7 +183,7 @@
                 <a href="../expressions.html">
             
                     
-                    Expression and QualitySet
+                    Expressions and QualitySet
             
                 </a>
             
@@ -170,7 +196,7 @@
                 <a href="../cards.html">
             
                     
-                    Deck and Cards
+                    Decks and Cards
             
                 </a>
             
@@ -288,14 +314,14 @@
 <pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>SimpleQBN Testing<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://gitcdn.link/repo/videlais/simple-qbn/v1.2.0/build/simpleqbn.bundle.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://gitcdn.link/repo/videlais/simple-qbn/v1.4.0/build/simpleqbn.bundle.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;log&quot;</span>&gt;</span>(Draw a card!)<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;loadCard&quot;</span>&gt;</span>Draw a random card!<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
             <span class="hljs-comment">// Create a new Deck</span>
-            <span class="hljs-keyword">const</span> d = <span class="hljs-keyword">new</span> Deck();
+            <span class="hljs-keyword">const</span> d = <span class="hljs-keyword">new</span> SimpleQBN.Deck();
 
             <span class="hljs-comment">// Create 52 new cards</span>
             <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">52</span>; i++) {
@@ -364,7 +390,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Bundled for Web","level":"4.3","depth":1,"previous":{"title":"Story Gates","level":"4.2","depth":1,"path":"examples/storygates.md","ref":"./examples/storygates.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./notes","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"examples/webbuild.md","mtime":"2021-01-30T06:12:30.672Z","type":"markdown"},"gitbook":{"version":"3.6.16","time":"2021-01-30T08:03:43.878Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Bundled for Web","level":"4.3","depth":1,"previous":{"title":"Story Gates","level":"4.2","depth":1,"path":"examples/storygates.md","ref":"./examples/storygates.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./notes","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"examples/webbuild.md","mtime":"2021-05-15T12:00:35.959Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2021-05-15T12:02:08.413Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

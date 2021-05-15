@@ -3,10 +3,10 @@
 <html lang="" >
     <head>
         <meta charset="UTF-8">
-        <title>Expression and QualitySet · HonKit</title>
+        <title>Expressions and QualitySet · HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="HonKit 3.6.16">
+        <meta name="generator" content="HonKit 3.6.20">
         
         
         
@@ -108,12 +108,38 @@
         
         
     
-        <li class="chapter " data-level="2.1" data-path="sculpturalmodel.html">
+        <li class="chapter " data-level="2.1" data-path="scenes.html">
+            
+                <a href="scenes.html">
+            
+                    
+                    Scenes and Cycles (1983)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="episodes.html">
+            
+                <a href="episodes.html">
+            
+                    
+                    Episodes and Sequences (1989)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="sculpturalmodel.html">
             
                 <a href="sculpturalmodel.html">
             
                     
-                    Sculptural Hypertext Model
+                    Sculptural Hypertext Model (2001)
             
                 </a>
             
@@ -121,12 +147,12 @@
             
         </li>
     
-        <li class="chapter " data-level="2.2" data-path="Storylet.html">
+        <li class="chapter " data-level="2.4" data-path="storylet.html">
             
-                <a href="Storylet.html">
+                <a href="storylet.html">
             
                     
-                    Storylet
+                    Storylet (2010)
             
                 </a>
             
@@ -134,12 +160,12 @@
             
         </li>
     
-        <li class="chapter " data-level="2.3" data-path="qbn.html">
+        <li class="chapter " data-level="2.5" data-path="qbn.html">
             
                 <a href="qbn.html">
             
                     
-                    Quality-Based Narrative
+                    Quality-Based Narrative (2010)
             
                 </a>
             
@@ -159,7 +185,7 @@
                 <a href="expressions.html">
             
                     
-                    Expression and QualitySet
+                    Expressions and QualitySet
             
                 </a>
             
@@ -172,7 +198,7 @@
                 <a href="cards.html">
             
                     
-                    Deck and Cards
+                    Decks and Cards
             
                 </a>
             
@@ -269,7 +295,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >Expression and QualitySet</a>
+        <a href="." >Expressions and QualitySet</a>
     </h1>
 </div>
 
@@ -285,71 +311,26 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="expressions-and-qualityset">Expressions and QualitySet</h1>
-<h2 id="qualities-as-expressions">Qualities as <strong>Expressions</strong></h2>
-<p>While both the <a href="sculpturalmodel.html">sculptural</a> and <a href="qbn.html">QBN</a> models define their own terms of how sections of a story might be available (constraints and qualities, respectively), neither explain how to <em>express</em> these.</p>
-<p>Working with the story format SugarCube in Twine 2, the library TinyQBN by Grams (2019) solves this issue through using the tags of passages. Based on the requirements of not containing spaces, Grams (2019) introduced a shorthand for writing qualities using hyphens between the operators (what is being compared) and the operation (how to compare values).</p>
-<table>
-<thead>
-<tr>
-<th>Shorthand</th>
-<th>Comparison Operation</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>eq</td>
-<td>variable === value</td>
-</tr>
-<tr>
-<td>neq</td>
-<td>variable !== value</td>
-</tr>
-<tr>
-<td>lt</td>
-<td>variable &lt; value</td>
-</tr>
-<tr>
-<td>gt</td>
-<td>variable &gt; value</td>
-</tr>
-<tr>
-<td>lte</td>
-<td>variable &lt;= value</td>
-</tr>
-<tr>
-<td>gte</td>
-<td>variable &gt;= value</td>
-</tr>
-<tr>
-<td>eqvar</td>
-<td>variable === variable</td>
-</tr>
-<tr>
-<td>neqvar</td>
-<td>variable !== variable</td>
-</tr>
-<tr>
-<td>ltvar</td>
-<td>variable &lt; variable</td>
-</tr>
-<tr>
-<td>gtvar</td>
-<td>variable &gt; variable</td>
-</tr>
-<tr>
-<td>ltevar</td>
-<td>variable &lt;= variable</td>
-</tr>
-<tr>
-<td>gtevar</td>
-<td>variable &gt;= variable</td>
-</tr>
-</tbody>
-</table>
-<p>SimpleQBN builds on this shorthand and expects qualities to be written in a format of <code>operator-operation-operator</code>. However, internally, the String value becomes an <strong>Expression</strong>, a special class accepting the string shorthand, parsing it, and then providing a Boolean response if the <strong>Expression</strong> is <code>true</code> or not.</p>
+<h2 id="qualities-as-expressions">Qualities as Expressions</h2>
+<p>While both the <a href="sculpturalmodel.html">sculptural</a> and <a href="qbn.html">QBN</a> models define their own terms of how sections of a story might become available (constraints and qualities, respectively), neither explain how to <em>express</em> these.</p>
+<h3 id="grams-format">Grams Format</h3>
+<p>Working with the story format SugarCube in Twine 2, the library TinyQBN by Grams (2019) solves this issue through using the tags of passages. Based on the requirements of not containing spaces, Grams (2019) introduced a shorthand for writing qualities using hyphens between the operators (what is being compared) and the operation (how to compare values): <code>operator-operation-operator</code>.</p>
+<p>This format created an easy way to include prerequisites in Twine using tags in passages, but comes with some issues:</p>
+<ul>
+<li><em>Operators have to be converted into and out of String values</em>. Tags in Twine 2 are stored as the values of attributes within <a href="https://github.com/iftechfoundation/twine-specs/blob/master/twine-2-htmloutput-spec.md" target="_blank">its HTML</a>. These tags are assumed to be String values. Any use of other primative data types in JavaScript such as Numbers and Booleans must be converted out of their String representation.</li>
+<li><em>Only one comparison can be used at a time</em>. Complex comparisons are not possible in the format because of its internal parsing. Additional tags can be added, but each is only one comparison between a single variable and value.</li>
+</ul>
+<h3 id="working-with-mongodb-query-language-via-mingo">Working with MongoDB Query Language (via Mingo)</h3>
+<p>Starting with version 1.4, SimpleQBN began to use the MongoDB Query Language via the <a href="https://www.npmjs.com/package/mingo" target="_blank">Mingo</a> NPM package. Because SimpleQBN is not limited by usage with Twine, the query language developed for MongoDB allows for using objects instead of string values. This overcomes the two major limitations of the Grams format through allowing comparisons to be expressed as objects.</p>
+<p>For example, an <strong>Expression</strong> to test if the <strong>State</strong> value <em>score</em> was greater than 15 would be written as the following:</p>
+<pre><code class="lang-JavaScript">{<span class="hljs-attr">score</span>: {<span class="hljs-attr">$gt</span>: <span class="hljs-number">15</span>}}
+</code></pre>
+<p>The use of the MongoDB query language also introduces much more complex queries as well. To test if the <strong>State</strong> value <em>score</em> was greater than 15, <strong>State</strong> value <em>act1</em> was <code>true</code>, and <strong>State</strong> value <em>reputation</em> was less than <code>3.5</code>, it would be the following:</p>
+<pre><code class="lang-JavaScript">{<span class="hljs-attr">score</span>: {<span class="hljs-attr">$gt</span>: <span class="hljs-number">15</span>}, <span class="hljs-attr">act1</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">reputation</span>: {<span class="hljs-attr">$lt</span>: <span class="hljs-number">3.5</span>}}
+</code></pre>
 <h2 id="qualityset"><strong>QualitySet</strong></h2>
 <p>Each <strong>Card</strong> in SimpleQBN has an internal property called <em>qualities</em>. This is an instance of a class called <strong>QualitySet</strong> holding multiple <strong>Expressions</strong>. It provides the method <em>check()</em> for reviewing each of its internal <strong>Expressions</strong>. A <strong>QualitySet</strong> is <code>true</code> if <em>every</em> <strong>Expression</strong> returns <code>true</code>.</p>
-<p>In order to check if an <strong>Expression</strong> (and the larger <strong>QualitySet</strong>) is <code>true</code>, it needs access to the global <a href="state.md"><strong>State</strong></a>.</p>
+<p>In order to check if an <strong>Expression</strong> (and the larger <strong>QualitySet</strong>) is <code>true</code>, it needs access to <a href="state.md"><strong>State</strong></a>.</p>
 <h2 id="references">References</h2>
 <p>Grams, J. (2019). Tiny-QBN. GitHub. Retrieved from <code>https://github.com/JoshuaGrams/tiny-qbn</code></p>
 
@@ -379,12 +360,12 @@
 
             
                 
-                <a href="qbn.html" class="navigation navigation-prev " aria-label="Previous page: Quality-Based Narrative">
+                <a href="qbn.html" class="navigation navigation-prev " aria-label="Previous page: Quality-Based Narrative (2010)">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="cards.html" class="navigation navigation-next " aria-label="Next page: Deck and Cards">
+                <a href="cards.html" class="navigation navigation-next " aria-label="Next page: Decks and Cards">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -395,7 +376,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Expression and QualitySet","level":"3.1","depth":1,"next":{"title":"Deck and Cards","level":"3.2","depth":1,"path":"cards.md","ref":"./cards.md","articles":[]},"previous":{"title":"Quality-Based Narrative","level":"2.3","depth":1,"path":"qbn.md","ref":"./qbn.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./notes","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"expressions.md","mtime":"2021-01-30T06:12:30.673Z","type":"markdown"},"gitbook":{"version":"3.6.16","time":"2021-01-30T08:03:43.878Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Expressions and QualitySet","level":"3.1","depth":1,"next":{"title":"Decks and Cards","level":"3.2","depth":1,"path":"cards.md","ref":"./cards.md","articles":[]},"previous":{"title":"Quality-Based Narrative (2010)","level":"2.5","depth":1,"path":"qbn.md","ref":"./qbn.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./notes","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"expressions.md","mtime":"2021-05-15T11:41:29.391Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2021-05-15T12:02:08.413Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
