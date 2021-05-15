@@ -15,7 +15,7 @@ For testing purposes, GitCDN.link can be used to pull the build from GitHub like
         <button id="loadCard">Draw a random card!</button>
         <script>
             // Create a new Deck
-            const d = new SimpleQBN.Deck();
+            const d = new Deck();
             
             // Create 52 new cards
             for(let i = 0; i < 52; i++) {

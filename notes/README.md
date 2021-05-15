@@ -23,4 +23,4 @@ JSDocs is also used for the [API documentation](https://videlais.github.io/simpl
 - `npm run lint:test` lints the files in `test` folder using [ESLint](https://eslint.org/) with Jest settings.
 - `npm run docs` generates `docs` HTML content based on Markdown files stored in `notes` using [HonKit](https://github.com/honkit/honkit).
 - `npm run docs:serve` creates a local HTTP server serving the files in `notes` from a created `_book` directory by HonKit.
-- `npm run build` uses [WebPack](https://webpack.js.org/) to bundle the files for use in browser-based projects. It creates a global called **SimpleQBN** with each of its properties classes (**Card**, **Deck**, **Expression**, **QualitySet**, and **State**) of the project.
+- `npm run build` uses [WebPack](https://webpack.js.org/) to bundle the files for use in browser-based projects. It creates globals based on each of the classes (**Card**, **Deck**, **Expression**, **QualitySet**, and **State**) of the project.
