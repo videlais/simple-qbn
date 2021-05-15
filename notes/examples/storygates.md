@@ -1,6 +1,6 @@
 # Story Gating
 
-Emily Short (2016, 2019), among others, has discussed different moments in narratives models as "gates." These happen when one set of narrative units (usually storylets) are available and then another collection are added or become dominant once certain conditions are met.
+Emily Short (2016, 2019), among others, have discussed different moments in narratives models as "gates." These happen when one set of narrative units (usually storylets) are available and then another collection are added or become dominant once certain conditions are met.
 
 In SimpleQBN, one way to conceive of story gates is through using the key-value pairs within **State** with the *qualities* of **Cards**.
 
@@ -10,12 +10,12 @@ Consider the following code:
 // Create a new Deck
 const d = new Deck();
 // Add a key-value pair
-d.state.add('example', 1);
+d.state.set('example', 1);
 // Create four cards
-d.addCard("First", ['example-eq-1']);
-d.addCard("Second", ['example-eq-1']);
-d.addCard("Third", ['example-eq-2']);
-d.addCard("Fourth", ['example-eq-2']);
+d.addCard("First", [{example: 1}]);
+d.addCard("Second", [{example: 1}]);
+d.addCard("Third", [{example: 2}]);
+d.addCard("Fourth", [{example: 2}]);
 // Pass a size of 4, but only two cards are available
 const hand = d.draw(4);
 ```
@@ -28,14 +28,14 @@ These different qualities "gate" the other content from being used. However, the
 // Create a new Deck
 const d = new Deck();
 // Add a key-value pair
-d.state.add('example', 1);
+d.state.set('example', 1);
 // Create four cards
-d.addCard("First", ['example-eq-1']);
-d.addCard("Second", ['example-eq-1']);
-d.addCard("Third", ['example-eq-2']);
-d.addCard("Fourth", ['example-eq-2']);
+d.addCard("First", [{example: 1}]);
+d.addCard("Second", [{example: 1}]);
+d.addCard("Third", [{example: 2}]);
+d.addCard("Fourth", [{example: 2}]);
 // Change the deck's state
-d.state.update('example', 2);
+d.state.set('example', 2);
 // Pass a size of 4, but only two cards are available
 const hand = d.draw(4);
 ```
@@ -48,14 +48,14 @@ const d = new Deck();
 // Add a key-value pair
 d.state.add('example', 1);
 // Create four cards
-d.addCard("First", ['example-eq-1']);
-d.addCard("Second", ['example-eq-1']);
-d.addCard("Third", ['example-eq-2']);
-d.addCard("Fourth", ['example-eq-2']);
+d.addCard("First", [{example: 1}]);
+d.addCard("Second", [{example: 1}]);
+d.addCard("Third", [{example: 2}]);
+d.addCard("Fourth", [{example: 2}]);
 // Shuffle the cards
 d.shuffle();
 // Change the deck's state
-d.state.update('example', 2);
+d.state.set('example', 2);
 // Pass a size of 4, but only two cards are available
 const hand = d.draw(4);
 ```

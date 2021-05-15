@@ -6,7 +6,7 @@
         <title>Story Gates · HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="HonKit 3.6.16">
+        <meta name="generator" content="HonKit 3.6.20">
         
         
         
@@ -108,12 +108,38 @@
         
         
     
-        <li class="chapter " data-level="2.1" data-path="../sculpturalmodel.html">
+        <li class="chapter " data-level="2.1" data-path="../scenes.html">
+            
+                <a href="../scenes.html">
+            
+                    
+                    Scenes and Cycles (1983)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="../episodes.html">
+            
+                <a href="../episodes.html">
+            
+                    
+                    Episodes and Sequences (1989)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="../sculpturalmodel.html">
             
                 <a href="../sculpturalmodel.html">
             
                     
-                    Sculptural Hypertext Model
+                    Sculptural Hypertext Model (2001)
             
                 </a>
             
@@ -121,12 +147,12 @@
             
         </li>
     
-        <li class="chapter " data-level="2.2" data-path="../Storylet.html">
+        <li class="chapter " data-level="2.4" data-path="../storylet.html">
             
-                <a href="../Storylet.html">
+                <a href="../storylet.html">
             
                     
-                    Storylet
+                    Storylet (2010)
             
                 </a>
             
@@ -134,12 +160,12 @@
             
         </li>
     
-        <li class="chapter " data-level="2.3" data-path="../qbn.html">
+        <li class="chapter " data-level="2.5" data-path="../qbn.html">
             
                 <a href="../qbn.html">
             
                     
-                    Quality-Based Narrative
+                    Quality-Based Narrative (2010)
             
                 </a>
             
@@ -159,7 +185,7 @@
                 <a href="../expressions.html">
             
                     
-                    Expression and QualitySet
+                    Expressions and QualitySet
             
                 </a>
             
@@ -172,7 +198,7 @@
                 <a href="../cards.html">
             
                     
-                    Deck and Cards
+                    Decks and Cards
             
                 </a>
             
@@ -285,18 +311,18 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="story-gating">Story Gating</h1>
-<p>Emily Short (2016, 2019), among others, has discussed different moments in narratives models as &quot;gates.&quot; These happen when one set of narrative units (usually storylets) are available and then another collection are added or become dominant once certain conditions are met.</p>
+<p>Emily Short (2016, 2019), among others, have discussed different moments in narratives models as &quot;gates.&quot; These happen when one set of narrative units (usually storylets) are available and then another collection are added or become dominant once certain conditions are met.</p>
 <p>In SimpleQBN, one way to conceive of story gates is through using the key-value pairs within <strong>State</strong> with the <em>qualities</em> of <strong>Cards</strong>.</p>
 <p>Consider the following code:</p>
 <pre><code class="lang-javascript"><span class="hljs-comment">// Create a new Deck</span>
 <span class="hljs-keyword">const</span> d = <span class="hljs-keyword">new</span> Deck();
 <span class="hljs-comment">// Add a key-value pair</span>
-d.state.add(<span class="hljs-string">&apos;example&apos;</span>, <span class="hljs-number">1</span>);
+d.state.set(<span class="hljs-string">&apos;example&apos;</span>, <span class="hljs-number">1</span>);
 <span class="hljs-comment">// Create four cards</span>
-d.addCard(<span class="hljs-string">&quot;First&quot;</span>, [<span class="hljs-string">&apos;example-eq-1&apos;</span>]);
-d.addCard(<span class="hljs-string">&quot;Second&quot;</span>, [<span class="hljs-string">&apos;example-eq-1&apos;</span>]);
-d.addCard(<span class="hljs-string">&quot;Third&quot;</span>, [<span class="hljs-string">&apos;example-eq-2&apos;</span>]);
-d.addCard(<span class="hljs-string">&quot;Fourth&quot;</span>, [<span class="hljs-string">&apos;example-eq-2&apos;</span>]);
+d.addCard(<span class="hljs-string">&quot;First&quot;</span>, [{<span class="hljs-attr">example</span>: <span class="hljs-number">1</span>}]);
+d.addCard(<span class="hljs-string">&quot;Second&quot;</span>, [{<span class="hljs-attr">example</span>: <span class="hljs-number">1</span>}]);
+d.addCard(<span class="hljs-string">&quot;Third&quot;</span>, [{<span class="hljs-attr">example</span>: <span class="hljs-number">2</span>}]);
+d.addCard(<span class="hljs-string">&quot;Fourth&quot;</span>, [{<span class="hljs-attr">example</span>: <span class="hljs-number">2</span>}]);
 <span class="hljs-comment">// Pass a size of 4, but only two cards are available</span>
 <span class="hljs-keyword">const</span> hand = d.draw(<span class="hljs-number">4</span>);
 </code></pre>
@@ -305,14 +331,14 @@ d.addCard(<span class="hljs-string">&quot;Fourth&quot;</span>, [<span class="hlj
 <pre><code class="lang-javascript"><span class="hljs-comment">// Create a new Deck</span>
 <span class="hljs-keyword">const</span> d = <span class="hljs-keyword">new</span> Deck();
 <span class="hljs-comment">// Add a key-value pair</span>
-d.state.add(<span class="hljs-string">&apos;example&apos;</span>, <span class="hljs-number">1</span>);
+d.state.set(<span class="hljs-string">&apos;example&apos;</span>, <span class="hljs-number">1</span>);
 <span class="hljs-comment">// Create four cards</span>
-d.addCard(<span class="hljs-string">&quot;First&quot;</span>, [<span class="hljs-string">&apos;example-eq-1&apos;</span>]);
-d.addCard(<span class="hljs-string">&quot;Second&quot;</span>, [<span class="hljs-string">&apos;example-eq-1&apos;</span>]);
-d.addCard(<span class="hljs-string">&quot;Third&quot;</span>, [<span class="hljs-string">&apos;example-eq-2&apos;</span>]);
-d.addCard(<span class="hljs-string">&quot;Fourth&quot;</span>, [<span class="hljs-string">&apos;example-eq-2&apos;</span>]);
+d.addCard(<span class="hljs-string">&quot;First&quot;</span>, [{<span class="hljs-attr">example</span>: <span class="hljs-number">1</span>}]);
+d.addCard(<span class="hljs-string">&quot;Second&quot;</span>, [{<span class="hljs-attr">example</span>: <span class="hljs-number">1</span>}]);
+d.addCard(<span class="hljs-string">&quot;Third&quot;</span>, [{<span class="hljs-attr">example</span>: <span class="hljs-number">2</span>}]);
+d.addCard(<span class="hljs-string">&quot;Fourth&quot;</span>, [{<span class="hljs-attr">example</span>: <span class="hljs-number">2</span>}]);
 <span class="hljs-comment">// Change the deck&apos;s state</span>
-d.state.update(<span class="hljs-string">&apos;example&apos;</span>, <span class="hljs-number">2</span>);
+d.state.set(<span class="hljs-string">&apos;example&apos;</span>, <span class="hljs-number">2</span>);
 <span class="hljs-comment">// Pass a size of 4, but only two cards are available</span>
 <span class="hljs-keyword">const</span> hand = d.draw(<span class="hljs-number">4</span>);
 </code></pre>
@@ -322,14 +348,14 @@ d.state.update(<span class="hljs-string">&apos;example&apos;</span>, <span class
 <span class="hljs-comment">// Add a key-value pair</span>
 d.state.add(<span class="hljs-string">&apos;example&apos;</span>, <span class="hljs-number">1</span>);
 <span class="hljs-comment">// Create four cards</span>
-d.addCard(<span class="hljs-string">&quot;First&quot;</span>, [<span class="hljs-string">&apos;example-eq-1&apos;</span>]);
-d.addCard(<span class="hljs-string">&quot;Second&quot;</span>, [<span class="hljs-string">&apos;example-eq-1&apos;</span>]);
-d.addCard(<span class="hljs-string">&quot;Third&quot;</span>, [<span class="hljs-string">&apos;example-eq-2&apos;</span>]);
-d.addCard(<span class="hljs-string">&quot;Fourth&quot;</span>, [<span class="hljs-string">&apos;example-eq-2&apos;</span>]);
+d.addCard(<span class="hljs-string">&quot;First&quot;</span>, [{<span class="hljs-attr">example</span>: <span class="hljs-number">1</span>}]);
+d.addCard(<span class="hljs-string">&quot;Second&quot;</span>, [{<span class="hljs-attr">example</span>: <span class="hljs-number">1</span>}]);
+d.addCard(<span class="hljs-string">&quot;Third&quot;</span>, [{<span class="hljs-attr">example</span>: <span class="hljs-number">2</span>}]);
+d.addCard(<span class="hljs-string">&quot;Fourth&quot;</span>, [{<span class="hljs-attr">example</span>: <span class="hljs-number">2</span>}]);
 <span class="hljs-comment">// Shuffle the cards</span>
 d.shuffle();
 <span class="hljs-comment">// Change the deck&apos;s state</span>
-d.state.update(<span class="hljs-string">&apos;example&apos;</span>, <span class="hljs-number">2</span>);
+d.state.set(<span class="hljs-string">&apos;example&apos;</span>, <span class="hljs-number">2</span>);
 <span class="hljs-comment">// Pass a size of 4, but only two cards are available</span>
 <span class="hljs-keyword">const</span> hand = d.draw(<span class="hljs-number">4</span>);
 </code></pre>
@@ -380,7 +406,7 @@ d.state.update(<span class="hljs-string">&apos;example&apos;</span>, <span class
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Story Gates","level":"4.2","depth":1,"next":{"title":"Bundled for Web","level":"4.3","depth":1,"path":"examples/webbuild.md","ref":"./examples/webbuild.md","articles":[]},"previous":{"title":"Deck Building","level":"4.1","depth":1,"path":"examples/deckbuilding.md","ref":"./examples/deckbuilding.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./notes","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"examples/storygates.md","mtime":"2021-01-30T06:12:30.671Z","type":"markdown"},"gitbook":{"version":"3.6.16","time":"2021-01-30T08:03:43.878Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Story Gates","level":"4.2","depth":1,"next":{"title":"Bundled for Web","level":"4.3","depth":1,"path":"examples/webbuild.md","ref":"./examples/webbuild.md","articles":[]},"previous":{"title":"Deck Building","level":"4.1","depth":1,"path":"examples/deckbuilding.md","ref":"./examples/deckbuilding.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./notes","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"examples/storygates.md","mtime":"2021-05-15T11:57:59.534Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2021-05-15T12:02:08.413Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

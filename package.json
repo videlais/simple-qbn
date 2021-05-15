@@ -1,6 +1,6 @@
 {
   "name": "simple-qbn",
-  "version": "1.2.6",
+  "version": "1.4.0",
   "description": "Because nothing about quality-based narratives is actually simple.",
   "main": "index.js",
   "scripts": {
@@ -8,11 +8,10 @@
     "lint": "eslint src/* --fix",
     "lint:test": "eslint test/* --fix",
     "test": "jest --runInBand --collectCoverage",
-    "test:watch": "jest --runInBand --watch",
     "docs": "cp README.md ./notes/README.md && honkit build && cp -r _book/* docs",
     "docs:serve": "cp README.md ./notes/README.md && honkit serve",
-    "jsdocs": "jsdoc -c jsdocs.json",
-    "all": "npm run lint && npm run lint:test && npm run test && npm run build && npm run docs && npm run jsdocs"
+    "jsdoc": "jsdoc -c jsdocs.json",
+    "all": "npm run lint && npm run lint:test && npm run test && npm run build && npm run docs && npm run jsdoc"
   },
   "exports": {
     ".": "./index.js",
@@ -40,33 +39,26 @@
   },
   "homepage": "https://github.com/videlais/simple-qbn#readme",
   "dependencies": {
-    "core-js": "^3.8.3",
-    "regenerator-runtime": "^0.13.7",
+    "mingo": "^4.1.2",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "@babel/cli": "^7.12.8",
-    "@babel/core": "^7.12.9",
-    "@babel/eslint-parser": "^7.12.1",
-    "@babel/eslint-plugin": "^7.12.1",
-    "@babel/plugin-proposal-class-properties": "^7.12.1",
-    "@babel/plugin-transform-runtime": "^7.12.1",
-    "@babel/preset-env": "^7.12.7",
+    "@babel/cli": "^7.13.16",
+    "@babel/core": "^7.14.2",
+    "@babel/preset-env": "^7.14.2",
+    "babel-jest": "^26.6.3",
     "babel-loader": "^8.2.2",
-    "better-docs": "^2.3.2",
-    "eslint": "^7.15.0",
+    "eslint": "^7.26.0",
     "eslint-config-standard": "^16.0.2",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-jest": "^24.1.3",
-    "eslint-plugin-jsdoc": "^31.4.0",
+    "eslint-plugin-import": "^2.23.1",
+    "eslint-plugin-jest": "^24.3.6",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^4.2.1",
-    "honkit": "^3.6.16",
+    "eslint-plugin-promise": "^4.3.1",
+    "honkit": "^3.6.20",
     "jest": "^26.6.3",
-    "jsdoc": "^3.6.6",
-    "typescript": "^4.1.3",
-    "webpack": "^5.11.1",
-    "webpack-cli": "^4.3.1"
+    "jsdoc": "^3.6.7",
+    "webpack": "^5.37.0",
+    "webpack-cli": "^4.7.0"
   },
   "type": "module"
 }

@@ -1,93 +1,93 @@
+import mingo from 'mingo'
+
 /**
  * @class State
  * @module State
  */
-class State {
+export default class State {
   /**
-   * Create a State
-   *
-   * @class
-   */
+     * @function constructor
+     */
   constructor () {
-    this.values = new Map();
+    // Create internal object.
+    this._values = {}
   }
 
   /**
-   * Add a key, value pair
-   *
-   * @function add
-   * @param {any} key - Key of pair
-   * @param {any} value - Value of pair
-   */
-  add (key, value) {
-    this.values.set(key, value);
+     *  Returns internal object.
+     *
+     * @property {number} keys - Number of internal entries.
+     * @returns {number} - Number of entries.
+     */
+  get keys () {
+    return this._values
   }
 
   /**
-   * Remove key from State
-   *
-   * @function remove
-   * @param {any} key - Key to remove from State
-   * @returns {any|null} Returns the removed key or null
-   */
-  remove (key) {
-    let value = null;
-
-    if (this.has(key)) {
-      value = this.values.get(key);
-      this.values.delete(key);
-    }
-    return value;
+     * Set a key, value pair.
+     *
+     * @function change
+     * @param {string} key - Key of pair
+     * @param {any} value - Value of pair
+     */
+  set (key, value) {
+    this._values[key] = value
   }
 
   /**
-   * Update key, value pair
-   *
-   * @function update
-   * @param {any} key - Key to update
-   * @param {any} value - Value to update
-   */
-  update (key, value) {
-    this.add(key, value);
-  }
-
-  /**
-   * Check if key exists in Map
-   *
-   * @function has
-   * @param {any} key - Key to check
-   * @returns {boolean} If the State has a key
-   */
-  has (key) {
-    return this.values.has(key);
-  }
-
-  /**
-   * Get value based on value or null
-   *
-   * @function get
-   * @param {any} key - Key to check
-   * @returns {any|null} Value matching key or null
-   */
+     * Get a value based on key.
+     *
+     * @function change
+     * @param {string} key - Key of pair
+     * @returns {any} value - Value of pair
+     */
   get (key) {
-    let value = null;
+    let result = null
 
-    if (this.has(key)) {
-      value = this.values.get(key);
+    if (this.exists(key)) {
+      result = this._values[key]
     }
 
-    return value;
+    return result
   }
 
   /**
-   * Return the size of the Map
-   *
-   * @function size
-   * @returns {number} Size of Map
-   */
+     * Delete key from State.
+     *
+     * @function remove
+     * @param {any} key - Key to remove from State
+     * @returns {any|null} Returns the removed key or null
+     */
+  delete (key) {
+    let result = null
+
+    if (this.exists(key)) {
+      result = this.get(key)
+      delete this._values[key]
+    }
+
+    return result
+  }
+
+  /**
+     * Check if key exists in State.
+     *
+     * @function exists
+     * @param {any} key - Key to check
+     * @returns {boolean} If the State has a key
+     */
+  exists (key) {
+    const query = new mingo.Query({ [key]: { $exists: true } })
+    return query.test(this._values)
+  }
+
+  /**
+     * Return the size (number of keys) of the internal object.
+     *
+     * @function size
+     * @returns {number} Returns number of keys
+     */
   size () {
-    return this.values.size;
+    return Object.keys(this._values).length
   }
 }
-
-export default State;

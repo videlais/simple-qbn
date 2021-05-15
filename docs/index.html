@@ -6,7 +6,7 @@
         <title>Introduction · HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="HonKit 3.6.16">
+        <meta name="generator" content="HonKit 3.6.20">
         
         
         
@@ -56,7 +56,7 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="sculpturalmodel.html" />
+    <link rel="next" href="scenes.html" />
     
     
 
@@ -106,12 +106,38 @@
         
         
     
-        <li class="chapter " data-level="2.1" data-path="sculpturalmodel.html">
+        <li class="chapter " data-level="2.1" data-path="scenes.html">
+            
+                <a href="scenes.html">
+            
+                    
+                    Scenes and Cycles (1983)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="episodes.html">
+            
+                <a href="episodes.html">
+            
+                    
+                    Episodes and Sequences (1989)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="sculpturalmodel.html">
             
                 <a href="sculpturalmodel.html">
             
                     
-                    Sculptural Hypertext Model
+                    Sculptural Hypertext Model (2001)
             
                 </a>
             
@@ -119,12 +145,12 @@
             
         </li>
     
-        <li class="chapter " data-level="2.2" data-path="Storylet.html">
+        <li class="chapter " data-level="2.4" data-path="storylet.html">
             
-                <a href="Storylet.html">
+                <a href="storylet.html">
             
                     
-                    Storylet
+                    Storylet (2010)
             
                 </a>
             
@@ -132,12 +158,12 @@
             
         </li>
     
-        <li class="chapter " data-level="2.3" data-path="qbn.html">
+        <li class="chapter " data-level="2.5" data-path="qbn.html">
             
                 <a href="qbn.html">
             
                     
-                    Quality-Based Narrative
+                    Quality-Based Narrative (2010)
             
                 </a>
             
@@ -157,7 +183,7 @@
                 <a href="expressions.html">
             
                     
-                    Expression and QualitySet
+                    Expressions and QualitySet
             
                 </a>
             
@@ -170,7 +196,7 @@
                 <a href="cards.html">
             
                     
-                    Deck and Cards
+                    Decks and Cards
             
                 </a>
             
@@ -282,9 +308,12 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="simpleqbn-124">SimpleQBN (1.2.4)</h1>
+                                <h1 id="simpleqbn-140">SimpleQBN (1.4.0)</h1>
 <p><em>Because nothing about quality-based narratives is actually simple.</em></p>
-<p>SimpleQBN is a quality-based narrative (QBN) generic JavaScript library. While it draws heavily from metaphors and expression operators defined in <a href="https://github.com/JoshuaGrams/tiny-qbn" target="_blank">TinyQBN</a>, it is not tied to a particular story format or even usage with Twine 2.</p>
+<p>SimpleQBN is a quality-based narrative (QBN) generic JavaScript library for use in browsers or Node.js-based projects.</p>
+<h2 id="expression-language-change">Expression Language Change</h2>
+<p>Previous to 1.4, SimpleQBN used expression operators from <a href="https://github.com/JoshuaGrams/tiny-qbn" target="_blank">TinyQBN</a> in the Grams format of <code>variable-op-value</code>. Starting with 1.4, all expressions are written in the MongoDB query language via <a href="https://www.npmjs.com/package/mingo" target="_blank">Mingo</a>.</p>
+<p>While the Grams format works well for Twine-related projects, the MongoDB query language allows for a broader definition of expressions using multiple comparsions and operator usages in a single statement.</p>
 <h2 id="history-and-documentation">History and Documentation</h2>
 <p>HonKit is used to create <a href="https://videlais.github.io/simple-qbn/" target="_blank">a history and documentation of this project</a>.</p>
 <p>JSDocs is also used for the <a href="https://videlais.github.io/simple-qbn/api" target="_blank">API documentation</a>.</p>
@@ -292,10 +321,10 @@
 <ul>
 <li><code>npm test</code> runs the <a href="https://jestjs.io/en/" target="_blank">Jest-based</a> test files. (Internally, <a href="https://babeljs.io/" target="_blank">Babel</a> is used to transform the source for testing.)</li>
 <li><code>npm run lint</code> lints the files in <code>src</code> folder using <a href="https://eslint.org/" target="_blank">ESLint</a>.</li>
-<li><code>npm run lint:test</code> lints the files in <code>test</code> folder using <a href="https://eslint.org/" target="_blank">ESLint</a>.</li>
+<li><code>npm run lint:test</code> lints the files in <code>test</code> folder using <a href="https://eslint.org/" target="_blank">ESLint</a> with Jest settings.</li>
 <li><code>npm run docs</code> generates <code>docs</code> HTML content based on Markdown files stored in <code>notes</code> using <a href="https://github.com/honkit/honkit" target="_blank">HonKit</a>.</li>
 <li><code>npm run docs:serve</code> creates a local HTTP server serving the files in <code>notes</code> from a created <code>_book</code> directory by HonKit.</li>
-<li><code>npm run build</code> uses <a href="https://webpack.js.org/" target="_blank">WebPack</a> to bundle the files for use in browser. Binds each class to <code>window</code> (e.g. <code>window.Card</code>) for global usage.</li>
+<li><code>npm run build</code> uses <a href="https://webpack.js.org/" target="_blank">WebPack</a> to bundle the files for use in browser-based projects. It creates a global called <strong>SimpleQBN</strong> with each of its properties classes (<strong>Card</strong>, <strong>Deck</strong>, <strong>Expression</strong>, <strong>QualitySet</strong>, and <strong>State</strong>) of the project.</li>
 </ul>
 
                                 
@@ -325,7 +354,7 @@
             
                 
                 
-                <a href="sculpturalmodel.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Sculptural Hypertext Model">
+                <a href="scenes.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Scenes and Cycles (1983)">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -336,7 +365,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Introduction","level":"1.1","depth":1,"next":{"title":"Sculptural Hypertext Model","level":"2.1","depth":1,"path":"sculpturalmodel.md","ref":"./sculpturalmodel.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./notes","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"README.md","mtime":"2021-01-30T08:03:43.029Z","type":"markdown"},"gitbook":{"version":"3.6.16","time":"2021-01-30T08:03:43.878Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Introduction","level":"1.1","depth":1,"next":{"title":"Scenes and Cycles (1983)","level":"2.1","depth":1,"path":"scenes.md","ref":"./scenes.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./notes","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"README.md","mtime":"2021-05-15T12:02:07.342Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2021-05-15T12:02:08.413Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

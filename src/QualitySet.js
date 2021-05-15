@@ -1,87 +1,84 @@
-import Expression from './Expression.js';
-import State from './State.js';
+import Expression from './Expression.js'
+import State from './State.js'
 
 /**
  * @class QualitySet
  * @module QualitySet
  */
-class QualitySet {
-  // Create private Set
-  #_set = null;
-
+export default class QualitySet {
   /**
-   * Create a QualitySet
+   * Create a QualitySet.
    *
    * @class
    */
   constructor () {
-    // Set the internal set to an array
-    this.#_set = [];
-  }
-
-  // Access-only internal Set
-  get set () {
-    return this.#_set;
+    // Set the internal set to an array.
+    this._set = []
   }
 
   /**
-   * Add Expression to QualitySet
+   * Add Expression to QualitySet.
    *
    * @function add
-   * @param {string} expression - Expression to add to set
+   * @param {object} expression - Expression to add to set.
    */
   add (expression) {
-    // There is no reason to add the same expression.
-    // Make sure it is unique.
-    if (!this.has(expression)) {
-      // Based on a string, create a new Expression
-      const e = new Expression(expression);
-      // Add the new Expression to the internal set
-      this.#_set.push(e);
+    // Test if object.
+    if (typeof expression === 'object' && expression !== null) {
+      // There is no reason to add the same expression.
+      // Make sure it is unique.
+      if (!this.has(expression)) {
+        // Based on an object, create a new Expression.
+        const e = new Expression(expression)
+        // Add the new Expression to the internal set.
+        this._set.push(e)
+      }
+    } else {
+      throw new Error('Qualities must be objects!')
     }
   }
 
   /**
-   * If set has an Expression or not
+   * If set has an Expression or not.
    *
    * @function has
-   * @param {string} s - Expression to find
-   * @returns {boolean} If Expression is in set or not
+   * @param {object} s - Expression to find.
+   * @returns {boolean} If Expression is in set or not.
    */
   has (s) {
-    if (typeof s === 'string') {
-      return this.#_set.some((e) => e.expression === s);
+    if (typeof s === 'object' && s !== null) {
+      return this._set.some((e) => JSON.stringify(e.expression) === JSON.stringify(s))
     } else {
-      throw new Error('Can only check string values!');
+      throw new Error('Can only check object values!')
     }
   }
 
   /**
-   * Remove expression from set
+   * Remove expression from set.
    *
-   * @function find
-   * @param {string} s - Expression to remove
+   * @function remove
+   * @param {object} s - Expression to remove.
    */
   remove (s) {
-    if (typeof s === 'string') {
-      this.#_set = this.#_set.filter((e) => e.expression !== s);
+    if (typeof s === 'object' && s !== null) {
+      this._set = this._set.filter((e) => JSON.stringify(e.expression) !== JSON.stringify(s))
     } else {
-      throw new Error('Must pass string values to remove!');
+      throw new Error('Must pass object values to remove!')
     }
   }
 
   /**
-   * Check (validate) the entire set against a State
+   * Check (validate) the entire set against a State.
    *
    * @function check
-   * @param {State} s - the state used to check qualities
-   * @returns {boolean} If set is valid
+   * @param {State} s - the state used to check qualities.
+   * @returns {boolean} If set is valid.
    */
   check (s) {
     if (s instanceof State) {
-      return this.#_set.every((e) => e.check(s));
+      return this._set.every((e) => e.check(s))
     } else {
-      throw new Error('Must have State to check() against!');
+      throw new Error('Must have State to check() against!')
     }
   }
 
@@ -89,11 +86,9 @@ class QualitySet {
    * Size
    *
    * @function size
-   * @returns {number} Size of internal array
+   * @returns {number} Size of internal array.
    */
   size () {
-    return this.#_set.length;
+    return this._set.length
   }
 }
-
-export default QualitySet;

@@ -1,221 +1,141 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> Card.js</title>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Card.js</title>
 
-  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  <script src="./build/entry.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
-  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
-  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
-  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
-  <link type="text/css" rel="stylesheet" href="">
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
-
-  
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
 </head>
 
+<body>
 
+<div id="main">
 
-<body class="layout small-header">
-    <div id="stickyNavbarOverlay"></div>
+    <h1 class="page-title">Source: Card.js</h1>
+
     
-
-<div class="top-nav">
-    <div class="inner">
-        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-        </a>
-        <div class="logo">
-            
-            
-        </div>
-        <div class="menu">
-            
-            <div class="navigation">
-                <a
-                    href="index.html"
-                    class="link"
-                >
-                    API Documentation
-                </a>
-                
-                
-                
-            </div>
-        </div>
-    </div>
-</div>
-    <div id="main">
-        <div
-            class="sidebar "
-            id="sidebarNav"
-        >
-            
-            <nav>
-                
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-Card.html">Card</a></li><li><a href="module-Deck.html">Deck</a></li><li><a href="module-Expression.html">Expression</a></li><li><a href="module-QualitySet.html">QualitySet</a></li><li><a href="module-State.html">State</a></li></ul><h3>Classes</h3><ul><li><a href="module-Card-Card.html">Card</a></li><li><a href="module-Deck-Deck.html">Deck</a></li><li><a href="module-Expression-Expression.html">Expression</a></li><li><a href="module-QualitySet-QualitySet.html">QualitySet</a></li><li><a href="module-State-State.html">State</a></li></ul></div>
-                
-            </nav>
-        </div>
-        <div class="core" id="main-content-wrapper">
-            <div class="content">
-                <header class="page-title">
-                    <p>Source</p>
-                    <h1>Card.js</h1>
-                </header>
-                
 
 
 
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import QualitySet from './QualitySet.js';
-import { v4 as uuidv4 } from 'uuid';
-import State from './State.js';
+            <pre class="prettyprint source linenums"><code>import QualitySet from './QualitySet.js'
+import { v4 as uuidv4 } from 'uuid'
+import State from './State.js'
 /**
  * @class Card
  * @module Card
  * @see QualitySet
  */
-class Card {
-  // Private hash
-  #_hash = null;
-
-  // Private qualities
-  #_qualities = null;
-
-  // Private content
-  #_content = '';
-
+export default class Card {
   /**
    * @function Card
    * @class
-   * @param {string} content - Text content of card
-   * @param {Array} qualities - Array of qualities
+   * @param {string} content - Text content of card.
+   * @param {Array} qualities - Array of qualities.
    */
   constructor (content = '', qualities = []) {
-    // Update internal content
-    this.content = content;
+    // Update internal content.
+    this.content = content
 
-    // Update internal qualities
-    this.qualities = qualities;
+    // Update internal qualities.
+    this.qualities = qualities
 
-    // Each card must have a unique value
-    this.#_hash = uuidv4();
+    // Each card must have a unique value.
+    this._hash = uuidv4()
   }
 
   /**
-   * Text content of Card
+   * Text content of Card.
    *
    * @type {string}
    */
   get content () {
-    return this.#_content;
+    return this._content
   }
 
   set content (s) {
     // Do we have a string?
     if (typeof s === 'string') {
-      this.#_content = s;
+      this._content = s
     } else {
-      throw new Error('Content must be expressed as a string!');
+      throw new Error('Content must be expressed as a string!')
     }
   }
 
   /**
-   * QualitySet of qualities
+   * QualitySet of qualities.
    *
    * @type {QualitySet}
    */
   get qualities () {
-    return this.#_qualities;
+    return this._qualities
   }
 
   set qualities (q) {
     // Is this an array?
     if (!Array.isArray(q)) {
-      throw new Error('Qualities must be expressed as an array!');
+      throw new Error('Qualities must be expressed as an array!')
     }
 
-    // Cards have qualities (set of qualities)
-    this.#_qualities = new QualitySet(this.state);
+    // Cards have qualities (set of qualities).
+    this._qualities = new QualitySet(this.state)
 
-    // Add all the qualities to the card
-    q.forEach(element => {
-      this.addQuality(element);
-    });
+    // Add all the qualities to the card.
+    q.forEach(element => this.addQuality(element))
   }
 
   /**
-   * Internal UUID Hash of Card
+   * Internal UUID Hash of Card.
    *
    * @type {string}
    */
   get hash () {
-    return this.#_hash;
+    return this._hash
   }
 
   /**
-   * Check if card is available
+   * Check if card is available.
    *
    * @function isAvailable
-   * @param {State} s - State to check against
-   * @returns {boolean} If card is available
+   * @param {State} s - State to check against.
+   * @returns {boolean} If card is available.
    */
   isAvailable (s) {
     if (s instanceof State) {
-      return this.#_qualities.check(s);
+      return this._qualities.check(s)
     } else {
-      throw new Error('Must be passed State to check if available');
+      throw new Error('Must be passed State to check if available')
     }
   };
 
   /**
-   * Add a quality to the Card
+   * Add a quality to the Card.
    *
    * @function addQuality
-   * @param {string} s - The quality to add
+   * @param {object} s - The quality to add.
    */
   addQuality (s) {
-    if (typeof s === 'string') {
-      this.#_qualities.add(s);
-    } else {
-      throw new Error('Qualities must be string values!');
-    }
+    this._qualities.add(s)
   }
 
   /**
-   * Remove a quality from the Card
+   * Remove a quality from the Card.
    *
    * @function removeQuality
-   * @param {string} s - The quality to remove
+   * @param {object} s - The quality to remove.
    */
   removeQuality (s) {
-    if (typeof s === 'string') {
-      this.#_qualities.remove(s);
-    } else {
-      throw new Error('Qualities must be string values!');
-    }
+    this._qualities.remove(s)
   }
 }
-
-export default Card;
 </code></pre>
         </article>
     </section>
@@ -223,25 +143,19 @@ export default Card;
 
 
 
-            </div>
-            
-            <footer class="footer">
-                <div class="content has-text-centered">
-                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a></p>
-                    <p class="sidebar-created-by">
-                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
-                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
-                    </p>
-                </div>
-            </footer>
-            
-        </div>
-        <div id="side-nav" class="side-nav">
-        </div>
-    </div>
-<script src="scripts/app.min.js"></script>
-<script>PR.prettyPrint();</script>
-<script src="scripts/linenumber.js"> </script>
+</div>
 
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Card.html">Card</a></li><li><a href="module-Deck.html">Deck</a></li><li><a href="module-QualitySet.html">QualitySet</a></li><li><a href="module-State.html">State</a></li></ul><h3>Classes</h3><ul><li><a href="module.exports_module.exports.html">exports</a></li><li><a href="module-Card-Card.html">Card</a></li><li><a href="module-Deck.html">Deck</a></li><li><a href="module-QualitySet.html">QualitySet</a></li></ul><h3>Global</h3><ul><li><a href="global.html#change">change</a></li><li><a href="global.html#check">check</a></li><li><a href="global.html#expression">expression</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Sat May 15 2021 08:02:14 GMT-0400 (Eastern Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
 </body>
 </html>
