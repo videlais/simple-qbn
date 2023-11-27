@@ -39,7 +39,7 @@
   },
   "homepage": "https://github.com/videlais/simple-qbn#readme",
   "dependencies": {
-    "mingo": "^4.1.2",
+    "mingo": "^6.4.9",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
