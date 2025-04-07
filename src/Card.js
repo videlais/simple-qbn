@@ -1,6 +1,6 @@
-import QualitySet from './QualitySet.js'
-import { v4 as uuidv4 } from 'uuid'
-import State from './State.js'
+import QualitySet from './QualitySet.js';
+import { v4 as uuidv4 } from 'uuid';
+import State from './State.js';
 /**
  * @class Card
  * @module Card
@@ -15,13 +15,13 @@ export default class Card {
    */
   constructor (content = '', qualities = []) {
     // Update internal content.
-    this.content = content
+    this.content = content;
 
     // Update internal qualities.
-    this.qualities = qualities
+    this.qualities = qualities;
 
     // Each card must have a unique value.
-    this._hash = uuidv4()
+    this._hash = uuidv4();
   }
 
   /**
@@ -30,15 +30,15 @@ export default class Card {
    * @type {string}
    */
   get content () {
-    return this._content
+    return this._content;
   }
 
   set content (s) {
     // Do we have a string?
     if (typeof s === 'string') {
-      this._content = s
+      this._content = s;
     } else {
-      throw new Error('Content must be expressed as a string!')
+      throw new Error('Content must be expressed as a string!');
     }
   }
 
@@ -48,20 +48,20 @@ export default class Card {
    * @type {QualitySet}
    */
   get qualities () {
-    return this._qualities
+    return this._qualities;
   }
 
   set qualities (q) {
     // Is this an array?
     if (!Array.isArray(q)) {
-      throw new Error('Qualities must be expressed as an array!')
+      throw new Error('Qualities must be expressed as an array!');
     }
 
     // Cards have qualities (set of qualities).
-    this._qualities = new QualitySet(this.state)
+    this._qualities = new QualitySet(this.state);
 
     // Add all the qualities to the card.
-    q.forEach(element => this.addQuality(element))
+    q.forEach(element => this.addQuality(element));
   }
 
   /**
@@ -70,7 +70,7 @@ export default class Card {
    * @type {string}
    */
   get hash () {
-    return this._hash
+    return this._hash;
   }
 
   /**
@@ -82,9 +82,9 @@ export default class Card {
    */
   isAvailable (s) {
     if (s instanceof State) {
-      return this._qualities.check(s)
+      return this._qualities.check(s);
     } else {
-      throw new Error('Must be passed State to check if available')
+      throw new Error('Must be passed State to check if available');
     }
   };
 
@@ -95,7 +95,7 @@ export default class Card {
    * @param {object} s - The quality to add.
    */
   addQuality (s) {
-    this._qualities.add(s)
+    this._qualities.add(s);
   }
 
   /**
@@ -105,6 +105,6 @@ export default class Card {
    * @param {object} s - The quality to remove.
    */
   removeQuality (s) {
-    this._qualities.remove(s)
+    this._qualities.remove(s);
   }
 }

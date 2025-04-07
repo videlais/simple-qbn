@@ -6,7 +6,7 @@
         <title>Bundled for Web · HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="HonKit 3.6.20">
+        <meta name="generator" content="HonKit 6.0.2">
         
         
         
@@ -16,7 +16,7 @@
     
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                <link rel="stylesheet" href="../gitbook/@honkit/honkit-plugin-highlight/website.css">
                 
             
                 
@@ -24,7 +24,7 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                <link rel="stylesheet" href="../gitbook/@honkit/honkit-plugin-fontsettings/website.css">
                 
             
         
@@ -314,38 +314,38 @@
 <pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>SimpleQBN Testing<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://gitcdn.link/repo/videlais/simple-qbn/v1.4.0/build/simpleqbn.bundle.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://gitcdn.link/repo/videlais/simple-qbn/v1.4.0/build/simpleqbn.bundle.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;log&quot;</span>&gt;</span>(Draw a card!)<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;loadCard&quot;</span>&gt;</span>Draw a random card!<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"log"</span>&gt;</span>(Draw a card!)<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"loadCard"</span>&gt;</span>Draw a random card!<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript">
             <span class="hljs-comment">// Create a new Deck</span>
-            <span class="hljs-keyword">const</span> d = <span class="hljs-keyword">new</span> Deck();
+            <span class="hljs-keyword">const</span> d = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Deck</span>();
 
             <span class="hljs-comment">// Create 52 new cards</span>
             <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">52</span>; i++) {
                 <span class="hljs-comment">// Add a new card</span>
                 <span class="hljs-comment">// (For its content convert the index to a String.)</span>
-                d.addCard( i.toString() );
+                d.<span class="hljs-title function_">addCard</span>( i.<span class="hljs-title function_">toString</span>() );
             }
 
             <span class="hljs-comment">// Find the (only) button element</span>
-            <span class="hljs-keyword">const</span> button = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&apos;button&apos;</span>);
+            <span class="hljs-keyword">const</span> button = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">'button'</span>);
 
             <span class="hljs-comment">// Add an event listener to the click event</span>
-            button.addEventListener(<span class="hljs-string">&apos;click&apos;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+            button.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">'click'</span>, <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) {
                 <span class="hljs-comment">// Shuffle cards</span>
-                d.shuffle();
+                d.<span class="hljs-title function_">shuffle</span>();
 
                 <span class="hljs-comment">// Get an array of 1 cards</span>
-                <span class="hljs-keyword">const</span> hand = d.draw(<span class="hljs-number">1</span>);
+                <span class="hljs-keyword">const</span> hand = d.<span class="hljs-title function_">draw</span>(<span class="hljs-number">1</span>);
 
                 <span class="hljs-comment">// Find the element with the </span>
-                <span class="hljs-keyword">const</span> el = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&apos;#log&apos;</span>);
+                <span class="hljs-keyword">const</span> el = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">'#log'</span>);
 
                 <span class="hljs-comment">// Change its innerHTML</span>
-                el.innerHTML = <span class="hljs-string">`Card: <span class="hljs-subst">${hand[<span class="hljs-number">0</span>].content}</span> `</span>;
+                el.<span class="hljs-property">innerHTML</span> = <span class="hljs-string">`Card: <span class="hljs-subst">${hand[<span class="hljs-number">0</span>].content}</span> `</span>;
             });
         </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
@@ -390,7 +390,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Bundled for Web","level":"4.3","depth":1,"previous":{"title":"Story Gates","level":"4.2","depth":1,"path":"examples/storygates.md","ref":"./examples/storygates.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./notes","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"examples/webbuild.md","mtime":"2021-05-15T12:07:39.765Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2021-05-15T12:09:25.391Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Bundled for Web","level":"4.3","depth":1,"previous":{"title":"Story Gates","level":"4.2","depth":1,"path":"examples/storygates.md","ref":"./examples/storygates.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./notes","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"examples/webbuild.md","mtime":"2025-04-07T02:40:14.309Z","type":"markdown"},"gitbook":{"version":"6.0.2","time":"2025-04-07T02:59:58.457Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
@@ -460,7 +460,7 @@
         
     
         
-        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        <script src="../gitbook/@honkit/honkit-plugin-fontsettings/fontsettings.js"></script>
         
     
 

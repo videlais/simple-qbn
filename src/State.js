@@ -1,4 +1,4 @@
-import mingo from 'mingo'
+import mingo from 'mingo';
 
 /**
  * @class State
@@ -10,7 +10,7 @@ export default class State {
      */
   constructor () {
     // Create internal object.
-    this._values = {}
+    this._values = {};
   }
 
   /**
@@ -20,7 +20,7 @@ export default class State {
      * @returns {number} - Number of entries.
      */
   get keys () {
-    return this._values
+    return this._values;
   }
 
   /**
@@ -31,7 +31,7 @@ export default class State {
      * @param {any} value - Value of pair
      */
   set (key, value) {
-    this._values[key] = value
+    this._values[key] = value;
   }
 
   /**
@@ -42,13 +42,13 @@ export default class State {
      * @returns {any} value - Value of pair
      */
   get (key) {
-    let result = null
+    let result = null;
 
     if (this.exists(key)) {
-      result = this._values[key]
+      result = this._values[key];
     }
 
-    return result
+    return result;
   }
 
   /**
@@ -59,14 +59,14 @@ export default class State {
      * @returns {any|null} Returns the removed key or null
      */
   delete (key) {
-    let result = null
+    let result = null;
 
     if (this.exists(key)) {
-      result = this.get(key)
-      delete this._values[key]
+      result = this.get(key);
+      delete this._values[key];
     }
 
-    return result
+    return result;
   }
 
   /**
@@ -77,8 +77,8 @@ export default class State {
      * @returns {boolean} If the State has a key
      */
   exists (key) {
-    const query = new mingo.Query({ [key]: { $exists: true } })
-    return query.test(this._values)
+    const query = new mingo.Query({ [key]: { $exists: true } });
+    return query.test(this._values);
   }
 
   /**
@@ -88,6 +88,6 @@ export default class State {
      * @returns {number} Returns number of keys
      */
   size () {
-    return Object.keys(this._values).length
+    return Object.keys(this._values).length;
   }
 }

@@ -6,7 +6,7 @@
         <title>State Management · HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="HonKit 3.6.20">
+        <meta name="generator" content="HonKit 6.0.2">
         
         
         
@@ -16,7 +16,7 @@
     
             
                 
-                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css">
+                <link rel="stylesheet" href="gitbook/@honkit/honkit-plugin-highlight/website.css">
                 
             
                 
@@ -24,7 +24,7 @@
                 
             
                 
-                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                <link rel="stylesheet" href="gitbook/@honkit/honkit-plugin-fontsettings/website.css">
                 
             
         
@@ -312,7 +312,7 @@
                                 
                                 <h1 id="state-management">State Management</h1>
 <p>The <a href="sculpturalmodel.html">sculptural model</a> defines a <em>context</em> cards can access and manipulate. The QBN model also describes <em>qualities</em> as conditional statements testing against some values. In SimpleQBN, this is explicitly called <strong>State</strong>.</p>
-<p>Creating a <strong>Deck</strong> also creates an internal <strong>State</strong> as a property called <em>state</em>. As the <a href="expressions.html"><strong>QualitySet</strong></a> of each <strong>Card</strong> needs access, this is passed to the <strong>Card</strong> method <em>isAvailable()</em> (which passes it internally to the <em>check()</em> method of <strong>QualitySet</strong> and finally to each <strong>Expression&apos;s</strong> own <em>check()</em> method) whenever the method <em>draw()</em> is called on a <strong>Deck</strong>. In other words, this checks all <strong>Cards</strong> against the current values of the <strong>State</strong> to see if they are available and can thus be drawn.</p>
+<p>Creating a <strong>Deck</strong> also creates an internal <strong>State</strong> as a property called <em>state</em>. As the <a href="expressions.html"><strong>QualitySet</strong></a> of each <strong>Card</strong> needs access, this is passed to the <strong>Card</strong> method <em>isAvailable()</em> (which passes it internally to the <em>check()</em> method of <strong>QualitySet</strong> and finally to each <strong>Expression's</strong> own <em>check()</em> method) whenever the method <em>draw()</em> is called on a <strong>Deck</strong>. In other words, this checks all <strong>Cards</strong> against the current values of the <strong>State</strong> to see if they are available and can thus be drawn.</p>
 <p>The <strong>State</strong> stores key-value pairs. These can be changed through the methods <em>set()</em>, <em>exists()</em>, <em>delete()</em>, <em>get()</em>, and <em>size()</em>. Commonly, however, the method <em>set()</em> can be used to add key-value pairs or update a value based on its key.</p>
 <h2 id="usage-patterns">Usage Patterns</h2>
 <p>It is common to create a new <strong>Deck</strong> and then immediately change its state to add values before adding any <strong>Cards</strong>. While, technically, <strong>Cards</strong> can be added first and then <strong>State</strong> updated, if any <strong>Cards</strong> have <em>qualities</em>, there must be some values in the <strong>State</strong> to test against before the method <em>draw()</em> is used.</p>
@@ -359,7 +359,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"State Management","level":"3.3","depth":1,"next":{"title":"Deck Building","level":"4.1","depth":1,"path":"examples/deckbuilding.md","ref":"./examples/deckbuilding.md","articles":[]},"previous":{"title":"Decks and Cards","level":"3.2","depth":1,"path":"cards.md","ref":"./cards.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./notes","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"State.md","mtime":"2021-05-15T12:06:33.300Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2021-05-15T12:09:25.391Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"State Management","level":"3.3","depth":1,"next":{"title":"Deck Building","level":"4.1","depth":1,"path":"examples/deckbuilding.md","ref":"./examples/deckbuilding.md","articles":[]},"previous":{"title":"Decks and Cards","level":"3.2","depth":1,"path":"cards.md","ref":"./cards.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./notes","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"State.md","mtime":"2025-04-07T02:40:14.309Z","type":"markdown"},"gitbook":{"version":"6.0.2","time":"2025-04-07T02:59:58.457Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
@@ -429,7 +429,7 @@
         
     
         
-        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        <script src="gitbook/@honkit/honkit-plugin-fontsettings/fontsettings.js"></script>
         
     
 

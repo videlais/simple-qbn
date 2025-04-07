@@ -6,7 +6,7 @@
         <title>Deck Building · HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="HonKit 3.6.20">
+        <meta name="generator" content="HonKit 6.0.2">
         
         
         
@@ -16,7 +16,7 @@
     
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                <link rel="stylesheet" href="../gitbook/@honkit/honkit-plugin-highlight/website.css">
                 
             
                 
@@ -24,7 +24,7 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                <link rel="stylesheet" href="../gitbook/@honkit/honkit-plugin-fontsettings/website.css">
                 
             
         
@@ -316,99 +316,99 @@
 <blockquote>
 <p><strong>Note</strong>: The examples on this page assume usage in Node.js with either importing all classes or the ones specified in the examples.</p>
 </blockquote>
-<pre><code class="lang-JavaScript"><span class="hljs-keyword">const</span> d = <span class="hljs-keyword">new</span> Deck();
+<pre><code class="lang-JavaScript"><span class="hljs-keyword">const</span> d = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Deck</span>();
 </code></pre>
 <p>Creating a <strong>Deck</strong> also creates an internal <strong>State</strong> as its <em>state</em> property. The <strong>State</strong> API has the methods <em>set()</em>, <em>get()</em>, <em>exists()</em>,and <em>remove()</em>, which it uses to manipulate data stored as key-value pairs. Commonly, a String key is paired with a numeric value.</p>
 <pre><code class="lang-javascript"><span class="hljs-comment">// Create a new Deck</span>
-<span class="hljs-keyword">const</span> d = <span class="hljs-keyword">new</span> Deck();
+<span class="hljs-keyword">const</span> d = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Deck</span>();
 <span class="hljs-comment">// Add a key-value pair</span>
-d.state.add(<span class="hljs-string">&apos;test&apos;</span>, <span class="hljs-number">1</span>);
+d.<span class="hljs-property">state</span>.<span class="hljs-title function_">add</span>(<span class="hljs-string">'test'</span>, <span class="hljs-number">1</span>);
 </code></pre>
 <p>The method <em>addCard()</em> of <strong>Deck</strong> accepts a String (<em>content</em>) and array (<em>qualities</em>) of a new <strong>Card</strong>. Internally, a <strong>Card</strong> will also create a unique <em>hash</em> as well.</p>
 <pre><code class="lang-javascript"><span class="hljs-comment">// Create a new Deck</span>
-<span class="hljs-keyword">const</span> d = <span class="hljs-keyword">new</span> Deck();
+<span class="hljs-keyword">const</span> d = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Deck</span>();
 <span class="hljs-comment">// Add a key-value pair</span>
-d.state.add(<span class="hljs-string">&apos;test&apos;</span>, <span class="hljs-number">1</span>);
+d.<span class="hljs-property">state</span>.<span class="hljs-title function_">add</span>(<span class="hljs-string">'test'</span>, <span class="hljs-number">1</span>);
 <span class="hljs-comment">// Create a card</span>
-d.addCard(<span class="hljs-string">&quot;Content&quot;</span>, [{<span class="hljs-attr">test</span>: <span class="hljs-number">1</span>}]);
+d.<span class="hljs-title function_">addCard</span>(<span class="hljs-string">"Content"</span>, [{<span class="hljs-attr">test</span>: <span class="hljs-number">1</span>}]);
 </code></pre>
 <p>In quality-based narratives, a <em>quality</em> defines if content can be accessed. They are written as conditional statements. In SimpleQBN, these are created using the MongoDB query language (MQL).</p>
 <p>Qualities can be passed as either an array when using <em>addCard()</em> (of <strong>Deck</strong>) or with the <strong>Card</strong> method <em>addQuality()</em>. In either usage, qualities are expressed as object values. These then become part of a collection called a <strong>QualitySet</strong> internally in a <strong>Card</strong>.</p>
 <pre><code class="lang-JavaScript"><span class="hljs-comment">// Create a new Deck</span>
-<span class="hljs-keyword">const</span> d = <span class="hljs-keyword">new</span> Deck();
+<span class="hljs-keyword">const</span> d = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Deck</span>();
 <span class="hljs-comment">// Add a key-value pair</span>
-d.state.add(<span class="hljs-string">&apos;test&apos;</span>, <span class="hljs-number">1</span>);
+d.<span class="hljs-property">state</span>.<span class="hljs-title function_">add</span>(<span class="hljs-string">'test'</span>, <span class="hljs-number">1</span>);
 <span class="hljs-comment">// Create a card</span>
-<span class="hljs-comment">// content - &quot;Content&quot;</span>
+<span class="hljs-comment">// content - "Content"</span>
 <span class="hljs-comment">// qualities - [{test: 1}]</span>
-d.addCard(<span class="hljs-string">&quot;Content&quot;</span>, [{<span class="hljs-attr">test</span>: <span class="hljs-number">1</span>}]);
+d.<span class="hljs-title function_">addCard</span>(<span class="hljs-string">"Content"</span>, [{<span class="hljs-attr">test</span>: <span class="hljs-number">1</span>}]);
 </code></pre>
-<p>Cards are selected through the metaphor of <em>drawing</em>. A <strong>Card</strong> is drawn when it is available; a <strong>Card</strong> is available when all of the <strong>Expressions</strong> within its <strong>QualitySet</strong> are valid. The <strong>State</strong> of the <strong>Deck</strong> is used to determine this validity. For example, if the <strong>State</strong> contains a key-value pair of <code>&apos;test&apos;: 1</code>, then any <strong>Cards</strong> with the quality <code>{test: 1}</code> are potentially valid.</p>
+<p>Cards are selected through the metaphor of <em>drawing</em>. A <strong>Card</strong> is drawn when it is available; a <strong>Card</strong> is available when all of the <strong>Expressions</strong> within its <strong>QualitySet</strong> are valid. The <strong>State</strong> of the <strong>Deck</strong> is used to determine this validity. For example, if the <strong>State</strong> contains a key-value pair of <code>'test': 1</code>, then any <strong>Cards</strong> with the quality <code>{test: 1}</code> are potentially valid.</p>
 <p>The method <em>draw()</em> of <strong>Deck</strong> returns an array of results matching an argument up to the <em>size</em> passed to it. However, only a <strong>Card</strong> that is available can be drawn.</p>
 <pre><code class="lang-javascript"><span class="hljs-comment">// Create a new Deck</span>
-<span class="hljs-keyword">const</span> d = <span class="hljs-keyword">new</span> Deck();
+<span class="hljs-keyword">const</span> d = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Deck</span>();
 <span class="hljs-comment">// Add a key-value pair</span>
-d.state.add(<span class="hljs-string">&apos;test&apos;</span>, <span class="hljs-number">1</span>);
+d.<span class="hljs-property">state</span>.<span class="hljs-title function_">add</span>(<span class="hljs-string">'test'</span>, <span class="hljs-number">1</span>);
 <span class="hljs-comment">// Create a card</span>
-<span class="hljs-comment">// content - &quot;Content&quot;</span>
+<span class="hljs-comment">// content - "Content"</span>
 <span class="hljs-comment">// qualities - [{test: 1}]</span>
-d.addCard(<span class="hljs-string">&quot;Content&quot;</span>, [{<span class="hljs-attr">test</span>: <span class="hljs-number">1</span>}]);
+d.<span class="hljs-title function_">addCard</span>(<span class="hljs-string">"Content"</span>, [{<span class="hljs-attr">test</span>: <span class="hljs-number">1</span>}]);
 <span class="hljs-comment">// Draw the card from the deck</span>
-<span class="hljs-keyword">const</span> hand = d.draw(<span class="hljs-number">1</span>);
+<span class="hljs-keyword">const</span> hand = d.<span class="hljs-title function_">draw</span>(<span class="hljs-number">1</span>);
 <span class="hljs-comment">// Show the content of the first (and only) drawn card</span>
-<span class="hljs-built_in">console</span>.log(hand[<span class="hljs-number">0</span>].content);
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(hand[<span class="hljs-number">0</span>].<span class="hljs-property">content</span>);
 </code></pre>
 <h2 id="adding-shuffling-and-re-drawing-cards">Adding, Shuffling, and Re-Drawing Cards</h2>
 <p>Once a <strong>Deck</strong> is created, any number of additional <strong>Cards</strong> can be added. Based on their qualities, a <strong>Card</strong> can initially be available or become it through altering the <strong>State</strong> of the <strong>Deck</strong>. Alternatively, once a <strong>Card</strong> is drawn from a <strong>Deck</strong>, it can be updated in the <strong>Deck</strong> using the method <em>updateCard()</em> (passing the <strong>Card</strong> to the method). Additional qualities can be added to a <strong>Card</strong> and then updated in the deck in this way.</p>
 <pre><code class="lang-javascript"><span class="hljs-comment">// Create a new Deck</span>
-<span class="hljs-keyword">const</span> d = <span class="hljs-keyword">new</span> Deck();
+<span class="hljs-keyword">const</span> d = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Deck</span>();
 <span class="hljs-comment">// Add a key-value pair</span>
-d.state.add(<span class="hljs-string">&apos;test&apos;</span>, <span class="hljs-number">1</span>);
+d.<span class="hljs-property">state</span>.<span class="hljs-title function_">add</span>(<span class="hljs-string">'test'</span>, <span class="hljs-number">1</span>);
 <span class="hljs-comment">// Create a card</span>
-d.addCard(<span class="hljs-string">&quot;Content&quot;</span>, [{<span class="hljs-attr">test</span>: <span class="hljs-number">1</span>}]);
+d.<span class="hljs-title function_">addCard</span>(<span class="hljs-string">"Content"</span>, [{<span class="hljs-attr">test</span>: <span class="hljs-number">1</span>}]);
 <span class="hljs-comment">// Create another</span>
-d.addCard(<span class="hljs-string">&quot;More Content&quot;</span>, [{<span class="hljs-attr">test</span>: <span class="hljs-number">1</span>}]);
+d.<span class="hljs-title function_">addCard</span>(<span class="hljs-string">"More Content"</span>, [{<span class="hljs-attr">test</span>: <span class="hljs-number">1</span>}]);
 <span class="hljs-comment">// Create a third</span>
-d.addCard(<span class="hljs-string">&quot;Even More Content&quot;</span>, [{<span class="hljs-attr">test</span>: <span class="hljs-number">1</span>}]);
+d.<span class="hljs-title function_">addCard</span>(<span class="hljs-string">"Even More Content"</span>, [{<span class="hljs-attr">test</span>: <span class="hljs-number">1</span>}]);
 </code></pre>
 <p>The method <em>shuffle()</em> randomly distributes existing cards within the <strong>Deck</strong>. Because all <strong>Cards</strong> are added in sequence, this method can be used to re-sort the <strong>Cards</strong> in the <strong>Deck</strong>.</p>
 <pre><code class="lang-javascript"><span class="hljs-comment">// Create a new Deck</span>
-<span class="hljs-keyword">const</span> d = <span class="hljs-keyword">new</span> Deck();
+<span class="hljs-keyword">const</span> d = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Deck</span>();
 <span class="hljs-comment">// Add a key-value pair</span>
-d.state.add(<span class="hljs-string">&apos;test&apos;</span>, <span class="hljs-number">1</span>);
+d.<span class="hljs-property">state</span>.<span class="hljs-title function_">add</span>(<span class="hljs-string">'test'</span>, <span class="hljs-number">1</span>);
 <span class="hljs-comment">// Create a card</span>
-d.addCard(<span class="hljs-string">&quot;Content&quot;</span>, [{<span class="hljs-attr">test</span>: <span class="hljs-number">1</span>}]);
+d.<span class="hljs-title function_">addCard</span>(<span class="hljs-string">"Content"</span>, [{<span class="hljs-attr">test</span>: <span class="hljs-number">1</span>}]);
 <span class="hljs-comment">// Create another</span>
-d.addCard(<span class="hljs-string">&quot;More Content&quot;</span>, [{<span class="hljs-attr">test</span>: <span class="hljs-number">1</span>}]);
+d.<span class="hljs-title function_">addCard</span>(<span class="hljs-string">"More Content"</span>, [{<span class="hljs-attr">test</span>: <span class="hljs-number">1</span>}]);
 <span class="hljs-comment">// Create a third</span>
-d.addCard(<span class="hljs-string">&quot;Even More Content&quot;</span>, [{<span class="hljs-attr">test</span>: <span class="hljs-number">1</span>}]);
+d.<span class="hljs-title function_">addCard</span>(<span class="hljs-string">"Even More Content"</span>, [{<span class="hljs-attr">test</span>: <span class="hljs-number">1</span>}]);
 <span class="hljs-comment">// Shuffle the cards</span>
-d.shuffle();
+d.<span class="hljs-title function_">shuffle</span>();
 </code></pre>
 <p>The method <em>draw()</em> creates a new array. It does not alter the original <strong>Deck</strong> and its <strong>Cards</strong>. This means <strong>Cards</strong> can be drawn, manipulated, and then re-drawn again (assuming their qualities allow it).</p>
 <pre><code class="lang-javascript"><span class="hljs-comment">// Create a new Deck</span>
-<span class="hljs-keyword">const</span> d = <span class="hljs-keyword">new</span> Deck();
+<span class="hljs-keyword">const</span> d = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Deck</span>();
 <span class="hljs-comment">// Add a key-value pair</span>
-d.state.add(<span class="hljs-string">&apos;test&apos;</span>, <span class="hljs-number">1</span>);
+d.<span class="hljs-property">state</span>.<span class="hljs-title function_">add</span>(<span class="hljs-string">'test'</span>, <span class="hljs-number">1</span>);
 <span class="hljs-comment">// Create a card</span>
-d.addCard(<span class="hljs-string">&quot;Content&quot;</span>, [{<span class="hljs-attr">test</span>: <span class="hljs-number">1</span>}]);
+d.<span class="hljs-title function_">addCard</span>(<span class="hljs-string">"Content"</span>, [{<span class="hljs-attr">test</span>: <span class="hljs-number">1</span>}]);
 <span class="hljs-comment">// Create another</span>
-d.addCard(<span class="hljs-string">&quot;More Content&quot;</span>, [{<span class="hljs-attr">test</span>: <span class="hljs-number">1</span>}]);
+d.<span class="hljs-title function_">addCard</span>(<span class="hljs-string">"More Content"</span>, [{<span class="hljs-attr">test</span>: <span class="hljs-number">1</span>}]);
 <span class="hljs-comment">// Create a third</span>
-d.addCard(<span class="hljs-string">&quot;Even More Content&quot;</span>, [{<span class="hljs-attr">test</span>: <span class="hljs-number">1</span>}]);
+d.<span class="hljs-title function_">addCard</span>(<span class="hljs-string">"Even More Content"</span>, [{<span class="hljs-attr">test</span>: <span class="hljs-number">1</span>}]);
 <span class="hljs-comment">// Shuffle the cards</span>
-d.shuffle();
+d.<span class="hljs-title function_">shuffle</span>();
 <span class="hljs-comment">// Draw all cards</span>
-<span class="hljs-keyword">const</span> hand = draw(<span class="hljs-number">3</span>);
+<span class="hljs-keyword">const</span> hand = <span class="hljs-title function_">draw</span>(<span class="hljs-number">3</span>);
 <span class="hljs-comment">// Get the first card in the drawn array</span>
 <span class="hljs-keyword">const</span> c = hand[<span class="hljs-number">0</span>];
 <span class="hljs-comment">// Add a new quality</span>
-c.addQuality({<span class="hljs-attr">example</span>: <span class="hljs-number">1</span>});
+c.<span class="hljs-title function_">addQuality</span>({<span class="hljs-attr">example</span>: <span class="hljs-number">1</span>});
 <span class="hljs-comment">// Update the deck</span>
-d.updateCard(c);
+d.<span class="hljs-title function_">updateCard</span>(c);
 <span class="hljs-comment">// Draw another array</span>
 <span class="hljs-comment">// (However, only two cards will be available now.)</span>
-<span class="hljs-keyword">const</span> anotherHand = draw(<span class="hljs-number">3</span>);
+<span class="hljs-keyword">const</span> anotherHand = <span class="hljs-title function_">draw</span>(<span class="hljs-number">3</span>);
 </code></pre>
 <p>In the above code, the method <em>addQuality()</em> is used to add another quality to a card. As only the <strong>Card</strong> in the drawn collection would be updated, the <strong>Deck</strong> method <em>updateCard()</em> is also used. Through passing the <strong>Card</strong> to this method, it will update the internal <strong>Card</strong> where the unique <em>hash</em> of each match.</p>
 
@@ -454,7 +454,7 @@ d.updateCard(c);
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Deck Building","level":"4.1","depth":1,"next":{"title":"Story Gates","level":"4.2","depth":1,"path":"examples/storygates.md","ref":"./examples/storygates.md","articles":[]},"previous":{"title":"State Management","level":"3.3","depth":1,"path":"State.md","ref":"./State.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./notes","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"examples/deckbuilding.md","mtime":"2021-05-15T12:06:33.307Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2021-05-15T12:09:25.391Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Deck Building","level":"4.1","depth":1,"next":{"title":"Story Gates","level":"4.2","depth":1,"path":"examples/storygates.md","ref":"./examples/storygates.md","articles":[]},"previous":{"title":"State Management","level":"3.3","depth":1,"path":"State.md","ref":"./State.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./notes","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"examples/deckbuilding.md","mtime":"2025-04-07T02:40:14.309Z","type":"markdown"},"gitbook":{"version":"6.0.2","time":"2025-04-07T02:59:58.457Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
@@ -524,7 +524,7 @@ d.updateCard(c);
         
     
         
-        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        <script src="../gitbook/@honkit/honkit-plugin-fontsettings/fontsettings.js"></script>
         
     
 

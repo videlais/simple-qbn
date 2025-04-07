@@ -1,5 +1,5 @@
-import Expression from './Expression.js'
-import State from './State.js'
+import Expression from './Expression.js';
+import State from './State.js';
 
 /**
  * @class QualitySet
@@ -13,7 +13,7 @@ export default class QualitySet {
    */
   constructor () {
     // Set the internal set to an array.
-    this._set = []
+    this._set = [];
   }
 
   /**
@@ -29,12 +29,12 @@ export default class QualitySet {
       // Make sure it is unique.
       if (!this.has(expression)) {
         // Based on an object, create a new Expression.
-        const e = new Expression(expression)
+        const e = new Expression(expression);
         // Add the new Expression to the internal set.
-        this._set.push(e)
+        this._set.push(e);
       }
     } else {
-      throw new Error('Qualities must be objects!')
+      throw new Error('Qualities must be objects!');
     }
   }
 
@@ -47,9 +47,9 @@ export default class QualitySet {
    */
   has (s) {
     if (typeof s === 'object' && s !== null) {
-      return this._set.some((e) => JSON.stringify(e.expression) === JSON.stringify(s))
+      return this._set.some((e) => JSON.stringify(e.expression) === JSON.stringify(s));
     } else {
-      throw new Error('Can only check object values!')
+      throw new Error('Can only check object values!');
     }
   }
 
@@ -61,9 +61,9 @@ export default class QualitySet {
    */
   remove (s) {
     if (typeof s === 'object' && s !== null) {
-      this._set = this._set.filter((e) => JSON.stringify(e.expression) !== JSON.stringify(s))
+      this._set = this._set.filter((e) => JSON.stringify(e.expression) !== JSON.stringify(s));
     } else {
-      throw new Error('Must pass object values to remove!')
+      throw new Error('Must pass object values to remove!');
     }
   }
 
@@ -76,9 +76,9 @@ export default class QualitySet {
    */
   check (s) {
     if (s instanceof State) {
-      return this._set.every((e) => e.check(s))
+      return this._set.every((e) => e.check(s));
     } else {
-      throw new Error('Must have State to check() against!')
+      throw new Error('Must have State to check() against!');
     }
   }
 
@@ -89,6 +89,6 @@ export default class QualitySet {
    * @returns {number} Size of internal array.
    */
   size () {
-    return this._set.length
+    return this._set.length;
   }
 }

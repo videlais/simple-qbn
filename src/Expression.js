@@ -1,4 +1,4 @@
-import mingo from 'mingo'
+import mingo from 'mingo';
 
 export default class Expression {
   /**
@@ -9,9 +9,9 @@ export default class Expression {
    */
   constructor (expression) {
     // Create internal object.
-    this._expression = {}
+    this._expression = {};
     // Create the internal expression.
-    this.change(expression)
+    this.change(expression);
   }
 
   /**
@@ -21,7 +21,7 @@ export default class Expression {
    * @type {object}
    */
   get expression () {
-    return this._expression
+    return this._expression;
   }
 
   /**
@@ -32,9 +32,9 @@ export default class Expression {
    */
   change (o) {
     if (typeof o === 'object' && o !== null) {
-      this._expression = o
+      this._expression = o;
     } else {
-      throw new Error('Expressions can only be objects!')
+      throw new Error('Expressions can only be objects!');
     }
   }
 
@@ -46,16 +46,17 @@ export default class Expression {
    * @returns {boolean} If the expression is valid or not
    */
   check (s) {
-    let result = false
-    let query = null
+    let result = false;
+    let query = null;
 
     try {
-      query = new mingo.Query(this._expression)
-      result = query.test(s.keys)
+      query = new mingo.Query(this._expression);
+      result = query.test(s.keys);
     } catch (error) {
-      result = false
+      console.warn('Expression check failed:', error);
+      result = false;
     }
 
-    return result
+    return result;
   }
 }

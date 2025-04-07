@@ -1,5 +1,5 @@
-import Card from './Card.js'
-import State from './State.js'
+import Card from './Card.js';
+import State from './State.js';
 
 /**
  * @class Deck
@@ -12,24 +12,24 @@ export default class Deck {
    */
   constructor () {
     // Set the internal cards to an empty array.
-    this.cards = []
+    this.cards = [];
 
     // Set the internal state to a new State().
-    this._state = new State()
+    this._state = new State();
   }
 
   /**
    * @type {State}
    */
   get state () {
-    return this._state
+    return this._state;
   }
 
   set state (s) {
     if (s instanceof State) {
-      this._state = s
+      this._state = s;
     } else {
-      throw new Error('Passed value is not an instance of State')
+      throw new Error('Passed value is not an instance of State');
     }
   }
 
@@ -43,15 +43,15 @@ export default class Deck {
    */
   getCard (index = -1) {
     // Set a default.
-    let card = null
+    let card = null;
 
     // If index is less than cards.length.
     if (index >= 0 && index < this.cards.length) {
-      card = this.cards[index]
+      card = this.cards[index];
     }
 
     // Return Card or null.
-    return card
+    return card;
   }
 
   /**
@@ -64,11 +64,11 @@ export default class Deck {
     if (c instanceof Card) {
       this.cards.forEach((card) => {
         if (card.hash === c.hash) {
-          card = c
+          card = c;
         }
-      })
+      });
     } else {
-      throw new Error('Updated card must be Card!')
+      throw new Error('Updated card must be Card!');
     }
   }
 
@@ -79,7 +79,7 @@ export default class Deck {
    * @returns {number} Returns number of cards.
    */
   size () {
-    return this.cards.length
+    return this.cards.length;
   }
 
   /**
@@ -92,19 +92,19 @@ export default class Deck {
   addCard (content, qualities = []) {
     // Can't add non-String content.
     if (typeof content !== 'string') {
-      throw new Error('Card content must be string!')
+      throw new Error('Card content must be string!');
     }
 
     // Can't pass non-array qualities.
     if (!Array.isArray(qualities)) {
-      throw new Error('Qualities must be passed as array!')
+      throw new Error('Qualities must be passed as array!');
     }
 
     // Create a new card and pass it the current state.
-    const c = new Card(content, qualities)
+    const c = new Card(content, qualities);
 
     // Add a card to the existing deck.
-    this.cards.push(c)
+    this.cards.push(c);
   }
 
   /**
@@ -115,8 +115,8 @@ export default class Deck {
    */
   removeCard (c) {
     this.cards = this.cards.filter((entry) => {
-      return entry !== c
-    })
+      return entry !== c;
+    });
   }
 
   /**
@@ -129,7 +129,7 @@ export default class Deck {
     for (let i = this.cards.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       // Swap positions using destructuring assignment.
-      [this.cards[i], this.cards[j]] = [this.cards[j], this.cards[i]]
+      [this.cards[i], this.cards[j]] = [this.cards[j], this.cards[i]];
     }
   }
 
@@ -142,20 +142,20 @@ export default class Deck {
    */
   draw (size = 1) {
     // Create a hand.
-    let hand = []
+    let hand = [];
 
     // Prevent negative sizes.
     if (size > 0) {
       // Find all available cards.
       hand = this.cards.filter((card) => {
         // Pass the current state to the card.
-        return card.isAvailable(this.state)
-      })
+        return card.isAvailable(this.state);
+      });
 
       // Slice out a sub-set of available cards.
-      hand = hand.slice(0, size)
+      hand = hand.slice(0, size);
     }
 
-    return hand
+    return hand;
   }
 }
