@@ -8,7 +8,7 @@ SimpleQBN is a quality-based narrative (QBN) generic JavaScript library for use 
 
 Previous to 1.4, SimpleQBN used expression operators from [TinyQBN](https://github.com/JoshuaGrams/tiny-qbn) in the Grams format of `variable-op-value`. Starting with 1.4, all expressions are written in the MongoDB query language via [Mingo](https://www.npmjs.com/package/mingo).
 
-While the Grams format works well for Twine-related projects, the MongoDB query language allows for a broader definition of expressions using multiple comparsions and operator usages in a single statement.
+While the Grams format works well for Twine-related projects, the MongoDB query language allows for a broader definition of expressions using multiple comparisons and operator usages in a single statement.
 
 ## History and Documentation
 
