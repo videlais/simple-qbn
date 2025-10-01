@@ -1,4 +1,4 @@
-import mingo from 'mingo';
+
 
 /**
  * @class State
@@ -77,8 +77,7 @@ export default class State {
      * @returns {boolean} If the State has a key
      */
   exists (key) {
-    const query = new mingo.Query({ [key]: { $exists: true } });
-    return query.test(this._values);
+    return Object.prototype.hasOwnProperty.call(this._values, key);
   }
 
   /**

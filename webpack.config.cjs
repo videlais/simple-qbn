@@ -3,6 +3,11 @@ const path = require('path');
 module.exports = {
   mode: 'production',
   entry: path.resolve(__dirname, './src/index.js'),
+  resolve: {
+    alias: {
+      'quis': path.resolve(__dirname, 'node_modules/quis/build/quis.cjs')
+    }
+  },
   module: {
     rules: [
       {

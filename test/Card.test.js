@@ -12,7 +12,7 @@ describe('constructor()', () => {
 describe('addQuality()', () => {
   test('addQuality() - increases size of qualities by one', () => {
     const c = new Card();
-    c.addQuality({ test: { $eq: 10 } });
+    c.addQuality('$test == 10');
     expect(c.qualities.size()).toBe(1);
   });
 
@@ -27,14 +27,14 @@ describe('addQuality()', () => {
 describe('removeQuality()', () => {
   test('removeQuality() - decreases size of qualities by one', () => {
     const c = new Card();
-    c.addQuality({ test: { $eq: 10 } });
-    c.removeQuality({ test: { $eq: 10 } });
+    c.addQuality('$test == 10');
+    c.removeQuality('$test == 10');
     expect(c.qualities.size()).toBe(0);
   });
 
-  test('removeQuality() - throw error if given non-object', () => {
+  test('removeQuality() - throw error if given non-string', () => {
     const c = new Card();
-    c.addQuality({ test: 1 });
+    c.addQuality('$test == 1');
     expect(() => {
       c.removeQuality(null);
     }).toThrow();
@@ -46,7 +46,7 @@ describe('isAvailable()', () => {
     const s = new State();
     s.set('test', 1);
     const c = new Card();
-    c.addQuality({ test: { $eq: 1 } });
+    c.addQuality('$test == 1');
     expect(c.isAvailable(s)).toBe(true);
   });
 
@@ -54,7 +54,7 @@ describe('isAvailable()', () => {
     const s = new State();
     s.set('test', 2);
     const c = new Card();
-    c.addQuality({ test: { $eq: 10 } });
+    c.addQuality('$test == 10');
     expect(c.isAvailable(s)).toBe(false);
   });
 

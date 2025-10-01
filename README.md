@@ -4,11 +4,13 @@
 
 SimpleQBN is a quality-based narrative (QBN) generic JavaScript library for use in browsers or Node.js-based projects.
 
-## Expression Language Change
+## Expression Language
 
-Previous to 1.4, SimpleQBN used expression operators from [TinyQBN](https://github.com/JoshuaGrams/tiny-qbn) in the Grams format of `variable-op-value`. Starting with 1.4, all expressions are written in the MongoDB query language via [Mingo](https://www.npmjs.com/package/mingo).
+Starting with version 1.5.0, SimpleQBN uses [Quis](https://www.npmjs.com/package/quis) 1.2.0 for expression evaluation with pure Quis syntax. All expressions are written as strings using Quis syntax, which provides a clean and powerful way to define conditions and comparisons.
 
-While the Grams format works well for Twine-related projects, the MongoDB query language allows for a broader definition of expressions using multiple comparisons and operator usages in a single statement.
+Quis supports complex boolean expressions with operators like `&&` (AND), `||` (OR), and parentheses for grouping, allowing for sophisticated logical conditions in a single statement.
+
+Previous versions used TinyQBN format and MongoDB query language compatibility, but as of 1.5.0, the library has been simplified to use only Quis string expressions for better maintainability and performance.
 
 ## History and Documentation
 

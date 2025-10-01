@@ -20,21 +20,16 @@ export default class QualitySet {
    * Add Expression to QualitySet.
    *
    * @function add
-   * @param {object} expression - Expression to add to set.
+   * @param {string} expression - Quis expression string to add to set.
    */
   add (expression) {
-    // Test if object.
-    if (typeof expression === 'object' && expression !== null) {
-      // There is no reason to add the same expression.
-      // Make sure it is unique.
+    if (typeof expression === 'string') {
       if (!this.has(expression)) {
-        // Based on an object, create a new Expression.
         const e = new Expression(expression);
-        // Add the new Expression to the internal set.
         this._set.push(e);
       }
     } else {
-      throw new Error('Qualities must be objects!');
+      throw new Error('Qualities must be strings!');
     }
   }
 
@@ -42,14 +37,14 @@ export default class QualitySet {
    * If set has an Expression or not.
    *
    * @function has
-   * @param {object} s - Expression to find.
+   * @param {string} s - Expression to find.
    * @returns {boolean} If Expression is in set or not.
    */
   has (s) {
-    if (typeof s === 'object' && s !== null) {
-      return this._set.some((e) => JSON.stringify(e.expression) === JSON.stringify(s));
+    if (typeof s === 'string') {
+      return this._set.some((e) => e.expression === s);
     } else {
-      throw new Error('Can only check object values!');
+      throw new Error('Can only check string values!');
     }
   }
 
@@ -57,13 +52,13 @@ export default class QualitySet {
    * Remove expression from set.
    *
    * @function remove
-   * @param {object} s - Expression to remove.
+   * @param {string} s - Expression to remove.
    */
   remove (s) {
-    if (typeof s === 'object' && s !== null) {
-      this._set = this._set.filter((e) => JSON.stringify(e.expression) !== JSON.stringify(s));
+    if (typeof s === 'string') {
+      this._set = this._set.filter((e) => e.expression !== s);
     } else {
-      throw new Error('Must pass object values to remove!');
+      throw new Error('Must pass string values to remove!');
     }
   }
 

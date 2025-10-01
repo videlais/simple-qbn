@@ -1,15 +1,16 @@
-import mingo from 'mingo';
+import pkg from 'quis';
+const { parse } = pkg;
 
 export default class Expression {
   /**
    * Create an Expression.
    *
    * @class
-   * @param {object} expression - Mingo Object.
+   * @param {string} expression - Quis expression string.
    */
   constructor (expression) {
-    // Create internal object.
-    this._expression = {};
+    // Create internal expression string.
+    this._expression = '';
     // Create the internal expression.
     this.change(expression);
   }
@@ -18,7 +19,7 @@ export default class Expression {
    * Get internal expression.
    *
    * @readonly
-   * @type {object}
+   * @type {string}
    */
   get expression () {
     return this._expression;
@@ -28,13 +29,13 @@ export default class Expression {
    * Allow for changing the internal expression.
    *
    * @function change
-   * @param {object} o - Expression to change
+   * @param {string} o - Quis expression string
    */
   change (o) {
-    if (typeof o === 'object' && o !== null) {
+    if (typeof o === 'string') {
       this._expression = o;
     } else {
-      throw new Error('Expressions can only be objects!');
+      throw new Error('Expressions must be strings!');
     }
   }
 
@@ -46,17 +47,23 @@ export default class Expression {
    * @returns {boolean} If the expression is valid or not
    */
   check (s) {
-    let result = false;
-    let query = null;
-
-    try {
-      query = new mingo.Query(this._expression);
-      result = query.test(s.keys);
-    } catch (error) {
-      console.warn('Expression check failed:', error);
-      result = false;
+    if (!s || !s.keys) {
+      return false;
     }
 
-    return result;
+    try {
+      // Create a values callback function for quis
+      const values = (name) => {
+        return s.keys[name];
+      };
+
+      // Use quis to evaluate the expression directly
+      return parse(this._expression, { values: values });
+    } catch (error) {
+      console.warn('Expression check failed:', error);
+      return false;
+    }
   }
+
+
 }

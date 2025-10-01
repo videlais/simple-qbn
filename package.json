@@ -1,6 +1,6 @@
 {
   "name": "simple-qbn",
-  "version": "1.4.2",
+  "version": "1.5.0",
   "description": "Because nothing about quality-based narratives is actually simple.",
   "main": "index.js",
   "scripts": {
@@ -8,6 +8,8 @@
     "lint": "npx eslint src/* --fix",
     "lint:test": "npx eslint test/* --fix",
     "test": "jest --runInBand --silent --collectCoverage",
+    "test:browser": "jest test/Browser.test.js --verbose",
+    "test:node": "jest --testPathIgnorePatterns=Browser.test.js --runInBand --silent --collectCoverage",
     "docs": "cp README.md ./notes/README.md && honkit build && cp -r _book/* docs",
     "docs:serve": "cp README.md ./notes/README.md && honkit serve",
     "jsdoc": "jsdoc -c jsdocs.json",
@@ -39,24 +41,25 @@
   },
   "homepage": "https://github.com/videlais/simple-qbn#readme",
   "dependencies": {
-    "mingo": "^6.4.9",
-    "uuid": "^11.0.3"
+    "quis": "^1.2.0",
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.27.2",
-    "@babel/core": "^7.14.2",
-    "@babel/preset-env": "^7.14.2",
-    "@eslint/js": "^9.24.0",
-    "@stylistic/eslint-plugin-js": "^4.2.0",
-    "babel-jest": "^30.0.0",
+    "@babel/cli": "^7.28.3",
+    "@babel/core": "^7.28.4",
+    "@babel/preset-env": "^7.28.3",
+    "@eslint/js": "^9.36.0",
+    "@stylistic/eslint-plugin": "^5.4.0",
+    "babel-jest": "^30.2.0",
     "babel-loader": "^10.0.0",
-    "eslint": "^9.29.0",
+    "eslint": "^9.36.0",
     "eslint-plugin-jest": "^29.0.1",
-    "globals": "^16.0.0",
-    "honkit": "^6.0.3",
-    "jest": "^30.0.0",
-    "jsdoc": "^4.0.2",
-    "webpack": "^5.37.0",
+    "globals": "^16.4.0",
+    "honkit": "^6.1.4",
+    "jest": "^30.2.0",
+    "jsdoc": "^4.0.4",
+    "jsdom": "^27.0.0",
+    "webpack": "^5.102.0",
     "webpack-cli": "^6.0.1"
   },
   "type": "module"

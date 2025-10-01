@@ -17,7 +17,7 @@ describe('State', () => {
     d.state = s;
 
     // Add a new card.
-    d.addCard('Some content!', [{ discard: 0 }]);
+    d.addCard('Some content!', ['$discard == 0']);
 
     // Get the first card.
     const c = d.getCard(0);
@@ -42,7 +42,7 @@ describe('State', () => {
 describe('addCard()', () => {
   test('addCard() - add card by valid object', () => {
     const d = new Deck();
-    d.addCard('Some content!', [{ test: { $eq: 10 } }]);
+    d.addCard('Some content!', ['$test == 10']);
 
     const c = d.getCard(0);
     expect(c.content).toBe('Some content!');
@@ -66,7 +66,7 @@ describe('addCard()', () => {
 describe('removeCard()', () => {
   test('removeCard() - remove by card', () => {
     const d = new Deck();
-    d.addCard('Some content!', [{ test: { $eq: 10 } }]);
+    d.addCard('Some content!', ['$test == 10']);
     const c = d.getCard(0);
     d.removeCard(c);
     expect(d.size()).toBe(0);
@@ -107,7 +107,7 @@ describe('draw()', () => {
     const d = new Deck();
     d.state.set('test', 1);
     d.state.set('example', 1);
-    d.addCard('Some content!', [{ test: 1, example: 1 }]);
+    d.addCard('Some content!', ['$test == 1', '$example == 1']);
     const c = d.draw(1);
     expect(c).toHaveLength(1);
   });
@@ -121,9 +121,9 @@ describe('draw()', () => {
   test('draw() - draw two cards', () => {
     const d = new Deck();
     d.state.set('test', 1);
-    d.addCard('Some content!', [{ test: { $eq: 1 } }]);
-    d.addCard('Some content!', [{ test: { $eq: 1 } }]);
-    d.addCard('Some content!', [{ test: { $eq: 1 } }]);
+    d.addCard('Some content!', ['$test == 1']);
+    d.addCard('Some content!', ['$test == 1']);
+    d.addCard('Some content!', ['$test == 1']);
 
     const c = d.draw(2);
     expect(c).toHaveLength(2);
@@ -133,20 +133,20 @@ describe('draw()', () => {
     const d = new Deck();
     d.state.set('test', 1);
 
-    d.addCard('Some content!', [{ test: { $eq: 1 } }]);
+    d.addCard('Some content!', ['$test == 1']);
 
     const c = d.draw();
     // Hand should be one card.
     expect(c).toHaveLength(1);
 
     // Add a new quality making it unavailable.
-    c[0].addQuality({ f: { $eq: 10 } });
+    c[0].addQuality('$f == 10');
 
     // Update the card in the deck.
     d.updateCard(c[0]);
 
     // Add a card.
-    d.addCard('Some content!', [{ test: { $eq: 1 } }]);
+    d.addCard('Some content!', ['$test == 1']);
 
     // Draw one card.
     const c2 = d.draw();
@@ -162,11 +162,11 @@ describe('shuffle()', () => {
     d.state.set('test', 1);
 
     // Add multiple cards.
-    d.addCard('First!', [{ test: 1 }]);
-    d.addCard('Second!', [{ test: 1 }]);
-    d.addCard('Third!', [{ test: 1 }]);
-    d.addCard('Fourth!', [{ test: 1 }]);
-    d.addCard('Fifth!', [{ test: 1 }]);
+    d.addCard('First!', ['$test == 1']);
+    d.addCard('Second!', ['$test == 1']);
+    d.addCard('Third!', ['$test == 1']);
+    d.addCard('Fourth!', ['$test == 1']);
+    d.addCard('Fifth!', ['$test == 1']);
 
     // Draw cards in order added.
     const hand = d.draw(d.size());
@@ -192,7 +192,7 @@ describe('updateCard()', () => {
     // Get first card
     const c = d.draw(1)[0];
     // Add quality
-    c.addQuality({ test: 1 });
+    c.addQuality('$test == 1');
 
     // Update the card in the overall deck
     d.updateCard(c);
@@ -204,7 +204,7 @@ describe('updateCard()', () => {
     expect(c.hash).toBe(c2.hash);
 
     // Test if re-drawn card has expression or not
-    expect(c2.qualities.has({ test: 1 })).toBe(true);
+    expect(c2.qualities.has('$test == 1')).toBe(true);
   });
 
   test('Should throw error if given non-Card', () => {
@@ -223,7 +223,7 @@ describe('updateCard()', () => {
     d.state.set('e', 1);
 
     // Add a card
-    d.addCard('Test', [{ e: 1 }]);
+    d.addCard('Test', ['$e == 1']);
 
     // Get card
     const c = d.getCard(0);
@@ -232,9 +232,9 @@ describe('updateCard()', () => {
     const c2 = new Card('Test');
 
     // Add a quality
-    c2.addQuality({ e: 2 });
+    c2.addQuality('$e == 2');
     // Add another
-    c2.addQuality({ e: 3 });
+    c2.addQuality('$e == 3');
 
     // Verify that the hashes are not equal
     expect(c.hash).not.toBe(c2.hash);

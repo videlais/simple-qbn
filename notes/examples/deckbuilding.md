@@ -25,27 +25,27 @@ The method *addCard()* of **Deck** accepts a String (*content*) and array (*qual
 // Create a new Deck
 const d = new Deck();
 // Add a key-value pair
-d.state.add('test', 1);
+d.state.set('test', 1);
 // Create a card
-d.addCard("Content", [{test: 1}]);
+d.addCard("Content", ['$test == 1']);
 ```
 
-In quality-based narratives, a *quality* defines if content can be accessed. They are written as conditional statements. In SimpleQBN, these are created using the MongoDB query language (MQL).
+In quality-based narratives, a *quality* defines if content can be accessed. They are written as conditional statements. In SimpleQBN 1.5.0, these are created using Quis syntax, which provides a clean and powerful expression language.
 
-Qualities can be passed as either an array when using *addCard()* (of **Deck**) or with the **Card** method *addQuality()*. In either usage, qualities are expressed as object values. These then become part of a collection called a **QualitySet** internally in a **Card**.
+Qualities can be passed as either an array when using *addCard()* (of **Deck**) or with the **Card** method *addQuality()*. In either usage, qualities are expressed as string values using Quis syntax. These then become part of a collection called a **QualitySet** internally in a **Card**.
 
 ```JavaScript
 // Create a new Deck
 const d = new Deck();
 // Add a key-value pair
-d.state.add('test', 1);
+d.state.set('test', 1);
 // Create a card
-// content - "Content"
-// qualities - [{test: 1}]
-d.addCard("Content", [{test: 1}]);
+// content - "Content"  
+// qualities - ['$test == 1']
+d.addCard("Content", ['$test == 1']);
 ```
 
-Cards are selected through the metaphor of *drawing*. A **Card** is drawn when it is available; a **Card** is available when all of the **Expressions** within its **QualitySet** are valid. The **State** of the **Deck** is used to determine this validity. For example, if the **State** contains a key-value pair of `'test': 1`, then any **Cards** with the quality `{test: 1}` are potentially valid.
+Cards are selected through the metaphor of *drawing*. A **Card** is drawn when it is available; a **Card** is available when all of the **Expressions** within its **QualitySet** are valid. The **State** of the **Deck** is used to determine this validity. For example, if the **State** contains a key-value pair of `'test': 1`, then any **Cards** with the quality `'$test == 1'` are potentially valid.
 
 The method *draw()* of **Deck** returns an array of results matching an argument up to the *size* passed to it. However, only a **Card** that is available can be drawn.
 
@@ -53,11 +53,11 @@ The method *draw()* of **Deck** returns an array of results matching an argument
 // Create a new Deck
 const d = new Deck();
 // Add a key-value pair
-d.state.add('test', 1);
+d.state.set('test', 1);
 // Create a card
 // content - "Content"
-// qualities - [{test: 1}]
-d.addCard("Content", [{test: 1}]);
+// qualities - ['$test == 1']
+d.addCard("Content", ['$test == 1']);
 // Draw the card from the deck
 const hand = d.draw(1);
 // Show the content of the first (and only) drawn card
@@ -72,13 +72,13 @@ Once a **Deck** is created, any number of additional **Cards** can be added. Bas
 // Create a new Deck
 const d = new Deck();
 // Add a key-value pair
-d.state.add('test', 1);
+d.state.set('test', 1);
 // Create a card
-d.addCard("Content", [{test: 1}]);
+d.addCard("Content", ['$test == 1']);
 // Create another
-d.addCard("More Content", [{test: 1}]);
+d.addCard("More Content", ['$test == 1']);
 // Create a third
-d.addCard("Even More Content", [{test: 1}]);
+d.addCard("Even More Content", ['$test == 1']);
 ```
 
 The method *shuffle()* randomly distributes existing cards within the **Deck**. Because all **Cards** are added in sequence, this method can be used to re-sort the **Cards** in the **Deck**.
@@ -87,13 +87,13 @@ The method *shuffle()* randomly distributes existing cards within the **Deck**. 
 // Create a new Deck
 const d = new Deck();
 // Add a key-value pair
-d.state.add('test', 1);
+d.state.set('test', 1);
 // Create a card
-d.addCard("Content", [{test: 1}]);
+d.addCard("Content", ['$test == 1']);
 // Create another
-d.addCard("More Content", [{test: 1}]);
+d.addCard("More Content", ['$test == 1']);
 // Create a third
-d.addCard("Even More Content", [{test: 1}]);
+d.addCard("Even More Content", ['$test == 1']);
 // Shuffle the cards
 d.shuffle();
 ```
@@ -104,26 +104,26 @@ The method *draw()* creates a new array. It does not alter the original **Deck**
 // Create a new Deck
 const d = new Deck();
 // Add a key-value pair
-d.state.add('test', 1);
+d.state.set('test', 1);
 // Create a card
-d.addCard("Content", [{test: 1}]);
+d.addCard("Content", ['$test == 1']);
 // Create another
-d.addCard("More Content", [{test: 1}]);
+d.addCard("More Content", ['$test == 1']);
 // Create a third
-d.addCard("Even More Content", [{test: 1}]);
+d.addCard("Even More Content", ['$test == 1']);
 // Shuffle the cards
 d.shuffle();
 // Draw all cards
-const hand = draw(3);
+const hand = d.draw(3);
 // Get the first card in the drawn array
 const c = hand[0];
 // Add a new quality
-c.addQuality({example: 1});
+c.addQuality('$example == 1');
 // Update the deck
 d.updateCard(c);
 // Draw another array
 // (However, only two cards will be available now.)
-const anotherHand = draw(3);
+const anotherHand = d.draw(3);
 ```
 
 In the above code, the method *addQuality()* is used to add another quality to a card. As only the **Card** in the drawn collection would be updated, the **Deck** method *updateCard()* is also used. Through passing the **Card** to this method, it will update the internal **Card** where the unique *hash* of each match.

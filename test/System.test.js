@@ -8,10 +8,10 @@ test('Adding and updating', () => {
   d.state.set('discard', 0);
 
   // Add a card
-  d.addCard('Content!', [{ test: 1 }]);
+  d.addCard('Content!', ['$test == 1']);
 
   // Add a card
-  d.addCard('Content!', [{ test: 1 }]);
+  d.addCard('Content!', ['$test == 1']);
 
   // Draw a card (array) and take first entry
   const card = d.draw(1)[0];
@@ -20,7 +20,7 @@ test('Adding and updating', () => {
   expect(card.isAvailable(d.state)).toBe(true);
 
   // Add a discard quality
-  card.addQuality({ discard: 1 });
+  card.addQuality('$discard == 1');
 
   // Should no longer be available
   expect(card.isAvailable(d.state)).toBe(false);
@@ -31,7 +31,7 @@ test('Adding and updating', () => {
   // Draw other card
   const card2 = d.draw(1)[0];
   // Add a discard quality
-  card2.addQuality({ discard: 1 });
+  card2.addQuality('$discard == 1');
   // Discard it
   d.updateCard(card2);
 
@@ -42,7 +42,7 @@ test('Adding and updating', () => {
   expect(cards).toHaveLength(0);
 
   // Add a new card to the deck
-  d.addCard('Third!', [{ test: 1 }]);
+  d.addCard('Third!', ['$test == 1']);
 
   // Test for size()
   expect(d.size()).toBe(3);
@@ -64,10 +64,10 @@ test('Adding and removing', () => {
   d.state.set('test', 1);
 
   // Add a card
-  d.addCard('Content!', [{ test: 1 }]);
+  d.addCard('Content!', ['$test == 1']);
 
   // Add a card
-  d.addCard('Content!', [{ test: 1 }]);
+  d.addCard('Content!', ['$test == 1']);
 
   // Draw a card (array) and take first entry
   const card = d.draw(1)[0];
@@ -82,7 +82,7 @@ test('Adding and removing', () => {
   expect(d.size()).toBe(1);
 
   // Add a card
-  d.addCard('Content!', [{ test: 1 }]);
+  d.addCard('Content!', ['$test == 1']);
 
   // Test size of deck
   expect(d.size()).toBe(2);

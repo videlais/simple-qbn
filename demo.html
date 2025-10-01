@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SimpleQBN Browser Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .game-container {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .story-content {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            min-height: 60px;
+            border-left: 4px solid #007bff;
+        }
+        .card-choices {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .choice-button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: left;
+            transition: background-color 0.2s;
+        }
+        .choice-button:hover {
+            background: #0056b3;
+        }
+        .choice-button:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+        }
+        .player-stats {
+            background: #e9ecef;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .stat {
+            font-weight: bold;
+        }
+        .demo-info {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .demo-info h3 {
+            margin-top: 0;
+            color: #155724;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-info">
+        <h3>SimpleQBN Browser Demo</h3>
+        <p>This page demonstrates SimpleQBN running in a browser environment using the webpack bundle. 
+           The game engine uses <strong>Quis 1.2.0</strong> for expression evaluation with complex boolean operators.</p>
+        <p><strong>Note:</strong> This is a demonstration page. In a real implementation, you would include the webpack bundle: 
+           <code>&lt;script src="build/simpleqbn.bundle.js"&gt;&lt;/script&gt;</code></p>
+    </div>
+
+    <div class="game-container">
+        <div class="player-stats">
+            <div class="stat">Health: <span id="health">100</span></div>
+            <div class="stat">Score: <span id="score">0</span></div>
+            <div class="stat">Turn: <span id="turn">1</span></div>
+        </div>
+
+        <div id="story-content" class="story-content">
+            Welcome to the SimpleQBN browser demo! This example shows how SimpleQBN can be used in web applications.
+            Click "Start Game" below to begin a simple interactive story.
+        </div>
+
+        <div id="card-choices" class="card-choices">
+            <button class="choice-button" onclick="startGame()">Start Game</button>
+        </div>
+    </div>
+
+    <script>
+        // Since we're not actually loading the bundle for this demo,
+        // we'll simulate the game logic with placeholder functions
+        
+        let gameState = {
+            health: 100,
+            score: 0,
+            turn: 1,
+            location: 'start',
+            hasWeapon: false,
+            hasMap: false
+        };
+
+        function updateDisplay() {
+            document.getElementById('health').textContent = gameState.health;
+            document.getElementById('score').textContent = gameState.score;
+            document.getElementById('turn').textContent = gameState.turn;
+        }
+
+        function startGame() {
+            const storyContent = document.getElementById('story-content');
+            const cardChoices = document.getElementById('card-choices');
+
+            storyContent.textContent = 'You find yourself at a crossroads in a dark forest. The wind whispers through the trees, and you hear distant sounds. What do you do?';
+            
+            cardChoices.innerHTML = `
+                <button class="choice-button" onclick="makeChoice('explore')">Explore the forest path</button>
+                <button class="choice-button" onclick="makeChoice('rest')">Rest and listen carefully</button>
+                <button class="choice-button" onclick="makeChoice('search')">Search for useful items</button>
+            `;
+        }
+
+        function makeChoice(choice) {
+            const storyContent = document.getElementById('story-content');
+            const cardChoices = document.getElementById('card-choices');
+            
+            gameState.turn++;
+            
+            switch(choice) {
+                case 'explore':
+                    storyContent.textContent = 'You venture deeper into the forest. The path is treacherous, but you discover an ancient shrine with a glowing sword.';
+                    gameState.hasWeapon = true;
+                    gameState.score += 10;
+                    showNextChoices('shrine');
+                    break;
+                    
+                case 'rest':
+                    storyContent.textContent = 'You sit quietly and listen. You hear the sound of running water nearby and notice tracks leading in that direction.';
+                    gameState.health += 5;
+                    gameState.score += 5;
+                    showNextChoices('river');
+                    break;
+                    
+                case 'search':
+                    storyContent.textContent = 'You search the area carefully and find an old treasure map hidden under some rocks.';
+                    gameState.hasMap = true;
+                    gameState.score += 15;
+                    showNextChoices('map');
+                    break;
+            }
+            
+            updateDisplay();
+        }
+
+        function showNextChoices(context) {
+            const cardChoices = document.getElementById('card-choices');
+            
+            let choices = [];
+            
+            // This simulates how SimpleQBN would evaluate expressions based on game state
+            if (context === 'shrine' && gameState.hasWeapon) {
+                choices = [
+                    { text: 'Take the glowing sword', action: 'takeSword' },
+                    { text: 'Leave the shrine undisturbed', action: 'leaveSword' }
+                ];
+            } else if (context === 'river') {
+                choices = [
+                    { text: 'Follow the water upstream', action: 'upstream' },
+                    { text: 'Cross the river carefully', action: 'cross' }
+                ];
+            } else if (context === 'map' && gameState.hasMap) {
+                choices = [
+                    { text: 'Follow the map to the treasure', action: 'treasure' },
+                    { text: 'Ignore the map and continue exploring', action: 'explore2' }
+                ];
+            }
+            
+            cardChoices.innerHTML = choices.map(choice => 
+                `<button class="choice-button" onclick="finalChoice('${choice.action}')">${choice.text}</button>`
+            ).join('');
+        }
+
+        function finalChoice(action) {
+            const storyContent = document.getElementById('story-content');
+            const cardChoices = document.getElementById('card-choices');
+            
+            let ending = '';
+            
+            switch(action) {
+                case 'takeSword':
+                    ending = 'You take the magical sword. It glows brighter in your hands, and you feel its power. You are now ready for greater adventures!';
+                    gameState.score += 25;
+                    break;
+                case 'leaveSword':
+                    ending = 'You respectfully leave the sword at the shrine. The forest spirits appreciate your restraint and grant you safe passage home.';
+                    gameState.score += 10;
+                    break;
+                case 'upstream':
+                    ending = 'Following the river upstream, you discover a hidden village of friendly forest dwellers who offer you shelter.';
+                    gameState.score += 20;
+                    break;
+                case 'cross':
+                    ending = 'You cross the river and find a path leading out of the forest. You emerge wiser from your adventure.';
+                    gameState.score += 15;
+                    break;
+                case 'treasure':
+                    ending = 'The map leads you to a buried chest filled with gold coins! You are now wealthy beyond your dreams.';
+                    gameState.score += 50;
+                    break;
+                case 'explore2':
+                    ending = 'You continue exploring without the map and discover a secret grove where time moves differently. What an amazing discovery!';
+                    gameState.score += 30;
+                    break;
+            }
+            
+            storyContent.textContent = ending + ' Your adventure ends here. Final score: ' + gameState.score;
+            cardChoices.innerHTML = '<button class="choice-button" onclick="location.reload()">Play Again</button>';
+            
+            updateDisplay();
+        }
+
+        // Initialize display
+        updateDisplay();
+    </script>
+</body>
+</html>

@@ -13,9 +13,22 @@ This format created an easy way to include prerequisites in Twine using tags in 
 * *Operators have to be converted into and out of String values*. Tags in Twine 2 are stored as the values of attributes within [its HTML](https://github.com/iftechfoundation/twine-specs/blob/master/twine-2-htmloutput-spec.md). These tags are assumed to be String values. Any use of other primative data types in JavaScript such as Numbers and Booleans must be converted out of their String representation.
 * *Only one comparison can be used at a time*. Complex comparisons are not possible in the format because of its internal parsing. Additional tags can be added, but each is only one comparison between a single variable and value.
 
-### Working with MongoDB Query Language (via Mingo)
+### Working with Quis Expression Language
 
-Starting with version 1.4, SimpleQBN began to use the MongoDB Query Language via the [Mingo](https://www.npmjs.com/package/mingo) NPM package. Because SimpleQBN is not limited by usage with Twine, the query language developed for MongoDB allows for using objects instead of string values. This overcomes the two major limitations of the Grams format through allowing comparisons to be expressed as objects.
+Starting with version 1.4, SimpleQBN began to use the MongoDB Query Language for expressions. As of version 1.4.2, SimpleQBN uses the [Quis](https://www.npmjs.com/package/quis) NPM package for expression evaluation. With Quis 1.2.0, SimpleQBN now supports native Quis expression strings with complex boolean operators, while maintaining backward compatibility with MongoDB-style query objects.
+
+Quis expressions support:
+
+* Comparison operators: `==`, `!=`, `>`, `>=`, `<`, `<=`  
+* Boolean operators: `&&` (AND), `||` (OR), `!` (NOT)
+* Parentheses for grouping: `($health > 50 && $level >= 5) || $emergency == true`
+* Variable access: `$variableName` for simple values
+
+Examples:
+
+* Simple: `$health > 50`
+* Complex: `$user_role == "admin" && $user_active == true`
+* Grouped: `($score >= 80 || $bonus_points > 10) && $attempts <= 3`
 
 For example, an **Expression** to test if the **State** value *score* was greater than 15 would be written as the following:
 

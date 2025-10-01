@@ -12,17 +12,17 @@ const d = new Deck();
 // Add a key-value pair
 d.state.set('example', 1);
 // Create four cards
-d.addCard("First", [{example: 1}]);
-d.addCard("Second", [{example: 1}]);
-d.addCard("Third", [{example: 2}]);
-d.addCard("Fourth", [{example: 2}]);
+d.addCard("First", ['$example == 1']);
+d.addCard("Second", ['$example == 1']);
+d.addCard("Third", ['$example == 2']);
+d.addCard("Fourth", ['$example == 2']);
 // Pass a size of 4, but only two cards are available
 const hand = d.draw(4);
 ```
 
 When run, any calls to the method *draw()* in the **Deck** would only select available **Cards**. Currently, these are only **Cards** with the *content* of "First" and "Second".
 
-These different qualities "gate" the other content from being used. However, these can be enabled through adjusting the values of the *state* (based on **State**) of the **Deck** using the method *update()* with the key-value pair to change.
+These different qualities "gate" the other content from being used. However, these can be enabled through adjusting the values of the *state* (based on **State**) of the **Deck** using the method *set()* with the key-value pair to change.
 
 ```javascript
 // Create a new Deck
@@ -30,10 +30,10 @@ const d = new Deck();
 // Add a key-value pair
 d.state.set('example', 1);
 // Create four cards
-d.addCard("First", [{example: 1}]);
-d.addCard("Second", [{example: 1}]);
-d.addCard("Third", [{example: 2}]);
-d.addCard("Fourth", [{example: 2}]);
+d.addCard("First", ['$example == 1']);
+d.addCard("Second", ['$example == 1']);
+d.addCard("Third", ['$example == 2']);
+d.addCard("Fourth", ['$example == 2']);
 // Change the deck's state
 d.state.set('example', 2);
 // Pass a size of 4, but only two cards are available
@@ -46,12 +46,12 @@ In the new code, only the last two cards are available. These are cards with the
 // Create a new Deck
 const d = new Deck();
 // Add a key-value pair
-d.state.add('example', 1);
+d.state.set('example', 1);
 // Create four cards
-d.addCard("First", [{example: 1}]);
-d.addCard("Second", [{example: 1}]);
-d.addCard("Third", [{example: 2}]);
-d.addCard("Fourth", [{example: 2}]);
+d.addCard("First", ['$example == 1']);
+d.addCard("Second", ['$example == 1']);
+d.addCard("Third", ['$example == 2']);
+d.addCard("Fourth", ['$example == 2']);
 // Shuffle the cards
 d.shuffle();
 // Change the deck's state

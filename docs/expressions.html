@@ -6,7 +6,7 @@
         <title>Expressions and QualitySet · HonKit</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="HonKit 6.0.3">
+        <meta name="generator" content="HonKit 6.1.4">
         
         
         
@@ -320,8 +320,21 @@
 <li><em>Operators have to be converted into and out of String values</em>. Tags in Twine 2 are stored as the values of attributes within <a href="https://github.com/iftechfoundation/twine-specs/blob/master/twine-2-htmloutput-spec.md" target="_blank">its HTML</a>. These tags are assumed to be String values. Any use of other primative data types in JavaScript such as Numbers and Booleans must be converted out of their String representation.</li>
 <li><em>Only one comparison can be used at a time</em>. Complex comparisons are not possible in the format because of its internal parsing. Additional tags can be added, but each is only one comparison between a single variable and value.</li>
 </ul>
-<h3 id="working-with-mongodb-query-language-via-mingo">Working with MongoDB Query Language (via Mingo)</h3>
-<p>Starting with version 1.4, SimpleQBN began to use the MongoDB Query Language via the <a href="https://www.npmjs.com/package/mingo" target="_blank">Mingo</a> NPM package. Because SimpleQBN is not limited by usage with Twine, the query language developed for MongoDB allows for using objects instead of string values. This overcomes the two major limitations of the Grams format through allowing comparisons to be expressed as objects.</p>
+<h3 id="working-with-quis-expression-language">Working with Quis Expression Language</h3>
+<p>Starting with version 1.4, SimpleQBN began to use the MongoDB Query Language for expressions. As of version 1.4.2, SimpleQBN uses the <a href="https://www.npmjs.com/package/quis" target="_blank">Quis</a> NPM package for expression evaluation. With Quis 1.2.0, SimpleQBN now supports native Quis expression strings with complex boolean operators, while maintaining backward compatibility with MongoDB-style query objects.</p>
+<p>Quis expressions support:</p>
+<ul>
+<li>Comparison operators: <code>==</code>, <code>!=</code>, <code>&gt;</code>, <code>&gt;=</code>, <code>&lt;</code>, <code>&lt;=</code>  </li>
+<li>Boolean operators: <code>&amp;&amp;</code> (AND), <code>||</code> (OR), <code>!</code> (NOT)</li>
+<li>Parentheses for grouping: <code>($health &gt; 50 &amp;&amp; $level &gt;= 5) || $emergency == true</code></li>
+<li>Variable access: <code>$variableName</code> for simple values</li>
+</ul>
+<p>Examples:</p>
+<ul>
+<li>Simple: <code>$health &gt; 50</code></li>
+<li>Complex: <code>$user_role == "admin" &amp;&amp; $user_active == true</code></li>
+<li>Grouped: <code>($score &gt;= 80 || $bonus_points &gt; 10) &amp;&amp; $attempts &lt;= 3</code></li>
+</ul>
 <p>For example, an <strong>Expression</strong> to test if the <strong>State</strong> value <em>score</em> was greater than 15 would be written as the following:</p>
 <pre><code class="lang-JavaScript">{<span class="hljs-attr">score</span>: {<span class="hljs-attr">$gt</span>: <span class="hljs-number">15</span>}}
 </code></pre>
@@ -376,7 +389,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Expressions and QualitySet","level":"3.1","depth":1,"next":{"title":"Decks and Cards","level":"3.2","depth":1,"path":"cards.md","ref":"./cards.md","articles":[]},"previous":{"title":"Quality-Based Narrative (2010)","level":"2.5","depth":1,"path":"qbn.md","ref":"./qbn.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./notes","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"expressions.md","mtime":"2025-04-07T02:40:14.309Z","type":"markdown"},"gitbook":{"version":"6.0.3","time":"2025-06-18T02:08:36.276Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Expressions and QualitySet","level":"3.1","depth":1,"next":{"title":"Decks and Cards","level":"3.2","depth":1,"path":"cards.md","ref":"./cards.md","articles":[]},"previous":{"title":"Quality-Based Narrative (2010)","level":"2.5","depth":1,"path":"qbn.md","ref":"./qbn.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./notes","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"expressions.md","mtime":"2025-10-01T22:04:18.545Z","type":"markdown"},"gitbook":{"version":"6.1.4","time":"2025-10-01T22:38:35.363Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
