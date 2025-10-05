@@ -1,4 +1,4 @@
-import Deck from '../src/Deck';
+import Deck from '../dist/src/Deck.js';
 
 test('Adding and updating', () => {
   // Create a deck

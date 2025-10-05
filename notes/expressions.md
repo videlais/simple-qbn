@@ -15,7 +15,7 @@ This format created an easy way to include prerequisites in Twine using tags in 
 
 ### Working with Quis Expression Language
 
-Starting with version 1.4, SimpleQBN began to use the MongoDB Query Language for expressions. As of version 1.4.2, SimpleQBN uses the [Quis](https://www.npmjs.com/package/quis) NPM package for expression evaluation. With Quis 1.2.0, SimpleQBN now supports native Quis expression strings with complex boolean operators, while maintaining backward compatibility with MongoDB-style query objects.
+Starting with version 1.4, SimpleQBN began to use the MongoDB Query Language for expressions. As of version 1.4.2, SimpleQBN uses the [Quis](https://www.npmjs.com/package/quis) NPM package for expression evaluation.
 
 Quis expressions support:
 
@@ -30,6 +30,8 @@ Examples:
 * Complex: `$user_role == "admin" && $user_active == true`
 * Grouped: `($score >= 80 || $bonus_points > 10) && $attempts <= 3`
 
+### Previous use of Mingo (MongoDB Query Support)
+
 For example, an **Expression** to test if the **State** value *score* was greater than 15 would be written as the following:
 
 ```JavaScript
@@ -41,12 +43,6 @@ The use of the MongoDB query language also introduces much more complex queries 
 ```JavaScript
 {score: {$gt: 15}, act1: true, reputation: {$lt: 3.5}}
 ```
-
-## **QualitySet**
-
-Each **Card** in SimpleQBN has an internal property called *qualities*. This is an instance of a class called **QualitySet** holding multiple **Expressions**. It provides the method *check()* for reviewing each of its internal **Expressions**. A **QualitySet** is `true` if *every* **Expression** returns `true`.
-
-In order to check if an **Expression** (and the larger **QualitySet**) is `true`, it needs access to [**State**](./state.md).
 
 ## References
 

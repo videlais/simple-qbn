@@ -4,11 +4,11 @@
  */
 
 // Import the ES module versions directly for functionality testing
-import Deck from '../src/Deck.js';
-import Card from '../src/Card.js';
-import State from '../src/State.js';
-import Expression from '../src/Expression.js';
-import QualitySet from '../src/QualitySet.js';
+import Deck from '../dist/src/Deck.js';
+import Card from '../dist/src/Card.js';
+import State from '../dist/src/State.js';
+import Expression from '../dist/src/Expression.js';
+import QualitySet from '../dist/src/QualitySet.js';
 
 // Import JSDOM for browser environment simulation
 import { JSDOM } from 'jsdom';

@@ -311,7 +311,7 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="deck-building">Deck Building</h1>
-<h2 id="understanding-the-api">Understanding the API</h2>
+<h2 id="using-manual-state-based-api">Using manual, State-based API</h2>
 <p>One of the most common first tasks with QBN projects is building a deck of cards. In SimpleQBN, this starts with the <strong>Deck</strong> class.</p>
 <blockquote>
 <p><strong>Note</strong>: The examples on this page assume usage in Node.js with either importing all classes or the ones specified in the examples.</p>
@@ -332,7 +332,7 @@ d.<span class="hljs-property">state</span>.<span class="hljs-title function_">se
 <span class="hljs-comment">// Create a card</span>
 d.<span class="hljs-title function_">addCard</span>(<span class="hljs-string">"Content"</span>, [<span class="hljs-string">'$test == 1'</span>]);
 </code></pre>
-<p>In quality-based narratives, a <em>quality</em> defines if content can be accessed. They are written as conditional statements. In SimpleQBN 1.5.0, these are created using Quis syntax, which provides a clean and powerful expression language.</p>
+<p>In quality-based narratives, a <em>quality</em> defines if content can be accessed. They are written as conditional statements. In SimpleQBN 1.5.0, these are created using Quis syntax.</p>
 <p>Qualities can be passed as either an array when using <em>addCard()</em> (of <strong>Deck</strong>) or with the <strong>Card</strong> method <em>addQuality()</em>. In either usage, qualities are expressed as string values using Quis syntax. These then become part of a collection called a <strong>QualitySet</strong> internally in a <strong>Card</strong>.</p>
 <pre><code class="lang-JavaScript"><span class="hljs-comment">// Create a new Deck</span>
 <span class="hljs-keyword">const</span> d = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Deck</span>();
@@ -411,6 +411,155 @@ d.<span class="hljs-title function_">updateCard</span>(c);
 <span class="hljs-keyword">const</span> anotherHand = d.<span class="hljs-title function_">draw</span>(<span class="hljs-number">3</span>);
 </code></pre>
 <p>In the above code, the method <em>addQuality()</em> is used to add another quality to a card. As only the <strong>Card</strong> in the drawn collection would be updated, the <strong>Deck</strong> method <em>updateCard()</em> is also used. Through passing the <strong>Card</strong> to this method, it will update the internal <strong>Card</strong> where the unique <em>hash</em> of each match.</p>
+<h2 id="using-automatic-reactive-state-based-api">Using automatic, Reactive State-based API</h2>
+<p>The reactive architecture provides the same deck building functionality with automatic updates and event-driven state management. Instead of manual state passing, reactive components automatically synchronize when state changes occur.</p>
+<blockquote>
+<p><strong>Note</strong>: The examples below use the new nested import structure available in SimpleQBN 1.5.0+. These reactive classes are incompatible with the original State-based classes shown above.</p>
+</blockquote>
+<pre><code class="lang-JavaScript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Deck</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'simple-qbn/reactive'</span>;
+<span class="hljs-comment">// Or: import ReactiveDeck from 'simple-qbn/reactive/Deck';</span>
+
+<span class="hljs-keyword">const</span> d = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Deck</span>();
+</code></pre>
+<p>Creating a <strong>ReactiveDeck</strong> requires binding it to a <strong>ReactiveState</strong>. Unlike the original architecture, the reactive state is passed explicitly during construction or binding, enabling automatic updates across all connected components.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">State</span>, <span class="hljs-title class_">Deck</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'simple-qbn/reactive'</span>;
+
+<span class="hljs-comment">// Create a reactive state</span>
+<span class="hljs-keyword">const</span> gameState = <span class="hljs-keyword">new</span> <span class="hljs-title class_">State</span>();
+<span class="hljs-comment">// Add a key-value pair</span>
+gameState.<span class="hljs-title function_">set</span>(<span class="hljs-string">'test'</span>, <span class="hljs-number">1</span>);
+<span class="hljs-comment">// Create a deck bound to the state</span>
+<span class="hljs-keyword">const</span> d = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Deck</span>([], gameState);
+</code></pre>
+<p>The method <em>addCard()</em> of <strong>ReactiveDeck</strong> accepts a <strong>ReactiveCard</strong> instance. Unlike the original API, you create <strong>ReactiveCard</strong> objects explicitly and then add them to the deck.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">State</span>, <span class="hljs-title class_">Card</span>, <span class="hljs-title class_">Deck</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'simple-qbn/reactive'</span>;
+
+<span class="hljs-comment">// Create a reactive state</span>
+<span class="hljs-keyword">const</span> gameState = <span class="hljs-keyword">new</span> <span class="hljs-title class_">State</span>();
+<span class="hljs-comment">// Add a key-value pair</span>
+gameState.<span class="hljs-title function_">set</span>(<span class="hljs-string">'test'</span>, <span class="hljs-number">1</span>);
+<span class="hljs-comment">// Create a reactive card</span>
+<span class="hljs-keyword">const</span> card = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Card</span>(<span class="hljs-string">"Content"</span>, [<span class="hljs-string">'$test == 1'</span>]);
+<span class="hljs-comment">// Create a deck and add the card</span>
+<span class="hljs-keyword">const</span> d = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Deck</span>([card], gameState);
+</code></pre>
+<p>In the reactive architecture, qualities work the same way as conditional statements using Quis syntax. However, reactive cards automatically recalculate their availability when the bound state changes, eliminating the need for manual availability checking.</p>
+<p>Reactive cards maintain the same <strong>QualitySet</strong> concept internally, but with automatic cache invalidation when state changes occur.</p>
+<pre><code class="lang-JavaScript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">State</span>, <span class="hljs-title class_">Card</span>, <span class="hljs-title class_">Deck</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'simple-qbn/reactive'</span>;
+
+<span class="hljs-comment">// Create a reactive state</span>
+<span class="hljs-keyword">const</span> gameState = <span class="hljs-keyword">new</span> <span class="hljs-title class_">State</span>();
+<span class="hljs-comment">// Add a key-value pair</span>
+gameState.<span class="hljs-title function_">set</span>(<span class="hljs-string">'test'</span>, <span class="hljs-number">1</span>);
+<span class="hljs-comment">// Create a reactive card with qualities</span>
+<span class="hljs-keyword">const</span> card = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Card</span>(<span class="hljs-string">"Content"</span>, [<span class="hljs-string">'$test == 1'</span>]);
+<span class="hljs-comment">// Create a deck bound to state</span>
+<span class="hljs-keyword">const</span> d = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Deck</span>([card], gameState);
+</code></pre>
+<p>Cards are accessed through the <em>availableCards</em> property, which automatically updates when state changes. A <strong>ReactiveCard</strong> is available when all <strong>ReactiveExpressions</strong> within its <strong>ReactiveQualitySet</strong> are valid against the current <strong>ReactiveState</strong>.</p>
+<p>The <em>availableCards</em> getter returns an array of currently available cards, and this list automatically updates when the state changes through the reactive subscription system.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">State</span>, <span class="hljs-title class_">Card</span>, <span class="hljs-title class_">Deck</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'simple-qbn/reactive'</span>;
+
+<span class="hljs-comment">// Create a reactive state</span>
+<span class="hljs-keyword">const</span> gameState = <span class="hljs-keyword">new</span> <span class="hljs-title class_">State</span>();
+<span class="hljs-comment">// Add a key-value pair</span>
+gameState.<span class="hljs-title function_">set</span>(<span class="hljs-string">'test'</span>, <span class="hljs-number">1</span>);
+<span class="hljs-comment">// Create a reactive card</span>
+<span class="hljs-keyword">const</span> card = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Card</span>(<span class="hljs-string">"Content"</span>, [<span class="hljs-string">'$test == 1'</span>]);
+<span class="hljs-comment">// Create a deck bound to state</span>
+<span class="hljs-keyword">const</span> d = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Deck</span>([card], gameState);
+
+<span class="hljs-comment">// Subscribe to automatic updates</span>
+d.<span class="hljs-title function_">subscribe</span>(<span class="hljs-function">(<span class="hljs-params">availableCards</span>) =&gt;</span> {
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`<span class="hljs-subst">${availableCards.length}</span> cards available`</span>);
+});
+
+<span class="hljs-comment">// Access available cards (triggers subscription)</span>
+<span class="hljs-keyword">const</span> available = d.<span class="hljs-property">availableCards</span>;
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(available[<span class="hljs-number">0</span>].<span class="hljs-property">content</span>);
+</code></pre>
+<h2 id="adding-shuffling-and-drawing-reactive-cards">Adding, Shuffling, and Drawing Reactive Cards</h2>
+<p>Reactive decks support dynamic card management with automatic availability updates. When cards are added or removed, all subscribed listeners are notified automatically.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">State</span>, <span class="hljs-title class_">Card</span>, <span class="hljs-title class_">Deck</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'simple-qbn/reactive'</span>;
+
+<span class="hljs-comment">// Create a reactive state and deck</span>
+<span class="hljs-keyword">const</span> gameState = <span class="hljs-keyword">new</span> <span class="hljs-title class_">State</span>();
+gameState.<span class="hljs-title function_">set</span>(<span class="hljs-string">'test'</span>, <span class="hljs-number">1</span>);
+<span class="hljs-keyword">const</span> d = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Deck</span>([], gameState);
+
+<span class="hljs-comment">// Create and add multiple cards</span>
+<span class="hljs-keyword">const</span> card1 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Card</span>(<span class="hljs-string">"Content"</span>, [<span class="hljs-string">'$test == 1'</span>]);
+<span class="hljs-keyword">const</span> card2 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Card</span>(<span class="hljs-string">"More Content"</span>, [<span class="hljs-string">'$test == 1'</span>]);  
+<span class="hljs-keyword">const</span> card3 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Card</span>(<span class="hljs-string">"Even More Content"</span>, [<span class="hljs-string">'$test == 1'</span>]);
+
+d.<span class="hljs-title function_">addCard</span>(card1);
+d.<span class="hljs-title function_">addCard</span>(card2);
+d.<span class="hljs-title function_">addCard</span>(card3);
+</code></pre>
+<p>The method <em>shuffle()</em> works the same way as the original architecture, randomly redistributing cards within the <strong>ReactiveDeck</strong>. All subscribers are notified when the shuffle occurs.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">State</span>, <span class="hljs-title class_">Card</span>, <span class="hljs-title class_">Deck</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'simple-qbn/reactive'</span>;
+
+<span class="hljs-comment">// Create a reactive state and deck</span>
+<span class="hljs-keyword">const</span> gameState = <span class="hljs-keyword">new</span> <span class="hljs-title class_">State</span>();
+gameState.<span class="hljs-title function_">set</span>(<span class="hljs-string">'test'</span>, <span class="hljs-number">1</span>);
+<span class="hljs-keyword">const</span> d = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Deck</span>([], gameState);
+
+<span class="hljs-comment">// Add cards</span>
+<span class="hljs-keyword">const</span> card1 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Card</span>(<span class="hljs-string">"Content"</span>, [<span class="hljs-string">'$test == 1'</span>]);
+<span class="hljs-keyword">const</span> card2 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Card</span>(<span class="hljs-string">"More Content"</span>, [<span class="hljs-string">'$test == 1'</span>]);
+<span class="hljs-keyword">const</span> card3 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Card</span>(<span class="hljs-string">"Even More Content"</span>, [<span class="hljs-string">'$test == 1'</span>]);
+
+d.<span class="hljs-title function_">addCard</span>(card1);
+d.<span class="hljs-title function_">addCard</span>(card2);
+d.<span class="hljs-title function_">addCard</span>(card3);
+
+<span class="hljs-comment">// Shuffle the cards (notifies subscribers)</span>
+d.<span class="hljs-title function_">shuffle</span>();
+</code></pre>
+<p>The <em>draw()</em> method returns a random available card (or null if none available), while <em>availableCards</em> provides the full list. Unlike the original architecture, reactive cards automatically update their availability as state changes, and all deck subscribers are notified in real-time.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">State</span>, <span class="hljs-title class_">Card</span>, <span class="hljs-title class_">Deck</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'simple-qbn/reactive'</span>;
+
+<span class="hljs-comment">// Create a reactive state and deck</span>
+<span class="hljs-keyword">const</span> gameState = <span class="hljs-keyword">new</span> <span class="hljs-title class_">State</span>();
+gameState.<span class="hljs-title function_">set</span>(<span class="hljs-string">'test'</span>, <span class="hljs-number">1</span>);
+<span class="hljs-keyword">const</span> d = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Deck</span>([], gameState);
+
+<span class="hljs-comment">// Add cards</span>
+<span class="hljs-keyword">const</span> card1 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Card</span>(<span class="hljs-string">"Content"</span>, [<span class="hljs-string">'$test == 1'</span>]);
+<span class="hljs-keyword">const</span> card2 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Card</span>(<span class="hljs-string">"More Content"</span>, [<span class="hljs-string">'$test == 1'</span>]);
+<span class="hljs-keyword">const</span> card3 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Card</span>(<span class="hljs-string">"Even More Content"</span>, [<span class="hljs-string">'$test == 1'</span>]);
+
+d.<span class="hljs-title function_">addCard</span>(card1);
+d.<span class="hljs-title function_">addCard</span>(card2);
+d.<span class="hljs-title function_">addCard</span>(card3);
+
+<span class="hljs-comment">// Subscribe to changes</span>
+d.<span class="hljs-title function_">subscribe</span>(<span class="hljs-function">(<span class="hljs-params">availableCards</span>) =&gt;</span> {
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`<span class="hljs-subst">${availableCards.length}</span> cards available`</span>);
+});
+
+<span class="hljs-comment">// Shuffle the cards</span>
+d.<span class="hljs-title function_">shuffle</span>();
+
+<span class="hljs-comment">// Draw a random available card</span>
+<span class="hljs-keyword">const</span> drawnCard = d.<span class="hljs-title function_">draw</span>();
+<span class="hljs-keyword">if</span> (drawnCard) {
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`Drew: <span class="hljs-subst">${drawnCard.content}</span>`</span>);
+}
+
+<span class="hljs-comment">// Add a new quality to the first card</span>
+card1.<span class="hljs-title function_">addQuality</span>(<span class="hljs-string">'$example == 1'</span>);
+<span class="hljs-comment">// The deck automatically updates - no updateCard() needed!</span>
+
+<span class="hljs-comment">// State change automatically updates all cards</span>
+gameState.<span class="hljs-title function_">set</span>(<span class="hljs-string">'example'</span>, <span class="hljs-number">1</span>);
+<span class="hljs-comment">// All subscribers notified automatically</span>
+
+<span class="hljs-comment">// Get currently available cards</span>
+<span class="hljs-keyword">const</span> available = d.<span class="hljs-property">availableCards</span>;
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`Now <span class="hljs-subst">${available.length}</span> cards available`</span>);
+</code></pre>
+<p>In the reactive architecture, the method <em>addQuality()</em> automatically triggers updates to the card's availability and notifies all deck subscribers. There's no need for an <em>updateCard()</em> method since the reactive system handles synchronization automatically through the subscription system.</p>
 
                                 
                                 </section>
@@ -454,7 +603,7 @@ d.<span class="hljs-title function_">updateCard</span>(c);
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Deck Building","level":"4.1","depth":1,"next":{"title":"Story Gates","level":"4.2","depth":1,"path":"examples/storygates.md","ref":"./examples/storygates.md","articles":[]},"previous":{"title":"State Management","level":"3.3","depth":1,"path":"State.md","ref":"./State.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./notes","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"examples/deckbuilding.md","mtime":"2025-10-01T22:37:48.979Z","type":"markdown"},"gitbook":{"version":"6.1.4","time":"2025-10-01T22:38:35.363Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Deck Building","level":"4.1","depth":1,"next":{"title":"Story Gates","level":"4.2","depth":1,"path":"examples/storygates.md","ref":"./examples/storygates.md","articles":[]},"previous":{"title":"State Management","level":"3.3","depth":1,"path":"State.md","ref":"./State.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./notes","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"examples/deckbuilding.md","mtime":"2025-10-05T03:15:17.288Z","type":"markdown"},"gitbook":{"version":"6.1.4","time":"2025-10-05T03:31:04.846Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

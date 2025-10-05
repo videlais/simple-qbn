@@ -321,7 +321,7 @@
 <li><em>Only one comparison can be used at a time</em>. Complex comparisons are not possible in the format because of its internal parsing. Additional tags can be added, but each is only one comparison between a single variable and value.</li>
 </ul>
 <h3 id="working-with-quis-expression-language">Working with Quis Expression Language</h3>
-<p>Starting with version 1.4, SimpleQBN began to use the MongoDB Query Language for expressions. As of version 1.4.2, SimpleQBN uses the <a href="https://www.npmjs.com/package/quis" target="_blank">Quis</a> NPM package for expression evaluation. With Quis 1.2.0, SimpleQBN now supports native Quis expression strings with complex boolean operators, while maintaining backward compatibility with MongoDB-style query objects.</p>
+<p>Starting with version 1.4, SimpleQBN began to use the MongoDB Query Language for expressions. As of version 1.4.2, SimpleQBN uses the <a href="https://www.npmjs.com/package/quis" target="_blank">Quis</a> NPM package for expression evaluation.</p>
 <p>Quis expressions support:</p>
 <ul>
 <li>Comparison operators: <code>==</code>, <code>!=</code>, <code>&gt;</code>, <code>&gt;=</code>, <code>&lt;</code>, <code>&lt;=</code>  </li>
@@ -335,15 +335,13 @@
 <li>Complex: <code>$user_role == "admin" &amp;&amp; $user_active == true</code></li>
 <li>Grouped: <code>($score &gt;= 80 || $bonus_points &gt; 10) &amp;&amp; $attempts &lt;= 3</code></li>
 </ul>
+<h3 id="previous-use-of-mingo-mongodb-query-support">Previous use of Mingo (MongoDB Query Support)</h3>
 <p>For example, an <strong>Expression</strong> to test if the <strong>State</strong> value <em>score</em> was greater than 15 would be written as the following:</p>
 <pre><code class="lang-JavaScript">{<span class="hljs-attr">score</span>: {<span class="hljs-attr">$gt</span>: <span class="hljs-number">15</span>}}
 </code></pre>
 <p>The use of the MongoDB query language also introduces much more complex queries as well. To test if the <strong>State</strong> value <em>score</em> was greater than 15, <strong>State</strong> value <em>act1</em> was <code>true</code>, and <strong>State</strong> value <em>reputation</em> was less than <code>3.5</code>, it would be the following:</p>
 <pre><code class="lang-JavaScript">{<span class="hljs-attr">score</span>: {<span class="hljs-attr">$gt</span>: <span class="hljs-number">15</span>}, <span class="hljs-attr">act1</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">reputation</span>: {<span class="hljs-attr">$lt</span>: <span class="hljs-number">3.5</span>}}
 </code></pre>
-<h2 id="qualityset"><strong>QualitySet</strong></h2>
-<p>Each <strong>Card</strong> in SimpleQBN has an internal property called <em>qualities</em>. This is an instance of a class called <strong>QualitySet</strong> holding multiple <strong>Expressions</strong>. It provides the method <em>check()</em> for reviewing each of its internal <strong>Expressions</strong>. A <strong>QualitySet</strong> is <code>true</code> if <em>every</em> <strong>Expression</strong> returns <code>true</code>.</p>
-<p>In order to check if an <strong>Expression</strong> (and the larger <strong>QualitySet</strong>) is <code>true</code>, it needs access to <a href="state.md"><strong>State</strong></a>.</p>
 <h2 id="references">References</h2>
 <p>Grams, J. (2019). Tiny-QBN. GitHub. Retrieved from <code>https://github.com/JoshuaGrams/tiny-qbn</code></p>
 
@@ -389,7 +387,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Expressions and QualitySet","level":"3.1","depth":1,"next":{"title":"Decks and Cards","level":"3.2","depth":1,"path":"cards.md","ref":"./cards.md","articles":[]},"previous":{"title":"Quality-Based Narrative (2010)","level":"2.5","depth":1,"path":"qbn.md","ref":"./qbn.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./notes","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"expressions.md","mtime":"2025-10-01T22:04:18.545Z","type":"markdown"},"gitbook":{"version":"6.1.4","time":"2025-10-01T22:38:35.363Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Expressions and QualitySet","level":"3.1","depth":1,"next":{"title":"Decks and Cards","level":"3.2","depth":1,"path":"cards.md","ref":"./cards.md","articles":[]},"previous":{"title":"Quality-Based Narrative (2010)","level":"2.5","depth":1,"path":"qbn.md","ref":"./qbn.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./notes","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"expressions.md","mtime":"2025-10-05T02:48:02.464Z","type":"markdown"},"gitbook":{"version":"6.1.4","time":"2025-10-05T03:31:04.846Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

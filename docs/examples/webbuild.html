@@ -309,8 +309,14 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="bundled-for-web">Bundled for Web</h1>
-<p>The <code>build</code> folder contains the file <code>simpleqbn.bundle.js</code>. This is a build for use in browsers where the <code>window</code> global object exists. It binds all major classes (<strong>Deck</strong>, <strong>Card</strong>, <strong>QualitySet</strong>, <strong>Expression</strong>, and <strong>State</strong>) to <code>window</code> such that they can be created by their name.</p>
-<p>For testing purposes, GitCDN.link can be used to pull the build from GitHub like in the following example:</p>
+<p>The <code>build</code> folder contains two web builds for use in browsers where the <code>window</code> global object exists:</p>
+<ul>
+<li><strong><code>simpleqbn.bundle.js</code></strong>: Contains the original State-based classes (State, Card, Deck, Expression, QualitySet)</li>
+<li><strong><code>reactive-simpleqbn.bundle.js</code></strong>: Contains the reactive architecture classes (ReactiveState, ReactiveCard, etc.)</li>
+</ul>
+<p>Both builds expose their classes under the <code>window.SimpleQBN</code> namespace for browser usage.</p>
+<h2 id="using-the-original-architecture-build">Using the Original Architecture Build</h2>
+<p>For testing purposes, GitCDN.link can be used to pull the original build from GitHub like in the following example:</p>
 <pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>SimpleQBN Testing<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
@@ -320,8 +326,8 @@
         <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"log"</span>&gt;</span>(Draw a card!)<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"loadCard"</span>&gt;</span>Draw a random card!<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript">
-            <span class="hljs-comment">// Create a new Deck</span>
-            <span class="hljs-keyword">const</span> d = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Deck</span>();
+            <span class="hljs-comment">// Create a new Deck using the SimpleQBN namespace</span>
+            <span class="hljs-keyword">const</span> d = <span class="hljs-keyword">new</span> <span class="hljs-title class_">SimpleQBN</span>.<span class="hljs-title class_">Deck</span>();
 
             <span class="hljs-comment">// Create 52 new cards</span>
             <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">52</span>; i++) {
@@ -351,6 +357,67 @@
     <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
 </code></pre>
+<h2 id="using-the-reactive-architecture-build">Using the Reactive Architecture Build</h2>
+<p>The reactive build provides automatic updates and event-driven state management. Here's the same example using reactive classes:</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>SimpleQBN Reactive Testing<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://gitcdn.link/repo/videlais/simple-qbn/v1.5.0/build/reactive-simpleqbn.bundle.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"log"</span>&gt;</span>(Draw a card!)<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"loadCard"</span>&gt;</span>Draw a random card!<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript">
+            <span class="hljs-comment">// Create a reactive state and deck</span>
+            <span class="hljs-keyword">const</span> gameState = <span class="hljs-keyword">new</span> <span class="hljs-title class_">SimpleQBN</span>.<span class="hljs-title class_">ReactiveState</span>();
+            <span class="hljs-keyword">const</span> d = <span class="hljs-keyword">new</span> <span class="hljs-title class_">SimpleQBN</span>.<span class="hljs-title class_">ReactiveDeck</span>([], gameState);
+
+            <span class="hljs-comment">// Create 52 new cards</span>
+            <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">52</span>; i++) {
+                <span class="hljs-comment">// Add a new card with no conditions (always available)</span>
+                <span class="hljs-comment">// (For its content convert the index to a String.)</span>
+                <span class="hljs-keyword">const</span> card = <span class="hljs-keyword">new</span> <span class="hljs-title class_">SimpleQBN</span>.<span class="hljs-title class_">ReactiveCard</span>(i.<span class="hljs-title function_">toString</span>(), []);
+                d.<span class="hljs-title function_">addCard</span>(card);
+            }
+
+            <span class="hljs-comment">// Subscribe to deck changes for automatic updates</span>
+            d.<span class="hljs-title function_">subscribe</span>(<span class="hljs-function">(<span class="hljs-params">availableCards</span>) =&gt;</span> {
+                <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`<span class="hljs-subst">${availableCards.length}</span> cards available`</span>);
+            });
+
+            <span class="hljs-comment">// Find the (only) button element</span>
+            <span class="hljs-keyword">const</span> button = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">'button'</span>);
+
+            <span class="hljs-comment">// Add an event listener to the click event</span>
+            button.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">'click'</span>, <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) {
+                <span class="hljs-comment">// Shuffle cards (automatically notifies subscribers)</span>
+                d.<span class="hljs-title function_">shuffle</span>();
+
+                <span class="hljs-comment">// Draw a random available card</span>
+                <span class="hljs-keyword">const</span> drawnCard = d.<span class="hljs-title function_">draw</span>();
+
+                <span class="hljs-comment">// Find the element with the </span>
+                <span class="hljs-keyword">const</span> el = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">'#log'</span>);
+
+                <span class="hljs-comment">// Change its innerHTML</span>
+                <span class="hljs-keyword">if</span> (drawnCard) {
+                    el.<span class="hljs-property">innerHTML</span> = <span class="hljs-string">`Card: <span class="hljs-subst">${drawnCard.content}</span>`</span>;
+                } <span class="hljs-keyword">else</span> {
+                    el.<span class="hljs-property">innerHTML</span> = <span class="hljs-string">'No cards available!'</span>;
+                }
+            });
+        </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</code></pre>
+<h2 id="build-compatibility">Build Compatibility</h2>
+<blockquote>
+<p><strong>Important</strong>: The two builds are incompatible with each other. Do not mix original State-based classes with reactive classes in the same project. Choose one architecture based on your needs:</p>
+<ul>
+<li><strong>Original Build</strong>: Use when you need simple, direct control and don't require automatic updates</li>
+<li><strong>Reactive Build</strong>: Use when you want automatic state synchronization and event-driven updates</li>
+</ul>
+</blockquote>
 
                                 
                                 </section>
@@ -390,7 +457,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Bundled for Web","level":"4.3","depth":1,"previous":{"title":"Story Gates","level":"4.2","depth":1,"path":"examples/storygates.md","ref":"./examples/storygates.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./notes","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"examples/webbuild.md","mtime":"2025-10-01T22:37:57.499Z","type":"markdown"},"gitbook":{"version":"6.1.4","time":"2025-10-01T22:38:35.363Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Bundled for Web","level":"4.3","depth":1,"previous":{"title":"Story Gates","level":"4.2","depth":1,"path":"examples/storygates.md","ref":"./examples/storygates.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./notes","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"examples/webbuild.md","mtime":"2025-10-05T03:23:37.711Z","type":"markdown"},"gitbook":{"version":"6.1.4","time":"2025-10-05T03:31:04.846Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

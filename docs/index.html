@@ -308,25 +308,100 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="simpleqbn-140">SimpleQBN (1.4.0)</h1>
+                                <h1 id="simpleqbn">SimpleQBN</h1>
 <p><em>Because nothing about quality-based narratives is actually simple.</em></p>
-<p>SimpleQBN is a quality-based narrative (QBN) generic JavaScript library for use in browsers or Node.js-based projects.</p>
+<p>SimpleQBN is a quality-based narrative (QBN) generic JavaScript library for use in browsers or Node.js-based projects. It provides state management and resolves expressions for checking openness (availability) based on states changes.</p>
+<p>This project is based on another project <a href="https://github.com/videlais/quis" target="_blank">Quis</a>, which it uses to resolve expressions.</p>
+<h2 id="state-and-reactive-state">State and Reactive State</h2>
+<p>SimpleQBN provides two distinct architectures for managing game state:</p>
+<ul>
+<li>Manual, State-based, and;</li>
+<li>Automatic, Reactive State-based.</li>
+</ul>
+<p><strong>These two systems are incompatible and cannot be mixed within the same application.</strong></p>
+<h3 id="original-state-architecture">Original State Architecture</h3>
+<p>The original architecture uses the <code>State</code> class along with <code>Card</code>, <code>Deck</code>, <code>Expression</code>, and <code>QualitySet</code> classes. This architecture requires manual state passing and explicit availability checking.</p>
+<p><strong>Key Classes:</strong> <code>State</code>, <code>Card</code>, <code>Deck</code>, <code>Expression</code>, <code>QualitySet</code></p>
+<p><strong>Example:</strong></p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> <span class="hljs-title class_">State</span> <span class="hljs-keyword">from</span> <span class="hljs-string">'simple-qbn/State'</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-title class_">Card</span> <span class="hljs-keyword">from</span> <span class="hljs-string">'simple-qbn/Card'</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-title class_">Deck</span> <span class="hljs-keyword">from</span> <span class="hljs-string">'simple-qbn/Deck'</span>;
+
+<span class="hljs-comment">// Create game state</span>
+<span class="hljs-keyword">const</span> gameState = <span class="hljs-keyword">new</span> <span class="hljs-title class_">State</span>();
+gameState.<span class="hljs-title function_">set</span>(<span class="hljs-string">'health'</span>, <span class="hljs-number">100</span>);
+gameState.<span class="hljs-title function_">set</span>(<span class="hljs-string">'hasKey'</span>, <span class="hljs-literal">true</span>);
+
+<span class="hljs-comment">// Create cards with quality requirements</span>
+<span class="hljs-keyword">const</span> healingCard = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Card</span>(
+    <span class="hljs-string">'Drink a healing potion'</span>,
+    [<span class="hljs-string">'$health &lt; 80'</span>]);
+<span class="hljs-keyword">const</span> doorCard = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Card</span>(
+    <span class="hljs-string">'Open the locked door'</span>,
+    [<span class="hljs-string">'$hasKey == true'</span>]);
+
+<span class="hljs-comment">// Create deck and add cards</span>
+<span class="hljs-keyword">const</span> deck = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Deck</span>();
+deck.<span class="hljs-title function_">addCard</span>(
+    healingCard.<span class="hljs-property">content</span>,
+    healingCard.<span class="hljs-property">qualities</span>);
+deck.<span class="hljs-title function_">addCard</span>(
+    doorCard.<span class="hljs-property">content</span>,
+    doorCard.<span class="hljs-property">qualities</span>);
+
+<span class="hljs-comment">// Check availability manually.</span>
+<span class="hljs-comment">// Need to pass state each time.</span>
+<span class="hljs-keyword">const</span> availableCards = deck.<span class="hljs-title function_">draw</span>(gameState, <span class="hljs-number">5</span>);
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`<span class="hljs-subst">${availableCards.length}</span> cards available`</span>);
+</code></pre>
+<h3 id="reactive-architecture">Reactive Architecture</h3>
+<p>The reactive architecture uses <code>ReactiveState</code> with <code>ReactiveCard</code>, <code>ReactiveDeck</code>, <code>ReactiveExpression</code>, and <code>ReactiveQualitySet</code>. This architecture provides automatic updates and event-driven state management.</p>
+<p><strong>Key Classes:</strong> <code>ReactiveState</code>, <code>ReactiveCard</code>, <code>ReactiveDeck</code>, <code>ReactiveExpression</code>, <code>ReactiveQualitySet</code></p>
+<p><strong>Example:</strong></p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> <span class="hljs-title class_">ReactiveState</span> <span class="hljs-keyword">from</span> <span class="hljs-string">'simple-qbn/reactive/State'</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-title class_">ReactiveCard</span> <span class="hljs-keyword">from</span> <span class="hljs-string">'simple-qbn/reactive/Card'</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-title class_">ReactiveDeck</span> <span class="hljs-keyword">from</span> <span class="hljs-string">'simple-qbn/reactive/Deck'</span>;
+
+<span class="hljs-comment">// Create reactive game state.</span>
+<span class="hljs-keyword">const</span> gameState = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ReactiveState</span>();
+gameState.<span class="hljs-title function_">set</span>(<span class="hljs-string">'health'</span>, <span class="hljs-number">100</span>);
+gameState.<span class="hljs-title function_">set</span>(<span class="hljs-string">'hasKey'</span>, <span class="hljs-literal">true</span>);
+
+<span class="hljs-comment">// Create reactive cards.</span>
+<span class="hljs-keyword">const</span> healingCard = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ReactiveCard</span>(
+    <span class="hljs-string">'Drink a healing potion'</span>,
+    [<span class="hljs-string">'$health &lt; 80'</span>]);
+<span class="hljs-keyword">const</span> doorCard = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ReactiveCard</span>(
+    <span class="hljs-string">'Open the locked door'</span>,
+    [<span class="hljs-string">'$hasKey == true'</span>]);
+
+<span class="hljs-comment">// Create reactive deck and bind to state.</span>
+<span class="hljs-keyword">const</span> deck = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ReactiveDeck</span>(
+    [healingCard, doorCard],
+    gameState);
+
+<span class="hljs-comment">// Subscribe to automatic updates.</span>
+deck.<span class="hljs-title function_">subscribe</span>(<span class="hljs-function">(<span class="hljs-params">availableCards</span>) =&gt;</span> {
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`<span class="hljs-subst">${availableCards.length}</span> cards now available`</span>);
+});
+
+<span class="hljs-comment">// State changes trigger automatic updates.</span>
+gameState.<span class="hljs-title function_">set</span>(<span class="hljs-string">'health'</span>, <span class="hljs-number">50</span>);
+</code></pre>
+<h3 id="architecture-compatibility">Architecture Compatibility</h3>
+<p><strong>Important:</strong> The two architectures are mutually exclusive:</p>
+<ul>
+<li><strong>Original classes</strong> (<code>Card</code>, <code>Deck</code>, etc.) work only with <code>State</code></li>
+<li><strong>Reactive classes</strong> (<code>ReactiveCard</code>, <code>ReactiveDeck</code>, etc.) work only with <code>ReactiveState</code></li>
+<li>You cannot pass a <code>State</code> to reactive classes or a <code>ReactiveState</code> to original classes</li>
+</ul>
+<p><strong>Choose one architecture for your entire application.</strong></p>
 <h2 id="expression-language">Expression Language</h2>
-<p>Starting with version 1.5.0, SimpleQBN uses <a href="https://www.npmjs.com/package/quis" target="_blank">Quis</a> 1.2.0 for expression evaluation with pure Quis syntax. All expressions are written as strings using Quis syntax, which provides a clean and powerful way to define conditions and comparisons.</p>
-<p>Quis supports complex boolean expressions with operators like <code>&amp;&amp;</code> (AND), <code>||</code> (OR), and parentheses for grouping, allowing for sophisticated logical conditions in a single statement.</p>
-<p>Previous versions used TinyQBN format and MongoDB query language compatibility, but as of 1.5.0, the library has been simplified to use only Quis string expressions for better maintainability and performance.</p>
+<p>Starting with version 1.5.0, SimpleQBN uses <a href="https://www.npmjs.com/package/quis" target="_blank">Quis</a> for expression evaluation with pure Quis syntax.</p>
+<p>Previous versions used TinyQBN format and MongoDB query language compatibility, but as of 1.5.0, the library has been simplified to use only Quis string expressions to reduce dependencies and code size.</p>
 <h2 id="history-and-documentation">History and Documentation</h2>
 <p>HonKit is used to create <a href="https://videlais.github.io/simple-qbn/" target="_blank">a history and documentation of this project</a>.</p>
-<p>JSDocs is also used for the <a href="https://videlais.github.io/simple-qbn/api" target="_blank">API documentation</a>.</p>
-<h2 id="scripts">Scripts</h2>
-<ul>
-<li><code>npm test</code> runs the <a href="https://jestjs.io/en/" target="_blank">Jest-based</a> test files. (Internally, <a href="https://babeljs.io/" target="_blank">Babel</a> is used to transform the source for testing.)</li>
-<li><code>npm run lint</code> lints the files in <code>src</code> folder using <a href="https://eslint.org/" target="_blank">ESLint</a>.</li>
-<li><code>npm run lint:test</code> lints the files in <code>test</code> folder using <a href="https://eslint.org/" target="_blank">ESLint</a> with Jest settings.</li>
-<li><code>npm run docs</code> generates <code>docs</code> HTML content based on Markdown files stored in <code>notes</code> using <a href="https://github.com/honkit/honkit" target="_blank">HonKit</a>.</li>
-<li><code>npm run docs:serve</code> creates a local HTTP server serving the files in <code>notes</code> from a created <code>_book</code> directory by HonKit.</li>
-<li><code>npm run build</code> uses <a href="https://webpack.js.org/" target="_blank">WebPack</a> to bundle the files for use in browser-based projects. It creates globals based on each of the classes (<strong>Card</strong>, <strong>Deck</strong>, <strong>Expression</strong>, <strong>QualitySet</strong>, and <strong>State</strong>) of the project.</li>
-</ul>
 
                                 
                                 </section>
@@ -366,7 +441,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Introduction","level":"1.1","depth":1,"next":{"title":"Scenes and Cycles (1983)","level":"2.1","depth":1,"path":"scenes.md","ref":"./scenes.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./notes","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"README.md","mtime":"2025-10-01T22:38:34.946Z","type":"markdown"},"gitbook":{"version":"6.1.4","time":"2025-10-01T22:38:35.363Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Introduction","level":"1.1","depth":1,"next":{"title":"Scenes and Cycles (1983)","level":"2.1","depth":1,"path":"scenes.md","ref":"./scenes.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./notes","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"README.md","mtime":"2025-10-05T03:31:04.429Z","type":"markdown"},"gitbook":{"version":"6.1.4","time":"2025-10-05T03:31:04.846Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

@@ -1,6 +1,6 @@
-import Deck from '../src/Deck.js';
-import State from '../src/State.js';
-import Card from '../src/Card';
+import Deck from '../dist/src/Deck.js';
+import State from '../dist/src/State.js';
+import Card from '../dist/src/Card.js';
 
 describe('State', () => {
   test('set state - updated state', () => {

@@ -1,0 +1,162 @@
+import Card from './Card.js';
+import State from './State.js';
+
+/**
+ * @class Deck
+ * @module Deck
+ * @see State
+ */
+export default class Deck {
+  public cards: Card[];
+  private _state: State;
+
+  /**
+   * @class
+   */
+  constructor() {
+    // Set the internal cards to an empty array.
+    this.cards = [];
+
+    // Set the internal state to a new State().
+    this._state = new State();
+  }
+
+  /**
+   * @type {State}
+   */
+  get state(): State {
+    return this._state;
+  }
+
+  set state(s: State) {
+    if (s instanceof State) {
+      this._state = s;
+    } else {
+      throw new Error('Passed value is not an instance of State');
+    }
+  }
+
+  /**
+   * Get a card based on position.
+   *
+   * @function getCard
+   * @param {number} index - Position of card within deck.
+   * @returns {Card|null} Returns Card or null.
+   * @memberof Deck
+   */
+  getCard(index: number = -1): Card | null {
+    // Set a default.
+    let card: Card | null = null;
+
+    // If index is less than cards.length.
+    if (index >= 0 && index < this.cards.length) {
+      card = this.cards[index];
+    }
+
+    // Return Card or null.
+    return card;
+  }
+
+  /**
+   * Update card based on its internal hash.
+   *
+   * @function updateCard
+   * @param {Card} c - Card to update in deck.
+   */
+  updateCard(c: Card): void {
+    if (c instanceof Card) {
+      this.cards.forEach((card, index) => {
+        if (card.hash === c.hash) {
+          this.cards[index] = c;
+        }
+      });
+    } else {
+      throw new Error('Updated card must be Card!');
+    }
+  }
+
+  /**
+   * Size of Deck.
+   *
+   * @function size
+   * @returns {number} Returns number of cards.
+   */
+  size(): number {
+    return this.cards.length;
+  }
+
+  /**
+   * Add a Card to the Deck.
+   *
+   * @function addCard
+   * @param {string} content - Text of card.
+   * @param {Array} qualities - Array of Expressions.
+   */
+  addCard(content: string, qualities: string[] = []): void {
+    // Runtime type checks for safety (JavaScript consumers, external data)
+    if (typeof content !== 'string') {
+      throw new Error('Card content must be string!');
+    }
+    if (!Array.isArray(qualities)) {
+      throw new Error('Qualities must be passed as array!');
+    }
+
+    // Create a new card and pass it the current state.
+    const c = new Card(content, qualities);
+
+    // Add a card to the existing deck.
+    this.cards.push(c);
+  }
+
+  /**
+   * Remove a Card from the Deck.
+   *
+   * @function removeCard
+   * @param {object} c - Card to remove from deck.
+   */
+  removeCard(c: Card): void {
+    this.cards = this.cards.filter((entry) => {
+      return entry !== c;
+    });
+  }
+
+  /**
+   * Shuffle cards in Deck.
+   *
+   * @function shuffle
+   */
+  shuffle(): void {
+    // Fisher-Yates shuffle.
+    for (let i = this.cards.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      // Swap positions using destructuring assignment.
+      [this.cards[i], this.cards[j]] = [this.cards[j], this.cards[i]];
+    }
+  }
+
+  /**
+   * Draw card from Deck.
+   *
+   * @function draw
+   * @param {number} size - Size of hand to draw from Deck.
+   * @returns {Array} Hand of cards.
+   */
+  draw(size: number = 1): Card[] {
+    // Create a hand.
+    let hand: Card[] = [];
+
+    // Prevent negative sizes.
+    if (size > 0) {
+      // Find all available cards.
+      hand = this.cards.filter((card) => {
+        // Pass the current state to the card.
+        return card.isAvailable(this.state);
+      });
+
+      // Slice out a sub-set of available cards.
+      hand = hand.slice(0, size);
+    }
+
+    return hand;
+  }
+}

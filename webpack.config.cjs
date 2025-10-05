@@ -2,16 +2,29 @@ const path = require('path');
 
 module.exports = {
   mode: 'production',
-  entry: path.resolve(__dirname, './src/index.js'),
+  entry: path.resolve(__dirname, './src/index.ts'),
   resolve: {
+    extensions: ['.ts', '.js'],
     alias: {
       'quis': path.resolve(__dirname, 'node_modules/quis/build/quis.cjs')
+    },
+    // Help webpack resolve .js imports to .ts files
+    extensionAlias: {
+      '.js': ['.js', '.ts']
     }
   },
   module: {
     rules: [
       {
-        test: /\.(js)$/,
+        test: /\.ts$/,
+        exclude: /(node_modules|test|notes|docs)/,
+        use: ['ts-loader'],
+        resolve: {
+          fullySpecified: false // disable
+        }
+      },
+      {
+        test: /\.js$/,
         exclude: /(node_modules|test|notes|docs)/,
         use: ['babel-loader'],
         resolve: {

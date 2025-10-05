@@ -312,10 +312,105 @@
                                 
                                 <h1 id="state-management">State Management</h1>
 <p>The <a href="sculpturalmodel.html">sculptural model</a> defines a <em>context</em> cards can access and manipulate. The QBN model also describes <em>qualities</em> as conditional statements testing against some values. In SimpleQBN, this is explicitly called <strong>State</strong>.</p>
-<p>Creating a <strong>Deck</strong> also creates an internal <strong>State</strong> as a property called <em>state</em>. As the <a href="expressions.html"><strong>QualitySet</strong></a> of each <strong>Card</strong> needs access, this is passed to the <strong>Card</strong> method <em>isAvailable()</em> (which passes it internally to the <em>check()</em> method of <strong>QualitySet</strong> and finally to each <strong>Expression's</strong> own <em>check()</em> method) whenever the method <em>draw()</em> is called on a <strong>Deck</strong>. In other words, this checks all <strong>Cards</strong> against the current values of the <strong>State</strong> to see if they are available and can thus be drawn.</p>
-<p>The <strong>State</strong> stores key-value pairs. These can be changed through the methods <em>set()</em>, <em>exists()</em>, <em>delete()</em>, <em>get()</em>, and <em>size()</em>. Commonly, however, the method <em>set()</em> can be used to add key-value pairs or update a value based on its key.</p>
-<h2 id="usage-patterns">Usage Patterns</h2>
+<p>SimpleQBN provides two distinct state management architectures that serve different use cases:</p>
+<h2 id="original-state-architecture">Original State Architecture</h2>
+<p>The <strong>State</strong> class stores key-value pairs and provides methods for manipulation: <em>set()</em>, <em>exists()</em>, <em>delete()</em>, <em>get()</em>, and <em>size()</em>. This architecture requires explicit state passing and manual availability checking.</p>
+<h3 id="original-state-characteristics">Original State Characteristics</h3>
+<ul>
+<li><strong>Manual state passing</strong>: You must explicitly pass the state to methods that need it</li>
+<li><strong>Synchronous operations</strong>: All state checks happen when you call them</li>
+<li><strong>Explicit control</strong>: You decide when and how to check card availability</li>
+<li><strong>Lightweight</strong>: Minimal overhead and memory usage</li>
+</ul>
+<h3 id="original-state-usage-patterns">Original State Usage Patterns</h3>
 <p>It is common to create a new <strong>Deck</strong> and then immediately change its state to add values before adding any <strong>Cards</strong>. While, technically, <strong>Cards</strong> can be added first and then <strong>State</strong> updated, if any <strong>Cards</strong> have <em>qualities</em>, there must be some values in the <strong>State</strong> to test against before the method <em>draw()</em> is used.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> <span class="hljs-title class_">State</span> <span class="hljs-keyword">from</span> <span class="hljs-string">'simple-qbn/State'</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-title class_">Card</span> <span class="hljs-keyword">from</span> <span class="hljs-string">'simple-qbn/Card'</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-title class_">Deck</span> <span class="hljs-keyword">from</span> <span class="hljs-string">'simple-qbn/Deck'</span>;
+
+<span class="hljs-comment">// Create and populate state</span>
+<span class="hljs-keyword">const</span> gameState = <span class="hljs-keyword">new</span> <span class="hljs-title class_">State</span>();
+gameState.<span class="hljs-title function_">set</span>(<span class="hljs-string">'health'</span>, <span class="hljs-number">100</span>);
+gameState.<span class="hljs-title function_">set</span>(<span class="hljs-string">'level'</span>, <span class="hljs-number">5</span>);
+gameState.<span class="hljs-title function_">set</span>(<span class="hljs-string">'hasKey'</span>, <span class="hljs-literal">false</span>);
+
+<span class="hljs-comment">// Create cards with quality requirements</span>
+<span class="hljs-keyword">const</span> healCard = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Card</span>(<span class="hljs-string">'Use healing potion'</span>, [<span class="hljs-string">'$health &lt; 50'</span>]);
+<span class="hljs-keyword">const</span> levelCard = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Card</span>(<span class="hljs-string">'Advanced training'</span>, [<span class="hljs-string">'$level &gt;= 5'</span>]);
+<span class="hljs-keyword">const</span> doorCard = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Card</span>(<span class="hljs-string">'Open locked door'</span>, [<span class="hljs-string">'$hasKey == true'</span>]);
+
+<span class="hljs-comment">// Create deck and add cards</span>
+<span class="hljs-keyword">const</span> deck = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Deck</span>();
+deck.<span class="hljs-title function_">addCard</span>(healCard.<span class="hljs-property">content</span>, healCard.<span class="hljs-property">qualities</span>);
+deck.<span class="hljs-title function_">addCard</span>(levelCard.<span class="hljs-property">content</span>, levelCard.<span class="hljs-property">qualities</span>);
+deck.<span class="hljs-title function_">addCard</span>(doorCard.<span class="hljs-property">content</span>, doorCard.<span class="hljs-property">qualities</span>);
+
+<span class="hljs-comment">// Explicitly check availability by passing state</span>
+<span class="hljs-keyword">const</span> availableCards = deck.<span class="hljs-title function_">draw</span>(gameState, <span class="hljs-number">10</span>);
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`Available: <span class="hljs-subst">${availableCards.length}</span> cards`</span>);
+
+<span class="hljs-comment">// Update state and check again</span>
+gameState.<span class="hljs-title function_">set</span>(<span class="hljs-string">'health'</span>, <span class="hljs-number">30</span>);
+gameState.<span class="hljs-title function_">set</span>(<span class="hljs-string">'hasKey'</span>, <span class="hljs-literal">true</span>);
+<span class="hljs-keyword">const</span> newAvailable = deck.<span class="hljs-title function_">draw</span>(gameState, <span class="hljs-number">10</span>);
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`Now available: <span class="hljs-subst">${newAvailable.length}</span> cards`</span>);
+</code></pre>
+<h2 id="reactive-state-architecture">Reactive State Architecture</h2>
+<p>The <strong>ReactiveState</strong> class extends the original State functionality with event-driven, automatic updates. When paired with reactive components, it provides real-time state synchronization.</p>
+<h3 id="reactive-state-usage-patterns">Reactive State Usage Patterns</h3>
+<p>State changes immediately trigger all connected components to recalculate their availability.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> <span class="hljs-title class_">ReactiveState</span> <span class="hljs-keyword">from</span> <span class="hljs-string">'simple-qbn/reactive/State'</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-title class_">ReactiveCard</span> <span class="hljs-keyword">from</span> <span class="hljs-string">'simple-qbn/reactive/Card'</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-title class_">ReactiveDeck</span> <span class="hljs-keyword">from</span> <span class="hljs-string">'simple-qbn/reactive/Deck'</span>;
+
+<span class="hljs-comment">// Create and populate reactive state</span>
+<span class="hljs-keyword">const</span> gameState = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ReactiveState</span>();
+gameState.<span class="hljs-title function_">set</span>(<span class="hljs-string">'health'</span>, <span class="hljs-number">100</span>);
+gameState.<span class="hljs-title function_">set</span>(<span class="hljs-string">'level'</span>, <span class="hljs-number">5</span>);
+gameState.<span class="hljs-title function_">set</span>(<span class="hljs-string">'hasKey'</span>, <span class="hljs-literal">false</span>);
+
+<span class="hljs-comment">// Create reactive cards</span>
+<span class="hljs-keyword">const</span> healCard = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ReactiveCard</span>(<span class="hljs-string">'Use healing potion'</span>, [<span class="hljs-string">'$health &lt; 50'</span>]);
+<span class="hljs-keyword">const</span> levelCard = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ReactiveCard</span>(<span class="hljs-string">'Advanced training'</span>, [<span class="hljs-string">'$level &gt;= 5'</span>]);
+<span class="hljs-keyword">const</span> doorCard = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ReactiveCard</span>(<span class="hljs-string">'Open locked door'</span>, [<span class="hljs-string">'$hasKey == true'</span>]);
+
+<span class="hljs-comment">// Create reactive deck bound to state</span>
+<span class="hljs-keyword">const</span> deck = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ReactiveDeck</span>([healCard, levelCard, doorCard], gameState);
+
+<span class="hljs-comment">// Subscribe to automatic availability updates</span>
+deck.<span class="hljs-title function_">subscribe</span>(<span class="hljs-function">(<span class="hljs-params">availableCards</span>) =&gt;</span> {
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`Available: <span class="hljs-subst">${availableCards.length}</span> cards`</span>);
+});
+
+<span class="hljs-comment">// Subscribe to individual card changes</span>
+healCard.<span class="hljs-title function_">subscribe</span>(<span class="hljs-function">(<span class="hljs-params">isAvailable</span>) =&gt;</span> {
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`Heal card available: <span class="hljs-subst">${isAvailable}</span>`</span>);
+});
+
+<span class="hljs-comment">// State changes trigger all subscriptions automatically</span>
+gameState.<span class="hljs-title function_">set</span>(<span class="hljs-string">'health'</span>, <span class="hljs-number">30</span>);    <span class="hljs-comment">// Triggers heal card and deck updates</span>
+gameState.<span class="hljs-title function_">set</span>(<span class="hljs-string">'hasKey'</span>, <span class="hljs-literal">true</span>);  <span class="hljs-comment">// Triggers door card and deck updates</span>
+
+<span class="hljs-comment">// Batch updates for multiple changes</span>
+gameState.<span class="hljs-title function_">batch</span>(<span class="hljs-function">() =&gt;</span> {
+  gameState.<span class="hljs-title function_">set</span>(<span class="hljs-string">'level'</span>, <span class="hljs-number">10</span>);
+  gameState.<span class="hljs-title function_">set</span>(<span class="hljs-string">'health'</span>, <span class="hljs-number">20</span>);
+}); <span class="hljs-comment">// All changes trigger together after batch completes</span>
+
+<span class="hljs-comment">// Clean up when done</span>
+deck.<span class="hljs-title function_">dispose</span>();
+healCard.<span class="hljs-title function_">dispose</span>();
+levelCard.<span class="hljs-title function_">dispose</span>();
+doorCard.<span class="hljs-title function_">dispose</span>();
+</code></pre>
+<h2 id="architecture-compatibility">Architecture Compatibility</h2>
+<p><strong>Important</strong>: These two architectures are mutually exclusive:</p>
+<ul>
+<li>Original classes (<code>State</code>, <code>Card</code>, <code>Deck</code>) cannot be used with reactive classes</li>
+<li>Reactive classes (<code>ReactiveState</code>, <code>ReactiveCard</code>, <code>ReactiveDeck</code>) cannot be used with original classes</li>
+<li>Choose one architecture for your entire application</li>
+</ul>
+<p>Both architectures use the same <a href="expressions.html">Expression Language</a> for defining quality requirements, ensuring consistent condition syntax regardless of which state management approach you choose.</p>
 
                                 
                                 </section>
@@ -359,7 +454,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"State Management","level":"3.3","depth":1,"next":{"title":"Deck Building","level":"4.1","depth":1,"path":"examples/deckbuilding.md","ref":"./examples/deckbuilding.md","articles":[]},"previous":{"title":"Decks and Cards","level":"3.2","depth":1,"path":"cards.md","ref":"./cards.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./notes","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"State.md","mtime":"2025-10-01T21:40:59.421Z","type":"markdown"},"gitbook":{"version":"6.1.4","time":"2025-10-01T22:38:35.363Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"State Management","level":"3.3","depth":1,"next":{"title":"Deck Building","level":"4.1","depth":1,"path":"examples/deckbuilding.md","ref":"./examples/deckbuilding.md","articles":[]},"previous":{"title":"Decks and Cards","level":"3.2","depth":1,"path":"cards.md","ref":"./cards.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./notes","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"State.md","mtime":"2025-10-05T03:06:22.763Z","type":"markdown"},"gitbook":{"version":"6.1.4","time":"2025-10-05T03:31:04.846Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

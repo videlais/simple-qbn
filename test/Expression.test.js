@@ -1,5 +1,5 @@
-import Expression from '../src/Expression.js';
-import State from '../src/State.js';
+import Expression from '../dist/src/Expression.js';
+import State from '../dist/src/State.js';
 
 describe('expression', () => {
   test('expression - expression should be string', () => {

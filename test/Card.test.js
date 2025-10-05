@@ -1,6 +1,6 @@
-import Card from '../src/Card.js';
-import QualitySet from '../src/QualitySet.js';
-import State from '../src/State.js';
+import Card from '../dist/src/Card.js';
+import QualitySet from '../dist/src/QualitySet.js';
+import State from '../dist/src/State.js';
 
 describe('constructor()', () => {
   test('constructor() - passed string', () => {

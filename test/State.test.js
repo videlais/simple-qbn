@@ -1,4 +1,4 @@
-import State from '../src/State.js';
+import State from '../dist/src/State.js';
 
 // Global s for all tests
 let s = null;

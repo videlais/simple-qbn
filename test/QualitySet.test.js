@@ -1,5 +1,5 @@
-import QualitySet from '../src/QualitySet.js';
-import State from '../src/State.js';
+import QualitySet from '../dist/src/QualitySet.js';
+import State from '../dist/src/State.js';
 
 describe('constructor()', () => {
   test('constructor() - starts with empty array', () => {

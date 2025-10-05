@@ -1,7 +1,7 @@
 export default {
   // Use babel-jest to transform files
   transform: {
-    '^.+\\.js$': 'babel-jest'
+    '^.+\\.(js|ts)$': 'babel-jest'
   },
   
   // Transform node_modules that use ES modules
@@ -10,5 +10,11 @@ export default {
   ],
   
   // Set the test environment - use node as default
-  testEnvironment: 'node'
+  testEnvironment: 'node',
+  
+  // Module file extensions
+  moduleFileExtensions: ['js', 'ts', 'json'],
+  
+  // Test file patterns
+  testMatch: ['**/*.test.(js|ts)']
 };

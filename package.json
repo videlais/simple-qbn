@@ -2,26 +2,85 @@
   "name": "simple-qbn",
   "version": "1.5.0",
   "description": "Because nothing about quality-based narratives is actually simple.",
-  "main": "index.js",
+  "main": "index.ts",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "build": "webpack",
+    "build": "tsc && webpack",
+    "build:original": "tsc && webpack --config webpack.original.config.cjs",
+    "build:reactive": "tsc && webpack --config webpack.reactive.config.cjs",
+    "build:all": "npm run build:original && npm run build:reactive",
+    "compile": "tsc",
     "lint": "npx eslint src/* --fix",
     "lint:test": "npx eslint test/* --fix",
+    "pretest": "tsc",
     "test": "jest --runInBand --silent --collectCoverage",
-    "test:browser": "jest test/Browser.test.js --verbose",
-    "test:node": "jest --testPathIgnorePatterns=Browser.test.js --runInBand --silent --collectCoverage",
+    "test:browser": "npm run pretest && jest test/Browser.test.js --verbose",
+    "test:node": "npm run pretest && jest --testPathIgnorePatterns=Browser.test.js --runInBand --silent --collectCoverage",
     "docs": "cp README.md ./notes/README.md && honkit build && cp -r _book/* docs",
     "docs:serve": "cp README.md ./notes/README.md && honkit serve",
-    "jsdoc": "jsdoc -c jsdocs.json",
-    "all": "npm run lint && npm run lint:test && npm run test && npm run build && npm run docs && npm run jsdoc"
+    "all": "npm run compile && npm run lint && npm run lint:test && npm run test && npm run build:all && npm run docs"
   },
   "exports": {
-    ".": "./index.js",
-    "./Deck": "./src/Deck.js",
-    "./Card": "./src/Card.js",
-    "./Expression": "./src/Expression.js",
-    "./QualitySet": "./src/QualitySet.js",
-    "./State": "./src/State.js"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./index.ts"
+    },
+    "./Deck": {
+      "types": "./dist/Deck.d.ts",
+      "import": "./dist/Deck.js",
+      "require": "./src/Deck.ts"
+    },
+    "./Card": {
+      "types": "./dist/Card.d.ts",
+      "import": "./dist/Card.js",
+      "require": "./src/Card.ts"
+    },
+    "./Expression": {
+      "types": "./dist/Expression.d.ts",
+      "import": "./dist/Expression.js",
+      "require": "./src/Expression.ts"
+    },
+    "./QualitySet": {
+      "types": "./dist/QualitySet.d.ts",
+      "import": "./dist/QualitySet.js",
+      "require": "./src/QualitySet.ts"
+    },
+    "./State": {
+      "types": "./dist/State.d.ts",
+      "import": "./dist/State.js",
+      "require": "./src/State.ts"
+    },
+    "./reactive/Card": {
+      "types": "./dist/reactive/ReactiveCard.d.ts",
+      "import": "./dist/reactive/ReactiveCard.js",
+      "require": "./src/reactive/ReactiveCard.ts"
+    },
+    "./reactive/Deck": {
+      "types": "./dist/reactive/ReactiveDeck.d.ts",
+      "import": "./dist/reactive/ReactiveDeck.js",
+      "require": "./src/reactive/ReactiveDeck.ts"
+    },
+    "./reactive/Expression": {
+      "types": "./dist/reactive/ReactiveExpression.d.ts",
+      "import": "./dist/reactive/ReactiveExpression.js",
+      "require": "./src/reactive/ReactiveExpression.ts"
+    },
+    "./reactive/QualitySet": {
+      "types": "./dist/reactive/ReactiveQualitySet.d.ts",
+      "import": "./dist/reactive/ReactiveQualitySet.js",
+      "require": "./src/reactive/ReactiveQualitySet.ts"
+    },
+    "./reactive/State": {
+      "types": "./dist/reactive/ReactiveState.d.ts",
+      "import": "./dist/reactive/ReactiveState.js",
+      "require": "./src/reactive/ReactiveState.ts"
+    },
+    "./reactive": {
+      "types": "./dist/reactive/index.d.ts",
+      "import": "./dist/reactive/index.js",
+      "require": "./src/reactive/index.ts"
+    }
   },
   "directories": {
     "doc": "docs"
@@ -48,8 +107,13 @@
     "@babel/cli": "^7.28.3",
     "@babel/core": "^7.28.4",
     "@babel/preset-env": "^7.28.3",
+    "@babel/preset-typescript": "^7.27.1",
     "@eslint/js": "^9.36.0",
     "@stylistic/eslint-plugin": "^5.4.0",
+    "@types/node": "^24.6.2",
+    "@types/uuid": "^10.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.45.0",
+    "@typescript-eslint/parser": "^8.45.0",
     "babel-jest": "^30.2.0",
     "babel-loader": "^10.0.0",
     "eslint": "^9.36.0",
@@ -59,6 +123,8 @@
     "jest": "^30.2.0",
     "jsdoc": "^4.0.4",
     "jsdom": "^27.0.0",
+    "ts-loader": "^9.5.4",
+    "typescript": "^5.9.3",
     "webpack": "^5.102.0",
     "webpack-cli": "^6.0.1"
   },

@@ -313,6 +313,7 @@
                                 <h1 id="story-gating">Story Gating</h1>
 <p>Emily Short (2016, 2019), among others, have discussed different moments in narratives models as "gates." These happen when one set of narrative units (usually storylets) are available and then another collection are added or become dominant once certain conditions are met.</p>
 <p>In SimpleQBN, one way to conceive of story gates is through using the key-value pairs within <strong>State</strong> with the <em>qualities</em> of <strong>Cards</strong>.</p>
+<h2 id="using-manual-state-based-api">Using manual, State-based API</h2>
 <p>Consider the following code:</p>
 <pre><code class="lang-javascript"><span class="hljs-comment">// Create a new Deck</span>
 <span class="hljs-keyword">const</span> d = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Deck</span>();
@@ -360,6 +361,80 @@ d.<span class="hljs-property">state</span>.<span class="hljs-title function_">se
 <span class="hljs-keyword">const</span> hand = d.<span class="hljs-title function_">draw</span>(<span class="hljs-number">4</span>);
 </code></pre>
 <p>The method <em>shuffle()</em> of <strong>Deck</strong> changes the order of <strong>Cards</strong>, not their availability. This allows for randomly sorting the cards, if wanted.</p>
+<h2 id="using-automatic-reactive-state-based-api">Using automatic, Reactive State-based API</h2>
+<p>The reactive architecture provides the same story gating functionality with automatic updates and event-driven state management. Instead of manual state checking, reactive components automatically synchronize when gate conditions change.</p>
+<blockquote>
+<p><strong>Note</strong>: The examples below use the new nested import structure available in SimpleQBN 1.5.0+. These reactive classes are incompatible with the original State-based classes shown above.</p>
+</blockquote>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">State</span>, <span class="hljs-title class_">Deck</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'simple-qbn/reactive'</span>;
+
+<span class="hljs-comment">// Create a reactive state and deck</span>
+<span class="hljs-keyword">const</span> gameState = <span class="hljs-keyword">new</span> <span class="hljs-title class_">State</span>();
+<span class="hljs-keyword">const</span> d = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Deck</span>([], gameState);
+<span class="hljs-comment">// Add a key-value pair</span>
+gameState.<span class="hljs-title function_">set</span>(<span class="hljs-string">'example'</span>, <span class="hljs-number">1</span>);
+<span class="hljs-comment">// Create four cards bound to the reactive state</span>
+d.<span class="hljs-title function_">addCard</span>(<span class="hljs-string">"First"</span>, [<span class="hljs-string">'$example == 1'</span>]);
+d.<span class="hljs-title function_">addCard</span>(<span class="hljs-string">"Second"</span>, [<span class="hljs-string">'$example == 1'</span>]);
+d.<span class="hljs-title function_">addCard</span>(<span class="hljs-string">"Third"</span>, [<span class="hljs-string">'$example == 2'</span>]);
+d.<span class="hljs-title function_">addCard</span>(<span class="hljs-string">"Fourth"</span>, [<span class="hljs-string">'$example == 2'</span>]);
+<span class="hljs-comment">// Pass a size of 4, but only two cards are available</span>
+<span class="hljs-keyword">const</span> hand = d.<span class="hljs-title function_">draw</span>(<span class="hljs-number">4</span>);
+</code></pre>
+<p>When run, any calls to the method <em>draw()</em> in the <strong>ReactiveDeck</strong> would only select available <strong>ReactiveCards</strong>. Currently, these are only <strong>ReactiveCards</strong> with the <em>content</em> of "First" and "Second". The reactive system automatically monitors state changes and updates card availability in real-time.</p>
+<p>These different qualities "gate" the other content from being used. However, unlike the original architecture, reactive gates are automatically enforced through the subscription system. When gate conditions change, all connected components are notified automatically.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">State</span>, <span class="hljs-title class_">Deck</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'simple-qbn/reactive'</span>;
+
+<span class="hljs-comment">// Create a reactive state and deck</span>
+<span class="hljs-keyword">const</span> gameState = <span class="hljs-keyword">new</span> <span class="hljs-title class_">State</span>();
+<span class="hljs-keyword">const</span> d = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Deck</span>([], gameState);
+<span class="hljs-comment">// Add a key-value pair</span>
+gameState.<span class="hljs-title function_">set</span>(<span class="hljs-string">'example'</span>, <span class="hljs-number">1</span>);
+<span class="hljs-comment">// Create four cards bound to the reactive state</span>
+d.<span class="hljs-title function_">addCard</span>(<span class="hljs-string">"First"</span>, [<span class="hljs-string">'$example == 1'</span>]);
+d.<span class="hljs-title function_">addCard</span>(<span class="hljs-string">"Second"</span>, [<span class="hljs-string">'$example == 1'</span>]);
+d.<span class="hljs-title function_">addCard</span>(<span class="hljs-string">"Third"</span>, [<span class="hljs-string">'$example == 2'</span>]);
+d.<span class="hljs-title function_">addCard</span>(<span class="hljs-string">"Fourth"</span>, [<span class="hljs-string">'$example == 2'</span>]);
+
+<span class="hljs-comment">// Subscribe to automatic gate changes</span>
+d.<span class="hljs-title function_">subscribe</span>(<span class="hljs-function">(<span class="hljs-params">availableCards</span>) =&gt;</span> {
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`Gate changed: <span class="hljs-subst">${availableCards.length}</span> cards now available`</span>);
+  availableCards.<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">card</span> =&gt;</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`- <span class="hljs-subst">${card.content}</span>`</span>));
+});
+
+<span class="hljs-comment">// Change the reactive state (automatically triggers gate change)</span>
+gameState.<span class="hljs-title function_">set</span>(<span class="hljs-string">'example'</span>, <span class="hljs-number">2</span>);
+<span class="hljs-comment">// Pass a size of 4, but only two cards are available</span>
+<span class="hljs-keyword">const</span> hand = d.<span class="hljs-title function_">draw</span>(<span class="hljs-number">4</span>);
+</code></pre>
+<p>In the new code, only the last two cards are available. These are cards with the <em>content</em> of "Third" and "Fourth". The reactive system automatically recalculated card availability when the state changed, and all subscribers were notified of the gate transition.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">State</span>, <span class="hljs-title class_">Deck</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'simple-qbn/reactive'</span>;
+
+<span class="hljs-comment">// Create a reactive state and deck</span>
+<span class="hljs-keyword">const</span> gameState = <span class="hljs-keyword">new</span> <span class="hljs-title class_">State</span>();
+<span class="hljs-keyword">const</span> d = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Deck</span>([], gameState);
+<span class="hljs-comment">// Add a key-value pair</span>
+gameState.<span class="hljs-title function_">set</span>(<span class="hljs-string">'example'</span>, <span class="hljs-number">1</span>);
+<span class="hljs-comment">// Create four cards bound to the reactive state</span>
+d.<span class="hljs-title function_">addCard</span>(<span class="hljs-string">"First"</span>, [<span class="hljs-string">'$example == 1'</span>]);
+d.<span class="hljs-title function_">addCard</span>(<span class="hljs-string">"Second"</span>, [<span class="hljs-string">'$example == 1'</span>]);
+d.<span class="hljs-title function_">addCard</span>(<span class="hljs-string">"Third"</span>, [<span class="hljs-string">'$example == 2'</span>]);
+d.<span class="hljs-title function_">addCard</span>(<span class="hljs-string">"Fourth"</span>, [<span class="hljs-string">'$example == 2'</span>]);
+
+<span class="hljs-comment">// Subscribe to all deck changes</span>
+d.<span class="hljs-title function_">subscribe</span>(<span class="hljs-function">(<span class="hljs-params">availableCards</span>) =&gt;</span> {
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`<span class="hljs-subst">${availableCards.length}</span> cards available after change`</span>);
+});
+
+<span class="hljs-comment">// Shuffle the cards (notifies subscribers)</span>
+d.<span class="hljs-title function_">shuffle</span>();
+<span class="hljs-comment">// Change the reactive state (automatically triggers gate change)</span>
+gameState.<span class="hljs-title function_">set</span>(<span class="hljs-string">'example'</span>, <span class="hljs-number">2</span>);
+<span class="hljs-comment">// Pass a size of 4, but only two cards are available</span>
+<span class="hljs-keyword">const</span> hand = d.<span class="hljs-title function_">draw</span>(<span class="hljs-number">4</span>);
+</code></pre>
+<p>The method <em>shuffle()</em> of <strong>ReactiveDeck</strong> changes the order of <strong>ReactiveCards</strong>, not their availability. This allows for randomly sorting the cards, if wanted. However, unlike the original architecture, the reactive system automatically notifies all subscribers when the shuffle occurs, enabling real-time updates to any connected UI or game logic.</p>
+<p>The reactive architecture makes story gates particularly powerful by enabling automatic propagation of gate changes throughout the entire narrative system. When a story gate condition is met, all connected decks, cards, and UI elements can respond immediately without manual intervention.</p>
 <h2 id="references">References</h2>
 <p>Short, E. (2016). Beyond Branching: Quality-Based, Salience-Based, and Waypoint Narrative Structures. Emily Short’s Interactive Storytelling. Retrieved from <code>https://emshort.blog/2016/04/12/beyond-branching-quality-based-and-salience-based-narrative-structures/</code></p>
 <p>Short, E. (2019). Storylets: You Want Them. Emily Short’s Interactive Storytelling. Retrieved from <code>https://emshort.blog/2019/11/29/storylets-you-want-them/</code></p>
@@ -406,7 +481,7 @@ d.<span class="hljs-property">state</span>.<span class="hljs-title function_">se
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Story Gates","level":"4.2","depth":1,"next":{"title":"Bundled for Web","level":"4.3","depth":1,"path":"examples/webbuild.md","ref":"./examples/webbuild.md","articles":[]},"previous":{"title":"Deck Building","level":"4.1","depth":1,"path":"examples/deckbuilding.md","ref":"./examples/deckbuilding.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./notes","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"examples/storygates.md","mtime":"2025-10-01T22:38:25.948Z","type":"markdown"},"gitbook":{"version":"6.1.4","time":"2025-10-01T22:38:35.363Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Story Gates","level":"4.2","depth":1,"next":{"title":"Bundled for Web","level":"4.3","depth":1,"path":"examples/webbuild.md","ref":"./examples/webbuild.md","articles":[]},"previous":{"title":"Deck Building","level":"4.1","depth":1,"path":"examples/deckbuilding.md","ref":"./examples/deckbuilding.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./notes","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"examples/storygates.md","mtime":"2025-10-05T03:21:23.872Z","type":"markdown"},"gitbook":{"version":"6.1.4","time":"2025-10-05T03:31:04.846Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
