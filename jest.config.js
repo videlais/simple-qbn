@@ -5,8 +5,9 @@ export default {
   },
   
   // Transform node_modules that use ES modules
+  // Allow transformation of uuid, jsdom, and all jsdom dependencies
   transformIgnorePatterns: [
-    'node_modules/(?!(uuid|jsdom)/)'
+    'node_modules/(?!(uuid|jsdom|parse5|entities|whatwg-url|webidl-conversions|w3c-xmlserializer|xml-name-validator|saxes|cssstyle|data-urls|form-data|tough-cookie|ws|@asamuzakjp)/)'
   ],
   
   // Set the test environment - use node as default

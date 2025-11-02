@@ -6,7 +6,7 @@ module.exports = {
   resolve: {
     extensions: ['.ts', '.js'],
     alias: {
-      'quis': path.resolve(__dirname, 'node_modules/quis/build/quis.cjs')
+      'quis': path.resolve(__dirname, 'node_modules/quis/build/quis.esm.js')
     },
     // Help webpack resolve .js imports to .ts files
     extensionAlias: {
