@@ -71,7 +71,7 @@ The reactive architecture provides the same story gating functionality with auto
 > **Note**: The examples below use the new nested import structure available in SimpleQBN 1.5.0+. These reactive classes are incompatible with the original State-based classes shown above.
 
 ```javascript
-import { State, Deck } from 'simple-qbn/reactive';
+import { State, Card, Deck } from 'simple-qbn/reactive';
 
 // Create a reactive state and deck
 const gameState = new State();
@@ -79,12 +79,16 @@ const d = new Deck([], gameState);
 // Add a key-value pair
 gameState.set('example', 1);
 // Create four cards bound to the reactive state
-d.addCard("First", ['$example == 1']);
-d.addCard("Second", ['$example == 1']);
-d.addCard("Third", ['$example == 2']);
-d.addCard("Fourth", ['$example == 2']);
-// Pass a size of 4, but only two cards are available
-const hand = d.draw(4);
+const card1 = new Card("First", ['$example == 1']);
+const card2 = new Card("Second", ['$example == 1']);
+const card3 = new Card("Third", ['$example == 2']);
+const card4 = new Card("Fourth", ['$example == 2']);
+d.addCard(card1);
+d.addCard(card2);
+d.addCard(card3);
+d.addCard(card4);
+// Get available cards
+const available = d.availableCards;
 ```
 
 When run, any calls to the method *draw()* in the **ReactiveDeck** would only select available **ReactiveCards**. Currently, these are only **ReactiveCards** with the *content* of "First" and "Second". The reactive system automatically monitors state changes and updates card availability in real-time.
@@ -92,7 +96,7 @@ When run, any calls to the method *draw()* in the **ReactiveDeck** would only se
 These different qualities "gate" the other content from being used. However, unlike the original architecture, reactive gates are automatically enforced through the subscription system. When gate conditions change, all connected components are notified automatically.
 
 ```javascript
-import { State, Deck } from 'simple-qbn/reactive';
+import { State, Card, Deck } from 'simple-qbn/reactive';
 
 // Create a reactive state and deck
 const gameState = new State();
@@ -100,10 +104,14 @@ const d = new Deck([], gameState);
 // Add a key-value pair
 gameState.set('example', 1);
 // Create four cards bound to the reactive state
-d.addCard("First", ['$example == 1']);
-d.addCard("Second", ['$example == 1']);
-d.addCard("Third", ['$example == 2']);
-d.addCard("Fourth", ['$example == 2']);
+const card1 = new Card("First", ['$example == 1']);
+const card2 = new Card("Second", ['$example == 1']);
+const card3 = new Card("Third", ['$example == 2']);
+const card4 = new Card("Fourth", ['$example == 2']);
+d.addCard(card1);
+d.addCard(card2);
+d.addCard(card3);
+d.addCard(card4);
 
 // Subscribe to automatic gate changes
 d.subscribe((availableCards) => {
@@ -113,14 +121,14 @@ d.subscribe((availableCards) => {
 
 // Change the reactive state (automatically triggers gate change)
 gameState.set('example', 2);
-// Pass a size of 4, but only two cards are available
-const hand = d.draw(4);
+// Get available cards
+const available = d.availableCards;
 ```
 
 In the new code, only the last two cards are available. These are cards with the *content* of "Third" and "Fourth". The reactive system automatically recalculated card availability when the state changed, and all subscribers were notified of the gate transition.
 
 ```javascript
-import { State, Deck } from 'simple-qbn/reactive';
+import { State, Card, Deck } from 'simple-qbn/reactive';
 
 // Create a reactive state and deck
 const gameState = new State();
@@ -128,10 +136,14 @@ const d = new Deck([], gameState);
 // Add a key-value pair
 gameState.set('example', 1);
 // Create four cards bound to the reactive state
-d.addCard("First", ['$example == 1']);
-d.addCard("Second", ['$example == 1']);
-d.addCard("Third", ['$example == 2']);
-d.addCard("Fourth", ['$example == 2']);
+const card1 = new Card("First", ['$example == 1']);
+const card2 = new Card("Second", ['$example == 1']);
+const card3 = new Card("Third", ['$example == 2']);
+const card4 = new Card("Fourth", ['$example == 2']);
+d.addCard(card1);
+d.addCard(card2);
+d.addCard(card3);
+d.addCard(card4);
 
 // Subscribe to all deck changes
 d.subscribe((availableCards) => {
@@ -142,8 +154,8 @@ d.subscribe((availableCards) => {
 d.shuffle();
 // Change the reactive state (automatically triggers gate change)
 gameState.set('example', 2);
-// Pass a size of 4, but only two cards are available
-const hand = d.draw(4);
+// Get available cards
+const available = d.availableCards;
 ```
 
 The method *shuffle()* of **ReactiveDeck** changes the order of **ReactiveCards**, not their availability. This allows for randomly sorting the cards, if wanted. However, unlike the original architecture, the reactive system automatically notifies all subscribers when the shuffle occurs, enabling real-time updates to any connected UI or game logic.

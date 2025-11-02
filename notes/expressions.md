@@ -15,7 +15,7 @@ This format created an easy way to include prerequisites in Twine using tags in 
 
 ### Working with Quis Expression Language
 
-Starting with version 1.4, SimpleQBN began to use the MongoDB Query Language for expressions. As of version 1.4.2, SimpleQBN uses the [Quis](https://www.npmjs.com/package/quis) NPM package for expression evaluation.
+Starting with version 1.4, SimpleQBN began to use the MongoDB Query Language for expressions. As of version 1.4.2, SimpleQBN started using the [Quis](https://www.npmjs.com/package/quis) NPM package. **As of version 1.5.0, SimpleQBN exclusively uses Quis syntax for all expressions**, removing MongoDB query language support to reduce dependencies and code size.
 
 Quis expressions support:
 
@@ -30,7 +30,13 @@ Examples:
 * Complex: `$user_role == "admin" && $user_active == true`
 * Grouped: `($score >= 80 || $bonus_points > 10) && $attempts <= 3`
 
-### Previous use of Mingo (MongoDB Query Support)
+For full Quis syntax documentation, see the [Quis documentation](https://github.com/videlais/quis).
+
+### Historical: Previous use of Mingo (MongoDB Query Support)
+
+> **Note**: MongoDB query language support was removed in version 1.5.0. This section is preserved for historical reference only. Current versions use only Quis syntax.
+
+In versions 1.4.0 through 1.4.x, SimpleQBN supported MongoDB query language through the Mingo library.
 
 For example, an **Expression** to test if the **State** value *score* was greater than 15 would be written as the following:
 

@@ -6,6 +6,60 @@ SimpleQBN is a quality-based narrative (QBN) generic JavaScript library for use 
 
 This project is based on another project [Quis](https://github.com/videlais/quis), which it uses to resolve expressions.
 
+## Installation
+
+### For Use in Your Project
+
+```bash
+npm install simple-qbn
+```
+
+### For Development
+
+```bash
+git clone https://github.com/videlais/simple-qbn.git
+cd simple-qbn
+npm install
+```
+
+## Usage
+
+### As an NPM Package
+
+```javascript
+// Original architecture
+import State from 'simple-qbn/State';
+import Card from 'simple-qbn/Card';
+import Deck from 'simple-qbn/Deck';
+
+// Or reactive architecture
+import ReactiveState from 'simple-qbn/reactive/State';
+import ReactiveCard from 'simple-qbn/reactive/Card';
+import ReactiveDeck from 'simple-qbn/reactive/Deck';
+```
+
+### In the Browser
+
+Download the pre-built bundles from the `build/` directory:
+- `simpleqbn.bundle.js` - Original architecture (~20KB minified)
+- `reactive-simpleqbn.bundle.js` - Reactive architecture (~29KB minified)
+
+```html
+<!-- Original architecture -->
+<script src="simpleqbn.bundle.js"></script>
+<script>
+  const state = new SimpleQBN.State();
+  const deck = new SimpleQBN.Deck();
+</script>
+
+<!-- OR Reactive architecture -->
+<script src="reactive-simpleqbn.bundle.js"></script>
+<script>
+  const state = new ReactiveSimpleQBN.ReactiveState();
+  const deck = new ReactiveSimpleQBN.ReactiveDeck([], state);
+</script>
+```
+
 ## State and Reactive State
 
 SimpleQBN provides two distinct architectures for managing game state:
@@ -109,9 +163,57 @@ gameState.set('health', 50);
 
 ## Expression Language
 
-Starting with version 1.5.0, SimpleQBN uses [Quis](https://www.npmjs.com/package/quis) for expression evaluation with pure Quis syntax.
+Starting with version 1.5.0, SimpleQBN uses [Quis](https://www.npmjs.com/package/quis) 1.3.6+ for expression evaluation with pure Quis syntax.
 
 Previous versions used TinyQBN format and MongoDB query language compatibility, but as of 1.5.0, the library has been simplified to use only Quis string expressions to reduce dependencies and code size.
+
+For full Quis expression syntax documentation, see the [Quis documentation](https://github.com/videlais/quis).
+
+## Development
+
+### Available Scripts
+
+- `npm run build` - Build the main bundle
+- `npm run build:all` - Build both original and reactive architecture bundles
+- `npm run build:original` - Build only the original architecture bundle
+- `npm run build:reactive` - Build only the reactive architecture bundle
+- `npm test` - Run all tests with coverage
+- `npm run test:browser` - Run browser environment tests
+- `npm run test:node` - Run Node.js tests only
+- `npm run lint` - Lint and fix source code
+- `npm run docs` - Build documentation
+- `npm run all` - Run complete build pipeline (compile, lint, test, build, docs)
+
+### Testing
+
+The project includes comprehensive test coverage (99.54%) with both Node.js and browser environment tests:
+
+- **Unit Tests**: Test individual classes and their functionality
+- **Browser Tests**: Simulate browser environment using JSDOM to test DOM interaction, localStorage, and browser-specific features
+- **Reactive Tests**: Test reactive state management and automatic updates
+
+### Requirements
+
+- Node.js 18+ recommended
+- npm 9+ or compatible package manager
+
+### Project Structure
+
+```
+src/                    # Source TypeScript files
+  ├── Card.ts
+  ├── Deck.ts
+  ├── Expression.ts
+  ├── QualitySet.ts
+  ├── State.ts
+  └── reactive/         # Reactive architecture
+test/                   # Test files
+  ├── Browser.test.js   # Browser environment tests
+  └── reactive/         # Reactive architecture tests
+build/                  # Compiled bundles
+dist/                   # TypeScript compilation output
+docs/                   # Generated documentation
+```
 
 ## History and Documentation
 
