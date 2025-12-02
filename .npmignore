@@ -1,0 +1,55 @@
+# Development files
+.git/
+.github/
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Tests
+test/
+coverage/
+.nyc_output/
+*.test.js
+*.test.ts
+*.spec.js
+*.spec.ts
+
+# Documentation source
+docs-src/
+notes/
+_book/
+.jekyll-cache/
+
+# Config files
+.eslintrc*
+.prettierrc*
+.prettierignore
+.editorconfig
+tsconfig.json
+jest.config.js
+babel.config.json
+eslint.config.js
+webpack.*.config.cjs
+
+# Build artifacts
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.DS_Store
+Thumbs.db
+
+# Demos
+demo.html
+
+# Jekyll
+Gemfile
+Gemfile.lock
+_config.yml
+_layouts/
+_includes/
+assets/
+
+# Only include what's specified in package.json "files"

@@ -1,0 +1,25 @@
+<nav class="sidebar">
+  <div class="book-summary">
+    <h2>{{ site.title }}</h2>
+    <ul class="summary">
+      {% for item in site.navigation %}
+      <li class="chapter {% if item.items %}has-children{% endif %}">
+        {% if item.url %}
+        <a href="{{ site.baseurl }}{{ item.url }}">{{ item.title }}</a>
+        {% else %}
+        <span class="section-title">{{ item.title }}</span>
+        {% endif %}
+        {% if item.items %}
+        <ul class="articles">
+          {% for subitem in item.items %}
+          <li>
+            <a href="{{ site.baseurl }}{{ subitem.url }}">{{ subitem.title }}</a>
+          </li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</nav>

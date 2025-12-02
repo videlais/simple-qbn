@@ -1,11 +1,5 @@
 # SimpleQBN
 
-[![npm version](https://img.shields.io/npm/v/simple-qbn.svg)](https://www.npmjs.com/package/simple-qbn)
-[![CI](https://github.com/videlais/simple-qbn/actions/workflows/ci.yml/badge.svg)](https://github.com/videlais/simple-qbn/actions/workflows/ci.yml)
-[![codecov](https://codecov.io/gh/videlais/simple-qbn/branch/main/graph/badge.svg)](https://codecov.io/gh/videlais/simple-qbn)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Node.js Version](https://img.shields.io/node/v/simple-qbn.svg)](https://nodejs.org)
-
 *Because nothing about quality-based narratives is actually simple.*
 
 SimpleQBN is a quality-based narrative (QBN) generic JavaScript library for use in browsers or Node.js-based projects. It provides state management and resolves expressions for checking openness (availability) based on states changes.
@@ -220,22 +214,6 @@ build/                  # Compiled bundles
 dist/                   # TypeScript compilation output
 docs/                   # Generated documentation
 ```
-
-## Contributing
-
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
-
-- [Code of Conduct](CONTRIBUTING.md#code-of-conduct)
-- [Development Setup](CONTRIBUTING.md#development-setup)
-- [Pull Request Process](CONTRIBUTING.md#pull-requests)
-
-## Security
-
-For security vulnerabilities, please see our [Security Policy](SECURITY.md).
-
-## Changelog
-
-See [CHANGELOG.md](CHANGELOG.md) for a history of changes to this project.
 
 ## History and Documentation
 

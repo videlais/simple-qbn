@@ -1,0 +1,92 @@
+# Jekyll Configuration for SimpleQBN Documentation
+
+title: SimpleQBN
+description: Because nothing about quality-based narratives is actually simple.
+baseurl: "/simple-qbn"
+url: "https://videlais.github.io"
+
+# Build settings
+markdown: kramdown
+
+# Output directory
+destination: _site
+
+# Source directory for content
+source: .
+
+# Collections
+collections:
+  pages:
+    output: true
+    permalink: /:name
+
+# Include these files in the build
+include:
+  - notes
+
+# Exclude these files from the build
+exclude:
+  - node_modules
+  - package.json
+  - package-lock.json
+  - tsconfig.json
+  - jest.config.js
+  - babel.config.json
+  - eslint.config.js
+  - webpack.config.cjs
+  - webpack.original.config.cjs
+  - webpack.reactive.config.cjs
+  - Gemfile
+  - Gemfile.lock
+  - src
+  - test
+  - coverage
+  - build
+  - dist
+  - .git
+  - .gitignore
+  - LICENSE
+  - JEKYLL.md
+  - notes/summary.md
+  - notes/README.md
+  - notes
+
+# Kramdown settings
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    default_lang: javascript
+
+# Navigation structure
+navigation:
+  - title: Introduction
+    url: /
+  - title: History of Related Terms
+    items:
+      - title: Scenes and Cycles (1983)
+        url: /scenes
+      - title: Episodes and Sequences (1989)
+        url: /episodes
+      - title: Sculptural Hypertext Model (2001)
+        url: /sculpturalmodel
+      - title: Storylet (2010)
+        url: /storylet
+      - title: Quality-Based Narrative (2010)
+        url: /qbn
+  - title: Metaphors in SimpleQBN
+    items:
+      - title: Expressions and QualitySet
+        url: /expressions
+      - title: Decks and Cards
+        url: /cards
+      - title: State Management
+        url: /State
+  - title: Examples
+    items:
+      - title: Deck Building
+        url: /examples/deckbuilding
+      - title: Story Gates
+        url: /examples/storygates
+      - title: Bundled for Web
+        url: /examples/webbuild

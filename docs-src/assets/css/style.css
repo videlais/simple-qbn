@@ -1,0 +1,232 @@
+/* SimpleQBN Documentation Styles */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333;
+}
+
+.book {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar Navigation */
+.sidebar {
+    width: 300px;
+    background: #fafafa;
+    border-right: 1px solid #e7e7e7;
+    overflow-y: auto;
+    position: fixed;
+    height: 100vh;
+}
+
+.book-summary {
+    padding: 20px;
+}
+
+.book-summary h2 {
+    margin: 0 0 20px 0;
+    font-size: 24px;
+    color: #000;
+}
+
+.summary {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.summary li {
+    margin: 0;
+}
+
+.summary .chapter {
+    margin-bottom: 5px;
+}
+
+.summary .section-title {
+    font-weight: bold;
+    color: #666;
+    display: block;
+    padding: 8px 0;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.summary a {
+    display: block;
+    padding: 8px 15px;
+    color: #4183c4;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+
+.summary a:hover {
+    background: #f4f4f4;
+}
+
+.summary .articles {
+    list-style: none;
+    padding-left: 15px;
+    margin: 5px 0;
+}
+
+/* Main Content Area */
+.book-body {
+    margin-left: 300px;
+    flex: 1;
+}
+
+.body-inner {
+    padding: 20px 40px;
+    max-width: 900px;
+}
+
+.book-header {
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e7e7e7;
+}
+
+.book-header h1 {
+    margin: 0;
+    font-size: 32px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 5px 10px;
+    color: #4183c4;
+    text-decoration: none;
+}
+
+.pull-left {
+    float: left;
+    margin-right: 15px;
+}
+
+/* Markdown Content */
+.markdown-section {
+    padding: 20px 0;
+}
+
+.markdown-section h1,
+.markdown-section h2,
+.markdown-section h3,
+.markdown-section h4,
+.markdown-section h5,
+.markdown-section h6 {
+    margin-top: 24px;
+    margin-bottom: 16px;
+    font-weight: 600;
+    line-height: 1.25;
+}
+
+.markdown-section h1 {
+    font-size: 2em;
+    border-bottom: 1px solid #e7e7e7;
+    padding-bottom: 0.3em;
+}
+
+.markdown-section h2 {
+    font-size: 1.5em;
+    border-bottom: 1px solid #e7e7e7;
+    padding-bottom: 0.3em;
+}
+
+.markdown-section h3 {
+    font-size: 1.25em;
+}
+
+.markdown-section code {
+    padding: 0.2em 0.4em;
+    margin: 0;
+    font-size: 85%;
+    background-color: rgba(27, 31, 35, 0.05);
+    border-radius: 3px;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+}
+
+.markdown-section pre {
+    padding: 16px;
+    overflow: auto;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: #f6f8fa;
+    border-radius: 3px;
+}
+
+.markdown-section pre code {
+    display: inline;
+    padding: 0;
+    margin: 0;
+    overflow: visible;
+    line-height: inherit;
+    word-wrap: normal;
+    background-color: transparent;
+    border: 0;
+}
+
+.markdown-section blockquote {
+    padding: 0 1em;
+    color: #6a737d;
+    border-left: 0.25em solid #dfe2e5;
+    margin: 0 0 16px 0;
+}
+
+.markdown-section ul,
+.markdown-section ol {
+    padding-left: 2em;
+    margin-bottom: 16px;
+}
+
+.markdown-section table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 16px;
+}
+
+.markdown-section table th,
+.markdown-section table td {
+    padding: 6px 13px;
+    border: 1px solid #dfe2e5;
+}
+
+.markdown-section table th {
+    font-weight: 600;
+    background-color: #f6f8fa;
+}
+
+.markdown-section a {
+    color: #4183c4;
+    text-decoration: none;
+}
+
+.markdown-section a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        position: relative;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid #e7e7e7;
+    }
+    
+    .book-body {
+        margin-left: 0;
+    }
+    
+    .body-inner {
+        padding: 20px;
+    }
+}

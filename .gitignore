@@ -103,5 +103,10 @@ dist
 # TernJS port file
 .tern-port
 
-# HonKit
-_book
+# Jekyll
+_site
+.jekyll-cache
+.jekyll-metadata
+Gemfile.lock
+.sass-cache
+.docs-reorganization-plan.txt

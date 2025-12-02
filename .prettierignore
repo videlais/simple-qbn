@@ -1,0 +1,10 @@
+node_modules
+dist
+build
+coverage
+docs
+_book
+*.min.js
+*.bundle.js
+*.d.ts
+package-lock.json
