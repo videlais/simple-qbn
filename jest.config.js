@@ -1,13 +1,13 @@
 export default {
   // Use babel-jest to transform files
   transform: {
-    '^.+\\.(js|ts)$': 'babel-jest'
+    '^.+\\.(js|mjs|ts)$': 'babel-jest'
   },
   
   // Transform node_modules that use ES modules
   // Allow transformation of uuid, jsdom, and all jsdom dependencies
   transformIgnorePatterns: [
-    'node_modules/(?!(uuid|jsdom|parse5|entities|whatwg-url|webidl-conversions|w3c-xmlserializer|xml-name-validator|saxes|cssstyle|data-urls|form-data|tough-cookie|ws|@asamuzakjp|@exodus)/)'
+    'node_modules/(?!(uuid|jsdom|parse5|entities|whatwg-url|webidl-conversions|w3c-xmlserializer|xml-name-validator|saxes|cssstyle|data-urls|form-data|tough-cookie|ws|@asamuzakjp|@exodus|@csstools)/)'
   ],
   
   // Set the test environment - use node as default

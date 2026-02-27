@@ -1,0 +1,468 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <title>Expressions and QualitySet · HonKit</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="HonKit 6.1.4">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/@honkit/honkit-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/@honkit/honkit-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="cards.html" />
+    
+    
+    <link rel="prev" href="qbn.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book honkit-cloak">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">History of Related Terms</li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="scenes.html">
+            
+                <a href="scenes.html">
+            
+                    
+                    Scenes and Cycles (1983)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="episodes.html">
+            
+                <a href="episodes.html">
+            
+                    
+                    Episodes and Sequences (1989)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="sculpturalmodel.html">
+            
+                <a href="sculpturalmodel.html">
+            
+                    
+                    Sculptural Hypertext Model (2001)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="storylet.html">
+            
+                <a href="storylet.html">
+            
+                    
+                    Storylet (2010)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="qbn.html">
+            
+                <a href="qbn.html">
+            
+                    
+                    Quality-Based Narrative (2010)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Metaphors in SimpleQBN</li>
+        
+        
+    
+        <li class="chapter active" data-level="3.1" data-path="expressions.html">
+            
+                <a href="expressions.html">
+            
+                    
+                    Expressions and QualitySet
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="cards.html">
+            
+                <a href="cards.html">
+            
+                    
+                    Decks and Cards
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="State.html">
+            
+                <a href="State.html">
+            
+                    
+                    State Management
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Examples</li>
+        
+        
+    
+        <li class="chapter " data-level="4.1" data-path="examples/deckbuilding.html">
+            
+                <a href="examples/deckbuilding.html">
+            
+                    
+                    Deck Building
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="examples/storygates.html">
+            
+                <a href="examples/storygates.html">
+            
+                    
+                    Story Gates
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3" data-path="examples/webbuild.html">
+            
+                <a href="examples/webbuild.html">
+            
+                    
+                    Bundled for Web
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            Published with HonKit
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >Expressions and QualitySet</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="expressions-and-qualityset">Expressions and QualitySet</h1>
+<h2 id="qualities-as-expressions">Qualities as Expressions</h2>
+<p>While both the <a href="sculpturalmodel.html">sculptural</a> and <a href="qbn.html">QBN</a> models define their own terms of how sections of a story might become available (constraints and qualities, respectively), neither explain how to <em>express</em> these.</p>
+<h3 id="grams-format">Grams Format</h3>
+<p>Working with the story format SugarCube in Twine 2, the library TinyQBN by Grams (2019) solves this issue through using the tags of passages. Based on the requirements of not containing spaces, Grams (2019) introduced a shorthand for writing qualities using hyphens between the operators (what is being compared) and the operation (how to compare values): <code>operator-operation-operator</code>.</p>
+<p>This format created an easy way to include prerequisites in Twine using tags in passages, but comes with some issues:</p>
+<ul>
+<li><em>Operators have to be converted into and out of String values</em>. Tags in Twine 2 are stored as the values of attributes within <a href="https://github.com/iftechfoundation/twine-specs/blob/master/twine-2-htmloutput-spec.md" target="_blank">its HTML</a>. These tags are assumed to be String values. Any use of other primative data types in JavaScript such as Numbers and Booleans must be converted out of their String representation.</li>
+<li><em>Only one comparison can be used at a time</em>. Complex comparisons are not possible in the format because of its internal parsing. Additional tags can be added, but each is only one comparison between a single variable and value.</li>
+</ul>
+<h3 id="working-with-quis-expression-language">Working with Quis Expression Language</h3>
+<p>Starting with version 1.4, SimpleQBN began to use the MongoDB Query Language for expressions. As of version 1.4.2, SimpleQBN uses the <a href="https://www.npmjs.com/package/quis" target="_blank">Quis</a> NPM package for expression evaluation. With Quis 1.2.0, SimpleQBN now supports native Quis expression strings with complex boolean operators, while maintaining backward compatibility with MongoDB-style query objects.</p>
+<p>Quis expressions support:</p>
+<ul>
+<li>Comparison operators: <code>==</code>, <code>!=</code>, <code>&gt;</code>, <code>&gt;=</code>, <code>&lt;</code>, <code>&lt;=</code>  </li>
+<li>Boolean operators: <code>&amp;&amp;</code> (AND), <code>||</code> (OR), <code>!</code> (NOT)</li>
+<li>Parentheses for grouping: <code>($health &gt; 50 &amp;&amp; $level &gt;= 5) || $emergency == true</code></li>
+<li>Variable access: <code>$variableName</code> for simple values</li>
+</ul>
+<p>Examples:</p>
+<ul>
+<li>Simple: <code>$health &gt; 50</code></li>
+<li>Complex: <code>$user_role == "admin" &amp;&amp; $user_active == true</code></li>
+<li>Grouped: <code>($score &gt;= 80 || $bonus_points &gt; 10) &amp;&amp; $attempts &lt;= 3</code></li>
+</ul>
+<p>For example, an <strong>Expression</strong> to test if the <strong>State</strong> value <em>score</em> was greater than 15 would be written as the following:</p>
+<pre><code class="lang-JavaScript">{<span class="hljs-attr">score</span>: {<span class="hljs-attr">$gt</span>: <span class="hljs-number">15</span>}}
+</code></pre>
+<p>The use of the MongoDB query language also introduces much more complex queries as well. To test if the <strong>State</strong> value <em>score</em> was greater than 15, <strong>State</strong> value <em>act1</em> was <code>true</code>, and <strong>State</strong> value <em>reputation</em> was less than <code>3.5</code>, it would be the following:</p>
+<pre><code class="lang-JavaScript">{<span class="hljs-attr">score</span>: {<span class="hljs-attr">$gt</span>: <span class="hljs-number">15</span>}, <span class="hljs-attr">act1</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">reputation</span>: {<span class="hljs-attr">$lt</span>: <span class="hljs-number">3.5</span>}}
+</code></pre>
+<h2 id="qualityset"><strong>QualitySet</strong></h2>
+<p>Each <strong>Card</strong> in SimpleQBN has an internal property called <em>qualities</em>. This is an instance of a class called <strong>QualitySet</strong> holding multiple <strong>Expressions</strong>. It provides the method <em>check()</em> for reviewing each of its internal <strong>Expressions</strong>. A <strong>QualitySet</strong> is <code>true</code> if <em>every</em> <strong>Expression</strong> returns <code>true</code>.</p>
+<p>In order to check if an <strong>Expression</strong> (and the larger <strong>QualitySet</strong>) is <code>true</code>, it needs access to <a href="state.md"><strong>State</strong></a>.</p>
+<h2 id="references">References</h2>
+<p>Grams, J. (2019). Tiny-QBN. GitHub. Retrieved from <code>https://github.com/JoshuaGrams/tiny-qbn</code></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="qbn.html" class="navigation navigation-prev " aria-label="Previous page: Quality-Based Narrative (2010)">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="cards.html" class="navigation navigation-next " aria-label="Next page: Decks and Cards">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Expressions and QualitySet","level":"3.1","depth":1,"next":{"title":"Decks and Cards","level":"3.2","depth":1,"path":"cards.md","ref":"./cards.md","articles":[]},"previous":{"title":"Quality-Based Narrative (2010)","level":"2.5","depth":1,"path":"qbn.md","ref":"./qbn.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./notes","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"gitbook":"*"},"file":{"path":"expressions.md","mtime":"2025-10-01T22:04:18.545Z","type":"markdown"},"gitbook":{"version":"6.1.4","time":"2025-10-01T22:38:35.363Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/@honkit/honkit-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
