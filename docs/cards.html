@@ -94,6 +94,10 @@
             <a href="/simple-qbn/examples/webbuild">Bundled for Web</a>
           </li>
           
+          <li>
+            <a href="/simple-qbn/examples/migration">Migration Guide</a>
+          </li>
+          
         </ul>
         
       </li>
@@ -122,6 +126,273 @@
 <p>As <em>draw()</em> creates and returns a new array, <strong>Cards</strong> within the <strong>Deck</strong> are not affected. However, the method <em>updateCard()</em> can be used to update an individual <strong>Card</strong> once drawn from the <strong>Deck</strong>.</p>
 
 <p>If the position of <strong>Cards</strong> within the <strong>Deck</strong> is important, the method <em>getCard()</em> can be passed a specific position and will return the <strong>Card</strong> matching it, if it exists. (If the method <em>shuffle()</em> is used, the internal ordering of all <strong>Cards</strong> will be changed.)</p>
+
+<h3 id="additional-deck-and-card-methods">Additional Deck and Card Methods</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Method</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nx">Deck</span><span class="p">.</span><span class="nf">size</span><span class="p">()</span></code></td>
+      <td>Returns the number of cards in the deck.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nx">Deck</span><span class="p">.</span><span class="nx">state</span></code></td>
+      <td>Getter/setter for the deck’s internal <strong>State</strong>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nx">Card</span><span class="p">.</span><span class="nx">hash</span></code></td>
+      <td>Read-only UUID identifying the card.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nx">Card</span><span class="p">.</span><span class="nf">removeQuality</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span></code></td>
+      <td>Removes a quality from the card’s <strong>QualitySet</strong>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h2 id="reactive-deck-and-cards">Reactive Deck and Cards</h2>
+
+<p>The reactive architecture provides <strong>ReactiveDeck</strong> and <strong>ReactiveCard</strong> classes that automatically update when state changes. These classes are bound to a <strong>ReactiveState</strong> and notify subscribers when card availability changes.</p>
+
+<blockquote>
+  <p><strong>Important:</strong> Reactive classes (<code class="language-javascript highlighter-rouge"><span class="nx">ReactiveCard</span></code>, <code class="language-javascript highlighter-rouge"><span class="nx">ReactiveDeck</span></code>) work only with <code class="language-javascript highlighter-rouge"><span class="nx">ReactiveState</span></code> and cannot be mixed with original classes.</p>
+</blockquote>
+
+<h3 id="creating-a-reactive-deck">Creating a Reactive Deck</h3>
+
+<p>Unlike the original <strong>Deck</strong>, a <strong>ReactiveDeck</strong> accepts an array of <strong>ReactiveCard</strong> instances and an optional <strong>ReactiveState</strong> at construction:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">ReactiveState</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">simple-qbn/reactive/State</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">ReactiveCard</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">simple-qbn/reactive/Card</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">ReactiveDeck</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">simple-qbn/reactive/Deck</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">state</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ReactiveState</span><span class="p">();</span>
+<span class="nx">state</span><span class="p">.</span><span class="nf">set</span><span class="p">(</span><span class="dl">'</span><span class="s1">health</span><span class="dl">'</span><span class="p">,</span> <span class="mi">80</span><span class="p">);</span>
+
+<span class="kd">const</span> <span class="nx">card</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ReactiveCard</span><span class="p">(</span><span class="dl">'</span><span class="s1">Heal</span><span class="dl">'</span><span class="p">,</span> <span class="p">[</span><span class="dl">'</span><span class="s1">$health &lt; 100</span><span class="dl">'</span><span class="p">]);</span>
+<span class="kd">const</span> <span class="nx">deck</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ReactiveDeck</span><span class="p">([</span><span class="nx">card</span><span class="p">],</span> <span class="nx">state</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="drawing-cards-reactive">Drawing Cards (Reactive)</h3>
+
+<p>The reactive <em>draw()</em> method differs from the original: it returns <strong>a single random available card</strong> (or <code class="language-javascript highlighter-rouge"><span class="kc">null</span></code> if none are available), rather than an array of a given size.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Original <code class="language-javascript highlighter-rouge"><span class="nx">Deck</span><span class="p">.</span><span class="nf">draw</span><span class="p">(</span><span class="nx">size</span><span class="p">)</span></code></th>
+      <th>Reactive <code class="language-javascript highlighter-rouge"><span class="nx">ReactiveDeck</span><span class="p">.</span><span class="nf">draw</span><span class="p">()</span></code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Returns <code class="language-javascript highlighter-rouge"><span class="nx">Card</span><span class="p">[]</span></code> sliced to <em>size</em></td>
+      <td>Returns <code class="language-javascript highlighter-rouge"><span class="nx">ReactiveCard</span> <span class="err">\</span><span class="o">|</span> <span class="kc">null</span></code> (random pick)</td>
+    </tr>
+    <tr>
+      <td>Uses internal <code class="language-javascript highlighter-rouge"><span class="k">this</span><span class="p">.</span><span class="nx">state</span></code></td>
+      <td>Uses bound <code class="language-javascript highlighter-rouge"><span class="nx">ReactiveState</span></code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>To get all available cards at once, use the <code class="language-javascript highlighter-rouge"><span class="nx">availableCards</span></code> getter:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">all</span> <span class="o">=</span> <span class="nx">deck</span><span class="p">.</span><span class="nx">availableCards</span><span class="p">;</span>   <span class="c1">// ReactiveCard[]</span>
+<span class="kd">const</span> <span class="nx">one</span> <span class="o">=</span> <span class="nx">deck</span><span class="p">.</span><span class="nf">draw</span><span class="p">();</span>           <span class="c1">// ReactiveCard | null</span>
+</code></pre></div></div>
+
+<p>For checking availability against a different state, use <code class="language-javascript highlighter-rouge"><span class="nf">getAvailableCards</span><span class="p">(</span><span class="nx">state</span><span class="p">)</span></code> or <code class="language-javascript highlighter-rouge"><span class="nf">drawFromState</span><span class="p">(</span><span class="nx">state</span><span class="p">)</span></code>.</p>
+
+<h3 id="subscribing-to-changes">Subscribing to Changes</h3>
+
+<p>Reactive cards and decks support the <strong>subscribe</strong> pattern. Subscribers are called automatically whenever the bound state changes:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Subscribe to the deck — called with available cards on every state change</span>
+<span class="nx">deck</span><span class="p">.</span><span class="nf">subscribe</span><span class="p">((</span><span class="nx">availableCards</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="s2">`</span><span class="p">${</span><span class="nx">availableCards</span><span class="p">.</span><span class="nx">length</span><span class="p">}</span><span class="s2"> cards available`</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="c1">// Subscribe to an individual card — called with its availability boolean</span>
+<span class="nx">card</span><span class="p">.</span><span class="nf">subscribe</span><span class="p">((</span><span class="nx">isAvailable</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="s2">`Heal card available: </span><span class="p">${</span><span class="nx">isAvailable</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="c1">// Trigger updates by changing state</span>
+<span class="nx">state</span><span class="p">.</span><span class="nf">set</span><span class="p">(</span><span class="dl">'</span><span class="s1">health</span><span class="dl">'</span><span class="p">,</span> <span class="mi">50</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="reactive-deck-and-card-api-summary">Reactive Deck and Card API Summary</h3>
+
+<h4 id="reactivedeck">ReactiveDeck</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Method / Property</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nc">ReactiveDeck</span><span class="p">(</span><span class="nx">cards</span><span class="p">,</span> <span class="nx">state</span><span class="p">)</span></code></td>
+      <td>Constructor — accepts <code class="language-javascript highlighter-rouge"><span class="nx">ReactiveCard</span><span class="p">[]</span></code> and optional <code class="language-javascript highlighter-rouge"><span class="nx">ReactiveState</span></code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">addCard</span><span class="p">(</span><span class="nx">card</span><span class="p">)</span></code></td>
+      <td>Adds a <code class="language-javascript highlighter-rouge"><span class="nx">ReactiveCard</span></code> (auto-binds to deck’s state).</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">removeCard</span><span class="p">(</span><span class="nx">card</span><span class="p">)</span></code></td>
+      <td>Removes and unbinds a card.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">updateCard</span><span class="p">(</span><span class="nx">card</span><span class="p">)</span></code></td>
+      <td>Replaces a card by matching <code class="language-javascript highlighter-rouge"><span class="nx">hash</span></code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">getCard</span><span class="p">(</span><span class="nx">index</span><span class="p">)</span></code></td>
+      <td>Returns the card at a position, or <code class="language-javascript highlighter-rouge"><span class="kc">null</span></code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">size</span><span class="p">()</span></code></td>
+      <td>Returns the number of cards.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">shuffle</span><span class="p">()</span></code></td>
+      <td>Fisher-Yates shuffle of all cards.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">draw</span><span class="p">()</span></code></td>
+      <td>Returns one random available card, or <code class="language-javascript highlighter-rouge"><span class="kc">null</span></code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nx">availableCards</span></code></td>
+      <td>Getter — returns all currently available cards.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">getAvailableCards</span><span class="p">(</span><span class="nx">state</span><span class="p">)</span></code></td>
+      <td>Returns available cards checked against a given state.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">drawFromState</span><span class="p">(</span><span class="nx">state</span><span class="p">)</span></code></td>
+      <td>Draws one random card using a given state.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">isCardAvailable</span><span class="p">(</span><span class="nx">card</span><span class="p">)</span></code></td>
+      <td>Checks if a specific card is available.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">subscribe</span><span class="p">(</span><span class="nx">listener</span><span class="p">)</span></code></td>
+      <td>Subscribes to changes; returns an unsubscribe function.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">bindToState</span><span class="p">(</span><span class="nx">state</span><span class="p">)</span></code></td>
+      <td>Binds (or rebinds) the deck to a <code class="language-javascript highlighter-rouge"><span class="nx">ReactiveState</span></code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">unbind</span><span class="p">()</span></code></td>
+      <td>Unbinds from the current state.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">dispose</span><span class="p">()</span></code></td>
+      <td>Cleans up all subscriptions, listeners, and child cards.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">toDeck</span><span class="p">()</span></code></td>
+      <td>Converts to a regular <code class="language-javascript highlighter-rouge"><span class="nx">Deck</span></code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">listenerCount</span><span class="p">()</span></code></td>
+      <td>Returns the number of active listeners.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">clearListeners</span><span class="p">()</span></code></td>
+      <td>Removes all listeners.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="reactivecard">ReactiveCard</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Method / Property</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nc">ReactiveCard</span><span class="p">(</span><span class="nx">content</span><span class="p">,</span> <span class="nx">qualities</span><span class="p">,</span> <span class="nx">state</span><span class="p">)</span></code></td>
+      <td>Constructor — content string, qualities array, optional state.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nx">content</span></code></td>
+      <td>Getter/setter for the card’s text content.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nx">qualities</span></code></td>
+      <td>Getter for the card’s <code class="language-javascript highlighter-rouge"><span class="nx">ReactiveQualitySet</span></code>; setter accepts <code class="language-javascript highlighter-rouge"><span class="nx">string</span><span class="p">[]</span></code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nx">hash</span></code></td>
+      <td>Read-only UUID.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nx">available</span></code></td>
+      <td>Getter — current availability (requires bound state).</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">isAvailable</span><span class="p">(</span><span class="nx">state</span><span class="p">)</span></code></td>
+      <td>Checks availability against a given <code class="language-javascript highlighter-rouge"><span class="nx">ReactiveState</span></code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">addQuality</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span></code></td>
+      <td>Adds a quality expression.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">removeQuality</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span></code></td>
+      <td>Removes a quality expression.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">subscribe</span><span class="p">(</span><span class="nx">listener</span><span class="p">)</span></code></td>
+      <td>Subscribes to availability changes; returns unsubscribe.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">bindToState</span><span class="p">(</span><span class="nx">state</span><span class="p">)</span></code></td>
+      <td>Binds to a <code class="language-javascript highlighter-rouge"><span class="nx">ReactiveState</span></code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">unbind</span><span class="p">()</span></code></td>
+      <td>Unbinds from the current state.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">dispose</span><span class="p">()</span></code></td>
+      <td>Cleans up all subscriptions and listeners.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">toCard</span><span class="p">()</span></code></td>
+      <td>Converts to a regular <code class="language-javascript highlighter-rouge"><span class="nx">Card</span></code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">listenerCount</span><span class="p">()</span></code></td>
+      <td>Number of active listeners.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">clearListeners</span><span class="p">()</span></code></td>
+      <td>Removes all listeners.</td>
+    </tr>
+  </tbody>
+</table>
 
 <h2 id="references">References</h2>
 

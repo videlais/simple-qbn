@@ -94,6 +94,10 @@
             <a href="/simple-qbn/examples/webbuild">Bundled for Web</a>
           </li>
           
+          <li>
+            <a href="/simple-qbn/examples/migration">Migration Guide</a>
+          </li>
+          
         </ul>
         
       </li>
@@ -218,9 +222,11 @@ npm <span class="nb">install</span>
     <span class="nx">doorCard</span><span class="p">.</span><span class="nx">content</span><span class="p">,</span>
     <span class="nx">doorCard</span><span class="p">.</span><span class="nx">qualities</span><span class="p">);</span>
 
-<span class="c1">// Check availability manually.</span>
-<span class="c1">// Need to pass state each time.</span>
-<span class="kd">const</span> <span class="nx">availableCards</span> <span class="o">=</span> <span class="nx">deck</span><span class="p">.</span><span class="nf">draw</span><span class="p">(</span><span class="nx">gameState</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span>
+<span class="c1">// Set the deck's internal state</span>
+<span class="nx">deck</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="nx">gameState</span><span class="p">;</span>
+
+<span class="c1">// Draw available cards (uses deck's internal state)</span>
+<span class="kd">const</span> <span class="nx">availableCards</span> <span class="o">=</span> <span class="nx">deck</span><span class="p">.</span><span class="nf">draw</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
 
 <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="s2">`</span><span class="p">${</span><span class="nx">availableCards</span><span class="p">.</span><span class="nx">length</span><span class="p">}</span><span class="s2"> cards available`</span><span class="p">);</span>
 </code></pre></div></div>

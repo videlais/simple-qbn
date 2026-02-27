@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Migration Guide - SimpleQBN</title>
+    <meta name="description" content="Because nothing about quality-based narratives is actually simple.">
+    <link rel="stylesheet" href="/simple-qbn/assets/css/style.css">
+</head>
+<body>
+    <div class="book">
+        <nav class="sidebar">
+  <div class="book-summary">
+    <h2>SimpleQBN</h2>
+    <ul class="summary">
+      
+      <li class="chapter ">
+        
+        <a href="/simple-qbn/">Introduction</a>
+        
+        
+      </li>
+      
+      <li class="chapter has-children">
+        
+        <span class="section-title">History of Related Terms</span>
+        
+        
+        <ul class="articles">
+          
+          <li>
+            <a href="/simple-qbn/scenes">Scenes and Cycles (1983)</a>
+          </li>
+          
+          <li>
+            <a href="/simple-qbn/episodes">Episodes and Sequences (1989)</a>
+          </li>
+          
+          <li>
+            <a href="/simple-qbn/sculpturalmodel">Sculptural Hypertext Model (2001)</a>
+          </li>
+          
+          <li>
+            <a href="/simple-qbn/storylet">Storylet (2010)</a>
+          </li>
+          
+          <li>
+            <a href="/simple-qbn/qbn">Quality-Based Narrative (2010)</a>
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="chapter has-children">
+        
+        <span class="section-title">Metaphors in SimpleQBN</span>
+        
+        
+        <ul class="articles">
+          
+          <li>
+            <a href="/simple-qbn/expressions">Expressions and QualitySet</a>
+          </li>
+          
+          <li>
+            <a href="/simple-qbn/cards">Decks and Cards</a>
+          </li>
+          
+          <li>
+            <a href="/simple-qbn/State">State Management</a>
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+      <li class="chapter has-children">
+        
+        <span class="section-title">Examples</span>
+        
+        
+        <ul class="articles">
+          
+          <li>
+            <a href="/simple-qbn/examples/deckbuilding">Deck Building</a>
+          </li>
+          
+          <li>
+            <a href="/simple-qbn/examples/storygates">Story Gates</a>
+          </li>
+          
+          <li>
+            <a href="/simple-qbn/examples/webbuild">Bundled for Web</a>
+          </li>
+          
+          <li>
+            <a href="/simple-qbn/examples/migration">Migration Guide</a>
+          </li>
+          
+        </ul>
+        
+      </li>
+      
+    </ul>
+  </div>
+</nav>
+
+        <div class="book-body">
+            <div class="body-inner">
+                <div class="page-wrapper">
+                    <div class="page-inner">
+                        <div class="markdown-section">
+<h1 id="migration-guide-mingo-to-quis-expressions">Migration Guide: Mingo to Quis Expressions</h1>
+
+<p>Version 1.5.0 of SimpleQBN replaced MongoDB query language support (via the Mingo library) with pure <a href="https://github.com/videlais/quis">Quis</a> string expressions. This guide shows how to convert existing expressions.</p>
+
+<h2 id="why-the-change">Why the Change?</h2>
+
+<ul>
+  <li><strong>Smaller bundle size</strong>: Removing the Mingo dependency significantly reduces the library footprint.</li>
+  <li><strong>Simpler syntax</strong>: Quis expressions are plain strings that read naturally as conditional statements.</li>
+  <li><strong>Consistent format</strong>: All expressions now use the same <code class="language-javascript highlighter-rouge"><span class="nx">$variable</span> <span class="nx">operator</span> <span class="nx">value</span></code> syntax.</li>
+</ul>
+
+<h2 id="expression-conversion-reference">Expression Conversion Reference</h2>
+
+<h3 id="simple-comparisons">Simple Comparisons</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>MongoDB/Mingo (v1.4.x)</th>
+      <th>Quis (v1.5.0+)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="p">{</span><span class="nl">score</span><span class="p">:</span> <span class="p">{</span><span class="na">$gt</span><span class="p">:</span> <span class="mi">15</span><span class="p">}}</span></code></td>
+      <td><code class="language-javascript highlighter-rouge"><span class="nx">$score</span> <span class="o">&gt;</span> <span class="mi">15</span></code></td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="p">{</span><span class="nl">score</span><span class="p">:</span> <span class="p">{</span><span class="na">$gte</span><span class="p">:</span> <span class="mi">15</span><span class="p">}}</span></code></td>
+      <td><code class="language-javascript highlighter-rouge"><span class="nx">$score</span> <span class="o">&gt;=</span> <span class="mi">15</span></code></td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="p">{</span><span class="nl">score</span><span class="p">:</span> <span class="p">{</span><span class="na">$lt</span><span class="p">:</span> <span class="mi">10</span><span class="p">}}</span></code></td>
+      <td><code class="language-javascript highlighter-rouge"><span class="nx">$score</span> <span class="o">&lt;</span> <span class="mi">10</span></code></td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="p">{</span><span class="nl">score</span><span class="p">:</span> <span class="p">{</span><span class="na">$lte</span><span class="p">:</span> <span class="mi">10</span><span class="p">}}</span></code></td>
+      <td><code class="language-javascript highlighter-rouge"><span class="nx">$score</span> <span class="o">&lt;=</span> <span class="mi">10</span></code></td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="p">{</span><span class="nl">score</span><span class="p">:</span> <span class="p">{</span><span class="na">$eq</span><span class="p">:</span> <span class="mi">5</span><span class="p">}}</span></code></td>
+      <td><code class="language-javascript highlighter-rouge"><span class="nx">$score</span> <span class="o">==</span> <span class="mi">5</span></code></td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="p">{</span><span class="nl">score</span><span class="p">:</span> <span class="p">{</span><span class="na">$ne</span><span class="p">:</span> <span class="mi">0</span><span class="p">}}</span></code></td>
+      <td><code class="language-javascript highlighter-rouge"><span class="nx">$score</span> <span class="o">!=</span> <span class="mi">0</span></code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="equality-with-non-numeric-types">Equality with Non-Numeric Types</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>MongoDB/Mingo (v1.4.x)</th>
+      <th>Quis (v1.5.0+)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="p">{</span><span class="nl">active</span><span class="p">:</span> <span class="kc">true</span><span class="p">}</span></code></td>
+      <td><code class="language-javascript highlighter-rouge"><span class="nx">$active</span> <span class="o">==</span> <span class="kc">true</span></code></td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="p">{</span><span class="nl">active</span><span class="p">:</span> <span class="kc">false</span><span class="p">}</span></code></td>
+      <td><code class="language-javascript highlighter-rouge"><span class="nx">$active</span> <span class="o">==</span> <span class="kc">false</span></code></td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="p">{</span><span class="nl">role</span><span class="p">:</span> <span class="dl">"</span><span class="s2">admin</span><span class="dl">"</span><span class="p">}</span></code></td>
+      <td><code class="language-javascript highlighter-rouge"><span class="nx">$role</span> <span class="o">==</span> <span class="dl">"</span><span class="s2">admin</span><span class="dl">"</span></code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="multiple-conditions-and">Multiple Conditions (AND)</h3>
+
+<p>In Mingo, multiple conditions in the same object were combined with AND logic. In Quis, use the <code class="language-javascript highlighter-rouge"><span class="o">&amp;&amp;</span></code> operator:</p>
+
+<p><strong>Before (v1.4.x):</strong></p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// All conditions must be true (implicit AND)</span>
+<span class="kd">const</span> <span class="nx">card</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Card</span><span class="p">(</span><span class="dl">'</span><span class="s1">content</span><span class="dl">'</span><span class="p">,</span> <span class="p">[{</span><span class="na">score</span><span class="p">:</span> <span class="p">{</span><span class="na">$gt</span><span class="p">:</span> <span class="mi">15</span><span class="p">},</span> <span class="na">act1</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="na">reputation</span><span class="p">:</span> <span class="p">{</span><span class="na">$lt</span><span class="p">:</span> <span class="mf">3.5</span><span class="p">}}]);</span>
+</code></pre></div></div>
+
+<p><strong>After (v1.5.0+):</strong></p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Combine with &amp;&amp; operator</span>
+<span class="kd">const</span> <span class="nx">card</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Card</span><span class="p">(</span><span class="dl">'</span><span class="s1">content</span><span class="dl">'</span><span class="p">,</span> <span class="p">[</span><span class="dl">'</span><span class="s1">$score &gt; 15 &amp;&amp; $act1 == true &amp;&amp; $reputation &lt; 3.5</span><span class="dl">'</span><span class="p">]);</span>
+</code></pre></div></div>
+
+<p>Alternatively, pass multiple separate expressions in the qualities array — they are combined with AND logic in a <strong>QualitySet</strong> automatically:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Each string in the array is AND-ed together</span>
+<span class="kd">const</span> <span class="nx">card</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Card</span><span class="p">(</span><span class="dl">'</span><span class="s1">content</span><span class="dl">'</span><span class="p">,</span> <span class="p">[</span>
+  <span class="dl">'</span><span class="s1">$score &gt; 15</span><span class="dl">'</span><span class="p">,</span>
+  <span class="dl">'</span><span class="s1">$act1 == true</span><span class="dl">'</span><span class="p">,</span>
+  <span class="dl">'</span><span class="s1">$reputation &lt; 3.5</span><span class="dl">'</span>
+<span class="p">]);</span>
+</code></pre></div></div>
+
+<h3 id="or-conditions">OR Conditions</h3>
+
+<p>Mingo’s <code class="language-javascript highlighter-rouge"><span class="nx">$or</span></code> operator maps to the <code class="language-javascript highlighter-rouge"><span class="o">||</span></code> operator in Quis:</p>
+
+<p><strong>Before (v1.4.x):</strong></p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">card</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Card</span><span class="p">(</span><span class="dl">'</span><span class="s1">content</span><span class="dl">'</span><span class="p">,</span> <span class="p">[{</span><span class="na">$or</span><span class="p">:</span> <span class="p">[{</span><span class="na">score</span><span class="p">:</span> <span class="p">{</span><span class="na">$gt</span><span class="p">:</span> <span class="mi">50</span><span class="p">}},</span> <span class="p">{</span><span class="na">bonus</span><span class="p">:</span> <span class="kc">true</span><span class="p">}]}]);</span>
+</code></pre></div></div>
+
+<p><strong>After (v1.5.0+):</strong></p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">card</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Card</span><span class="p">(</span><span class="dl">'</span><span class="s1">content</span><span class="dl">'</span><span class="p">,</span> <span class="p">[</span><span class="dl">'</span><span class="s1">$score &gt; 50 || $bonus == true</span><span class="dl">'</span><span class="p">]);</span>
+</code></pre></div></div>
+
+<h3 id="grouped-conditions">Grouped Conditions</h3>
+
+<p>Parentheses allow complex grouping in Quis:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// (high score OR has bonus) AND has not finished</span>
+<span class="kd">const</span> <span class="nx">card</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Card</span><span class="p">(</span><span class="dl">'</span><span class="s1">content</span><span class="dl">'</span><span class="p">,</span> <span class="p">[</span>
+  <span class="dl">'</span><span class="s1">($score &gt;= 80 || $bonus_points &gt; 10) &amp;&amp; $finished == false</span><span class="dl">'</span>
+<span class="p">]);</span>
+</code></pre></div></div>
+
+<h3 id="not-conditions">NOT Conditions</h3>
+
+<p>Mingo’s <code class="language-javascript highlighter-rouge"><span class="nx">$not</span></code> maps to the <code class="language-javascript highlighter-rouge"><span class="o">!</span></code> prefix in Quis:</p>
+
+<p><strong>Before (v1.4.x):</strong></p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">card</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Card</span><span class="p">(</span><span class="dl">'</span><span class="s1">content</span><span class="dl">'</span><span class="p">,</span> <span class="p">[{</span><span class="na">active</span><span class="p">:</span> <span class="p">{</span><span class="na">$not</span><span class="p">:</span> <span class="p">{</span><span class="na">$eq</span><span class="p">:</span> <span class="kc">true</span><span class="p">}}}]);</span>
+</code></pre></div></div>
+
+<p><strong>After (v1.5.0+):</strong></p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">card</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Card</span><span class="p">(</span><span class="dl">'</span><span class="s1">content</span><span class="dl">'</span><span class="p">,</span> <span class="p">[</span><span class="dl">'</span><span class="s1">!($active == true)</span><span class="dl">'</span><span class="p">]);</span>
+<span class="c1">// or equivalently:</span>
+<span class="kd">const</span> <span class="nx">card2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Card</span><span class="p">(</span><span class="dl">'</span><span class="s1">content</span><span class="dl">'</span><span class="p">,</span> <span class="p">[</span><span class="dl">'</span><span class="s1">$active != true</span><span class="dl">'</span><span class="p">]);</span>
+</code></pre></div></div>
+
+<h2 id="full-example-before-and-after">Full Example: Before and After</h2>
+
+<h3 id="before-v14x--mingo">Before (v1.4.x — Mingo)</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">State</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">simple-qbn/State</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">Card</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">simple-qbn/Card</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">Deck</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">simple-qbn/Deck</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">d</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Deck</span><span class="p">();</span>
+<span class="nx">d</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nf">set</span><span class="p">(</span><span class="dl">'</span><span class="s1">health</span><span class="dl">'</span><span class="p">,</span> <span class="mi">80</span><span class="p">);</span>
+<span class="nx">d</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nf">set</span><span class="p">(</span><span class="dl">'</span><span class="s1">hasKey</span><span class="dl">'</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+<span class="nx">d</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nf">set</span><span class="p">(</span><span class="dl">'</span><span class="s1">level</span><span class="dl">'</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+
+<span class="c1">// Mingo-style object expressions</span>
+<span class="nx">d</span><span class="p">.</span><span class="nf">addCard</span><span class="p">(</span><span class="dl">'</span><span class="s1">Heal</span><span class="dl">'</span><span class="p">,</span> <span class="p">[{</span><span class="na">health</span><span class="p">:</span> <span class="p">{</span><span class="na">$lt</span><span class="p">:</span> <span class="mi">50</span><span class="p">}}]);</span>
+<span class="nx">d</span><span class="p">.</span><span class="nf">addCard</span><span class="p">(</span><span class="dl">'</span><span class="s1">Open Door</span><span class="dl">'</span><span class="p">,</span> <span class="p">[{</span><span class="na">hasKey</span><span class="p">:</span> <span class="kc">true</span><span class="p">}]);</span>
+<span class="nx">d</span><span class="p">.</span><span class="nf">addCard</span><span class="p">(</span><span class="dl">'</span><span class="s1">Boss Fight</span><span class="dl">'</span><span class="p">,</span> <span class="p">[{</span><span class="na">level</span><span class="p">:</span> <span class="p">{</span><span class="na">$gte</span><span class="p">:</span> <span class="mi">5</span><span class="p">},</span> <span class="na">health</span><span class="p">:</span> <span class="p">{</span><span class="na">$gt</span><span class="p">:</span> <span class="mi">30</span><span class="p">}}]);</span>
+
+<span class="kd">const</span> <span class="nx">hand</span> <span class="o">=</span> <span class="nx">d</span><span class="p">.</span><span class="nf">draw</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="after-v150--quis">After (v1.5.0+ — Quis)</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">State</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">simple-qbn/State</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">Card</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">simple-qbn/Card</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">Deck</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">simple-qbn/Deck</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">d</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Deck</span><span class="p">();</span>
+<span class="nx">d</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nf">set</span><span class="p">(</span><span class="dl">'</span><span class="s1">health</span><span class="dl">'</span><span class="p">,</span> <span class="mi">80</span><span class="p">);</span>
+<span class="nx">d</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nf">set</span><span class="p">(</span><span class="dl">'</span><span class="s1">hasKey</span><span class="dl">'</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+<span class="nx">d</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nf">set</span><span class="p">(</span><span class="dl">'</span><span class="s1">level</span><span class="dl">'</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+
+<span class="c1">// Quis string expressions</span>
+<span class="nx">d</span><span class="p">.</span><span class="nf">addCard</span><span class="p">(</span><span class="dl">'</span><span class="s1">Heal</span><span class="dl">'</span><span class="p">,</span> <span class="p">[</span><span class="dl">'</span><span class="s1">$health &lt; 50</span><span class="dl">'</span><span class="p">]);</span>
+<span class="nx">d</span><span class="p">.</span><span class="nf">addCard</span><span class="p">(</span><span class="dl">'</span><span class="s1">Open Door</span><span class="dl">'</span><span class="p">,</span> <span class="p">[</span><span class="dl">'</span><span class="s1">$hasKey == true</span><span class="dl">'</span><span class="p">]);</span>
+<span class="nx">d</span><span class="p">.</span><span class="nf">addCard</span><span class="p">(</span><span class="dl">'</span><span class="s1">Boss Fight</span><span class="dl">'</span><span class="p">,</span> <span class="p">[</span><span class="dl">'</span><span class="s1">$level &gt;= 5 &amp;&amp; $health &gt; 30</span><span class="dl">'</span><span class="p">]);</span>
+
+<span class="kd">const</span> <span class="nx">hand</span> <span class="o">=</span> <span class="nx">d</span><span class="p">.</span><span class="nf">draw</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h2 id="quick-reference-mingo-operators--quis">Quick Reference: Mingo Operators → Quis</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Mingo Operator</th>
+      <th>Quis Equivalent</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nx">$gt</span></code></td>
+      <td><code class="language-javascript highlighter-rouge"><span class="o">&gt;</span></code></td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nx">$gte</span></code></td>
+      <td><code class="language-javascript highlighter-rouge"><span class="o">&gt;=</span></code></td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nx">$lt</span></code></td>
+      <td><code class="language-javascript highlighter-rouge"><span class="o">&lt;</span></code></td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nx">$lte</span></code></td>
+      <td><code class="language-javascript highlighter-rouge"><span class="o">&lt;=</span></code></td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nx">$eq</span></code></td>
+      <td><code class="language-javascript highlighter-rouge"><span class="o">==</span></code></td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nx">$ne</span></code></td>
+      <td><code class="language-javascript highlighter-rouge"><span class="o">!=</span></code></td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nx">$and</span></code> / implicit</td>
+      <td><code class="language-javascript highlighter-rouge"><span class="o">&amp;&amp;</span></code></td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nx">$or</span></code></td>
+      <td><code class="language-javascript highlighter-rouge"><span class="err">\</span><span class="o">|</span><span class="err">\</span><span class="o">|</span></code></td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nx">$not</span></code></td>
+      <td><code class="language-javascript highlighter-rouge"><span class="o">!</span><span class="p">()</span></code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>For full Quis syntax documentation, see the <a href="https://github.com/videlais/quis">Quis package</a>.</p>
+
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

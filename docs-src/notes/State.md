@@ -47,14 +47,17 @@ deck.addCard(healCard.content, healCard.qualities);
 deck.addCard(levelCard.content, levelCard.qualities);
 deck.addCard(doorCard.content, doorCard.qualities);
 
-// Explicitly check availability by passing state
-const availableCards = deck.draw(gameState, 10);
+// Set the deck's internal state
+deck.state = gameState;
+
+// Draw available cards (uses deck's internal state)
+const availableCards = deck.draw(10);
 console.log(`Available: ${availableCards.length} cards`);
 
 // Update state and check again
 gameState.set('health', 30);
 gameState.set('hasKey', true);
-const newAvailable = deck.draw(gameState, 10);
+const newAvailable = deck.draw(10);
 console.log(`Now available: ${newAvailable.length} cards`);
 ```
 
@@ -121,3 +124,56 @@ doorCard.dispose();
 - Choose one architecture for your entire application
 
 Both architectures use the same [Expression Language](./expressions.md) for defining quality requirements, ensuring consistent condition syntax regardless of which state management approach you choose.
+
+## Reactive Best Practices
+
+### Batching State Changes
+
+When making multiple state changes at once, use `batch()` to group them into a single notification. Without batching, each call to `set()` or `delete()` triggers all subscribers individually, which can cause unnecessary re-renders and redundant work.
+
+```javascript
+// Without batch — triggers 3 separate notifications
+gameState.set('health', 100);
+gameState.set('level', 5);
+gameState.set('gold', 200);
+
+// With batch — triggers only 1 notification after all changes
+gameState.batch(() => {
+  gameState.set('health', 100);
+  gameState.set('level', 5);
+  gameState.set('gold', 200);
+});
+```
+
+Nested batches are safe — the inner batch executes immediately and notifications are deferred until the outermost batch completes. If the batch function throws an error, any changes made before the error are kept and listeners are still notified.
+
+### The dispose() Lifecycle
+
+All reactive classes (`ReactiveCard`, `ReactiveDeck`, `ReactiveExpression`, `ReactiveQualitySet`) maintain internal subscriptions to track state changes. When a reactive object is no longer needed, you **must** call `dispose()` to clean up these subscriptions and prevent memory leaks.
+
+```javascript
+const state = new ReactiveState();
+const card = new ReactiveCard('Quest', ['$level >= 5'], state);
+const deck = new ReactiveDeck([card], state);
+
+deck.subscribe((available) => { /* ... */ });
+
+// When done, dispose in order: deck first, then cards
+deck.dispose();   // unbinds all cards, clears listeners
+card.dispose();   // clears any remaining subscriptions
+```
+
+**What `dispose()` does:**
+
+| Class | Behavior |
+|---|---|
+| `ReactiveCard` | Unbinds from state, disposes internal `ReactiveQualitySet`, clears listeners. |
+| `ReactiveDeck` | Unbinds from state, disposes all child cards, clears listener list. |
+| `ReactiveExpression` | Unbinds from state, clears listeners. |
+| `ReactiveQualitySet` | Unbinds from state, disposes all child expressions, clears listeners. |
+
+**Rules of thumb:**
+
+- Always dispose decks before their individual cards (the deck's `dispose()` also disposes its cards).
+- After `dispose()`, the object should not be reused — create a new instance instead.
+- Use `unbind()` instead of `dispose()` if you intend to rebind the object to a different state later.

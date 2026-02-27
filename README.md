@@ -110,9 +110,11 @@ deck.addCard(
     doorCard.content,
     doorCard.qualities);
 
-// Check availability manually.
-// Need to pass state each time.
-const availableCards = deck.draw(gameState, 5);
+// Set the deck's internal state
+deck.state = gameState;
+
+// Draw available cards (uses deck's internal state)
+const availableCards = deck.draw(5);
 
 console.log(`${availableCards.length} cards available`);
 ```

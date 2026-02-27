@@ -94,6 +94,10 @@
             <a href="/simple-qbn/examples/webbuild">Bundled for Web</a>
           </li>
           
+          <li>
+            <a href="/simple-qbn/examples/migration">Migration Guide</a>
+          </li>
+          
         </ul>
         
       </li>
@@ -146,6 +150,253 @@
 </ul>
 
 <p>For full Quis syntax documentation, see the <a href="https://github.com/videlais/quis">Quis documentation</a>.</p>
+
+<h2 id="expression-class-api">Expression Class API</h2>
+
+<p>The <strong>Expression</strong> class wraps a single Quis expression string and evaluates it against a <strong>State</strong>.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Method / Property</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nc">Expression</span><span class="p">(</span><span class="nx">expression</span><span class="p">)</span></code></td>
+      <td>Constructor — accepts a Quis expression string.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nx">expression</span></code></td>
+      <td>Read-only getter — returns the internal expression string.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">change</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span></code></td>
+      <td>Replaces the internal expression with a new string.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">check</span><span class="p">(</span><span class="nx">state</span><span class="p">)</span></code></td>
+      <td>Evaluates the expression against a <strong>State</strong>; returns <code class="language-javascript highlighter-rouge"><span class="nx">boolean</span></code>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">Expression</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">simple-qbn/Expression</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">State</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">simple-qbn/State</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">expr</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Expression</span><span class="p">(</span><span class="dl">'</span><span class="s1">$health &gt; 50</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">s</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">State</span><span class="p">();</span>
+<span class="nx">s</span><span class="p">.</span><span class="nf">set</span><span class="p">(</span><span class="dl">'</span><span class="s1">health</span><span class="dl">'</span><span class="p">,</span> <span class="mi">80</span><span class="p">);</span>
+
+<span class="nx">expr</span><span class="p">.</span><span class="nf">check</span><span class="p">(</span><span class="nx">s</span><span class="p">);</span>       <span class="c1">// true</span>
+<span class="nx">expr</span><span class="p">.</span><span class="nx">expression</span><span class="p">;</span>     <span class="c1">// '$health &gt; 50'</span>
+<span class="nx">expr</span><span class="p">.</span><span class="nf">change</span><span class="p">(</span><span class="dl">'</span><span class="s1">$health &lt; 30</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">expr</span><span class="p">.</span><span class="nf">check</span><span class="p">(</span><span class="nx">s</span><span class="p">);</span>       <span class="c1">// false</span>
+</code></pre></div></div>
+
+<h2 id="qualityset-class-api">QualitySet Class API</h2>
+
+<p>A <strong>QualitySet</strong> is an ordered collection of <strong>Expression</strong> objects. A quality set is valid when <em>all</em> of its expressions are valid (logical AND).</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Method</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nc">QualitySet</span><span class="p">()</span></code></td>
+      <td>Constructor — creates an empty set.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">add</span><span class="p">(</span><span class="nx">expression</span><span class="p">)</span></code></td>
+      <td>Adds a Quis expression string (no duplicates).</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">has</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span></code></td>
+      <td>Returns <code class="language-javascript highlighter-rouge"><span class="kc">true</span></code> if the expression string is already in the set.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">remove</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span></code></td>
+      <td>Removes an expression string from the set.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">check</span><span class="p">(</span><span class="nx">state</span><span class="p">)</span></code></td>
+      <td>Returns <code class="language-javascript highlighter-rouge"><span class="kc">true</span></code> if <strong>every</strong> expression is valid against the given <strong>State</strong>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">size</span><span class="p">()</span></code></td>
+      <td>Returns the number of expressions in the set.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">QualitySet</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">simple-qbn/QualitySet</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">State</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">simple-qbn/State</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">qs</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">QualitySet</span><span class="p">();</span>
+<span class="nx">qs</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="dl">'</span><span class="s1">$level &gt;= 5</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">qs</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="dl">'</span><span class="s1">$hasKey == true</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="kd">const</span> <span class="nx">s</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">State</span><span class="p">();</span>
+<span class="nx">s</span><span class="p">.</span><span class="nf">set</span><span class="p">(</span><span class="dl">'</span><span class="s1">level</span><span class="dl">'</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+<span class="nx">s</span><span class="p">.</span><span class="nf">set</span><span class="p">(</span><span class="dl">'</span><span class="s1">hasKey</span><span class="dl">'</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+
+<span class="nx">qs</span><span class="p">.</span><span class="nf">check</span><span class="p">(</span><span class="nx">s</span><span class="p">);</span>   <span class="c1">// true</span>
+<span class="nx">qs</span><span class="p">.</span><span class="nf">size</span><span class="p">();</span>     <span class="c1">// 2</span>
+<span class="nx">qs</span><span class="p">.</span><span class="nf">has</span><span class="p">(</span><span class="dl">'</span><span class="s1">$level &gt;= 5</span><span class="dl">'</span><span class="p">);</span>  <span class="c1">// true</span>
+<span class="nx">qs</span><span class="p">.</span><span class="nf">remove</span><span class="p">(</span><span class="dl">'</span><span class="s1">$hasKey == true</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">qs</span><span class="p">.</span><span class="nf">size</span><span class="p">();</span>     <span class="c1">// 1</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="reactive-expression-and-reactive-qualityset">Reactive Expression and Reactive QualitySet</h2>
+
+<p>The reactive architecture provides <strong>ReactiveExpression</strong> and <strong>ReactiveQualitySet</strong>, which automatically re-evaluate when the bound <strong>ReactiveState</strong> changes.</p>
+
+<h3 id="reactiveexpression-api">ReactiveExpression API</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Method / Property</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nc">ReactiveExpression</span><span class="p">(</span><span class="nx">expression</span><span class="p">,</span> <span class="nx">state</span><span class="p">?)</span></code></td>
+      <td>Constructor — Quis string and optional <code class="language-javascript highlighter-rouge"><span class="nx">ReactiveState</span></code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nx">expressionString</span></code></td>
+      <td>Read-only getter — the internal expression string.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nx">result</span></code></td>
+      <td>Getter — current evaluation result (requires bound state).</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">check</span><span class="p">(</span><span class="nx">state</span><span class="p">)</span></code></td>
+      <td>Evaluates against a given <code class="language-javascript highlighter-rouge"><span class="nx">ReactiveState</span></code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">change</span><span class="p">(</span><span class="nx">newExpression</span><span class="p">)</span></code></td>
+      <td>Replaces the expression and notifies listeners.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">subscribe</span><span class="p">(</span><span class="nx">listener</span><span class="p">)</span></code></td>
+      <td>Subscribes to result changes; returns unsubscribe function.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">bindToState</span><span class="p">(</span><span class="nx">state</span><span class="p">)</span></code></td>
+      <td>Binds to a <code class="language-javascript highlighter-rouge"><span class="nx">ReactiveState</span></code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">unbind</span><span class="p">()</span></code></td>
+      <td>Unbinds from the current state.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">dispose</span><span class="p">()</span></code></td>
+      <td>Cleans up all subscriptions and listeners.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">listenerCount</span><span class="p">()</span></code></td>
+      <td>Number of active listeners.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">clearListeners</span><span class="p">()</span></code></td>
+      <td>Removes all listeners.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">ReactiveExpression</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">simple-qbn/reactive/Expression</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">ReactiveState</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">simple-qbn/reactive/State</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">state</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ReactiveState</span><span class="p">();</span>
+<span class="nx">state</span><span class="p">.</span><span class="nf">set</span><span class="p">(</span><span class="dl">'</span><span class="s1">score</span><span class="dl">'</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+
+<span class="kd">const</span> <span class="nx">expr</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ReactiveExpression</span><span class="p">(</span><span class="dl">'</span><span class="s1">$score &gt; 50</span><span class="dl">'</span><span class="p">,</span> <span class="nx">state</span><span class="p">);</span>
+<span class="nx">expr</span><span class="p">.</span><span class="nx">result</span><span class="p">;</span>  <span class="c1">// false</span>
+
+<span class="nx">expr</span><span class="p">.</span><span class="nf">subscribe</span><span class="p">((</span><span class="nx">result</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Expression is now:</span><span class="dl">'</span><span class="p">,</span> <span class="nx">result</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="nx">state</span><span class="p">.</span><span class="nf">set</span><span class="p">(</span><span class="dl">'</span><span class="s1">score</span><span class="dl">'</span><span class="p">,</span> <span class="mi">75</span><span class="p">);</span>  <span class="c1">// logs: "Expression is now: true"</span>
+
+<span class="nx">expr</span><span class="p">.</span><span class="nf">dispose</span><span class="p">();</span>  <span class="c1">// clean up when done</span>
+</code></pre></div></div>
+
+<h3 id="reactivequalityset-api">ReactiveQualitySet API</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Method / Property</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nc">ReactiveQualitySet</span><span class="p">(</span><span class="nx">state</span><span class="p">?)</span></code></td>
+      <td>Constructor — optional <code class="language-javascript highlighter-rouge"><span class="nx">ReactiveState</span></code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nx">result</span></code></td>
+      <td>Getter — <code class="language-javascript highlighter-rouge"><span class="kc">true</span></code> if all expressions pass (requires bound state).</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">add</span><span class="p">(</span><span class="nx">expression</span><span class="p">)</span></code></td>
+      <td>Adds a Quis expression string.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">has</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span></code></td>
+      <td>Returns <code class="language-javascript highlighter-rouge"><span class="kc">true</span></code> if expression exists in the set.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">remove</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span></code></td>
+      <td>Removes an expression and disposes it.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">check</span><span class="p">(</span><span class="nx">state</span><span class="p">)</span></code></td>
+      <td>Evaluates all expressions against a given <code class="language-javascript highlighter-rouge"><span class="nx">ReactiveState</span></code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">size</span><span class="p">()</span></code></td>
+      <td>Number of expressions in the set.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">subscribe</span><span class="p">(</span><span class="nx">listener</span><span class="p">)</span></code></td>
+      <td>Subscribes to result changes; returns unsubscribe function.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">bindToState</span><span class="p">(</span><span class="nx">state</span><span class="p">)</span></code></td>
+      <td>Binds to a <code class="language-javascript highlighter-rouge"><span class="nx">ReactiveState</span></code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">unbind</span><span class="p">()</span></code></td>
+      <td>Unbinds from the current state.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">dispose</span><span class="p">()</span></code></td>
+      <td>Cleans up all internal expressions, subscriptions, and listeners.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">listenerCount</span><span class="p">()</span></code></td>
+      <td>Number of active listeners.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">clearListeners</span><span class="p">()</span></code></td>
+      <td>Removes all listeners.</td>
+    </tr>
+  </tbody>
+</table>
 
 <h3 id="historical-previous-use-of-mingo-mongodb-query-support">Historical: Previous use of Mingo (MongoDB Query Support)</h3>
 

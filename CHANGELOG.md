@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.5.2] - 2026-1-01
 
-## Changed
+### Changed
 
 - Updating dependencies.
 
@@ -16,6 +16,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Re-aligning NPM version with GitHub version.
+
+## [1.5.0] - 2025-12-01
+
+### Added
+
+- **Reactive architecture**: New `ReactiveState`, `ReactiveCard`, `ReactiveDeck`, `ReactiveExpression`, and `ReactiveQualitySet` classes providing event-driven, automatic state synchronization with subscribe/dispose lifecycle.
+- Separate reactive webpack bundle (`reactive-simpleqbn.bundle.js`).
+- `batch()` method on `ReactiveState` for grouping state changes and reducing notification overhead.
+
+### Changed
+
+- **Breaking**: Migrated exclusively to [Quis](https://github.com/videlais/quis) syntax for all expressions, removing MongoDB query language (Mingo) support.
+- Simplified expression evaluation to reduce dependencies and code size.
+- Updated all examples and documentation to use Quis expression syntax.
+
+### Removed
+
+- MongoDB query language support via Mingo.
+- `mingo` dependency.
 
 ## [1.4.2] - 2025-12-01
 

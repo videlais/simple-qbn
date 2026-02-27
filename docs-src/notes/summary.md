@@ -21,3 +21,4 @@
 * [Deck Building](./examples/deckbuilding.md)
 * [Story Gates](./examples/storygates.md)
 * [Bundled for Web](./examples/webbuild.md)
+* [Migration Guide](./examples/migration.md)

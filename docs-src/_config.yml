@@ -90,3 +90,5 @@ navigation:
         url: /examples/storygates
       - title: Bundled for Web
         url: /examples/webbuild
+      - title: Migration Guide
+        url: /examples/migration

@@ -38,6 +38,122 @@ Examples:
 
 For full Quis syntax documentation, see the [Quis documentation](https://github.com/videlais/quis).
 
+## Expression Class API
+
+The **Expression** class wraps a single Quis expression string and evaluates it against a **State**.
+
+| Method / Property | Description |
+|---|---|
+| `Expression(expression)` | Constructor — accepts a Quis expression string. |
+| `expression` | Read-only getter — returns the internal expression string. |
+| `change(s)` | Replaces the internal expression with a new string. |
+| `check(state)` | Evaluates the expression against a **State**; returns `boolean`. |
+
+```javascript
+import Expression from 'simple-qbn/Expression';
+import State from 'simple-qbn/State';
+
+const expr = new Expression('$health > 50');
+const s = new State();
+s.set('health', 80);
+
+expr.check(s);       // true
+expr.expression;     // '$health > 50'
+expr.change('$health < 30');
+expr.check(s);       // false
+```
+
+## QualitySet Class API
+
+A **QualitySet** is an ordered collection of **Expression** objects. A quality set is valid when *all* of its expressions are valid (logical AND).
+
+| Method | Description |
+|---|---|
+| `QualitySet()` | Constructor — creates an empty set. |
+| `add(expression)` | Adds a Quis expression string (no duplicates). |
+| `has(s)` | Returns `true` if the expression string is already in the set. |
+| `remove(s)` | Removes an expression string from the set. |
+| `check(state)` | Returns `true` if **every** expression is valid against the given **State**. |
+| `size()` | Returns the number of expressions in the set. |
+
+```javascript
+import QualitySet from 'simple-qbn/QualitySet';
+import State from 'simple-qbn/State';
+
+const qs = new QualitySet();
+qs.add('$level >= 5');
+qs.add('$hasKey == true');
+
+const s = new State();
+s.set('level', 10);
+s.set('hasKey', true);
+
+qs.check(s);   // true
+qs.size();     // 2
+qs.has('$level >= 5');  // true
+qs.remove('$hasKey == true');
+qs.size();     // 1
+```
+
+---
+
+## Reactive Expression and Reactive QualitySet
+
+The reactive architecture provides **ReactiveExpression** and **ReactiveQualitySet**, which automatically re-evaluate when the bound **ReactiveState** changes.
+
+### ReactiveExpression API
+
+| Method / Property | Description |
+|---|---|
+| `ReactiveExpression(expression, state?)` | Constructor — Quis string and optional `ReactiveState`. |
+| `expressionString` | Read-only getter — the internal expression string. |
+| `result` | Getter — current evaluation result (requires bound state). |
+| `check(state)` | Evaluates against a given `ReactiveState`. |
+| `change(newExpression)` | Replaces the expression and notifies listeners. |
+| `subscribe(listener)` | Subscribes to result changes; returns unsubscribe function. |
+| `bindToState(state)` | Binds to a `ReactiveState`. |
+| `unbind()` | Unbinds from the current state. |
+| `dispose()` | Cleans up all subscriptions and listeners. |
+| `listenerCount()` | Number of active listeners. |
+| `clearListeners()` | Removes all listeners. |
+
+```javascript
+import ReactiveExpression from 'simple-qbn/reactive/Expression';
+import ReactiveState from 'simple-qbn/reactive/State';
+
+const state = new ReactiveState();
+state.set('score', 10);
+
+const expr = new ReactiveExpression('$score > 50', state);
+expr.result;  // false
+
+expr.subscribe((result) => {
+  console.log('Expression is now:', result);
+});
+
+state.set('score', 75);  // logs: "Expression is now: true"
+
+expr.dispose();  // clean up when done
+```
+
+### ReactiveQualitySet API
+
+| Method / Property | Description |
+|---|---|
+| `ReactiveQualitySet(state?)` | Constructor — optional `ReactiveState`. |
+| `result` | Getter — `true` if all expressions pass (requires bound state). |
+| `add(expression)` | Adds a Quis expression string. |
+| `has(s)` | Returns `true` if expression exists in the set. |
+| `remove(s)` | Removes an expression and disposes it. |
+| `check(state)` | Evaluates all expressions against a given `ReactiveState`. |
+| `size()` | Number of expressions in the set. |
+| `subscribe(listener)` | Subscribes to result changes; returns unsubscribe function. |
+| `bindToState(state)` | Binds to a `ReactiveState`. |
+| `unbind()` | Unbinds from the current state. |
+| `dispose()` | Cleans up all internal expressions, subscriptions, and listeners. |
+| `listenerCount()` | Number of active listeners. |
+| `clearListeners()` | Removes all listeners. |
+
 ### Historical: Previous use of Mingo (MongoDB Query Support)
 
 > **Note**: MongoDB query language support was removed in version 1.5.0. This section is preserved for historical reference only. Current versions use only Quis syntax.

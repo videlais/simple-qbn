@@ -94,6 +94,10 @@
             <a href="/simple-qbn/examples/webbuild">Bundled for Web</a>
           </li>
           
+          <li>
+            <a href="/simple-qbn/examples/migration">Migration Guide</a>
+          </li>
+          
         </ul>
         
       </li>
@@ -151,14 +155,17 @@
 <span class="nx">deck</span><span class="p">.</span><span class="nf">addCard</span><span class="p">(</span><span class="nx">levelCard</span><span class="p">.</span><span class="nx">content</span><span class="p">,</span> <span class="nx">levelCard</span><span class="p">.</span><span class="nx">qualities</span><span class="p">);</span>
 <span class="nx">deck</span><span class="p">.</span><span class="nf">addCard</span><span class="p">(</span><span class="nx">doorCard</span><span class="p">.</span><span class="nx">content</span><span class="p">,</span> <span class="nx">doorCard</span><span class="p">.</span><span class="nx">qualities</span><span class="p">);</span>
 
-<span class="c1">// Explicitly check availability by passing state</span>
-<span class="kd">const</span> <span class="nx">availableCards</span> <span class="o">=</span> <span class="nx">deck</span><span class="p">.</span><span class="nf">draw</span><span class="p">(</span><span class="nx">gameState</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+<span class="c1">// Set the deck's internal state</span>
+<span class="nx">deck</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="nx">gameState</span><span class="p">;</span>
+
+<span class="c1">// Draw available cards (uses deck's internal state)</span>
+<span class="kd">const</span> <span class="nx">availableCards</span> <span class="o">=</span> <span class="nx">deck</span><span class="p">.</span><span class="nf">draw</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
 <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="s2">`Available: </span><span class="p">${</span><span class="nx">availableCards</span><span class="p">.</span><span class="nx">length</span><span class="p">}</span><span class="s2"> cards`</span><span class="p">);</span>
 
 <span class="c1">// Update state and check again</span>
 <span class="nx">gameState</span><span class="p">.</span><span class="nf">set</span><span class="p">(</span><span class="dl">'</span><span class="s1">health</span><span class="dl">'</span><span class="p">,</span> <span class="mi">30</span><span class="p">);</span>
 <span class="nx">gameState</span><span class="p">.</span><span class="nf">set</span><span class="p">(</span><span class="dl">'</span><span class="s1">hasKey</span><span class="dl">'</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
-<span class="kd">const</span> <span class="nx">newAvailable</span> <span class="o">=</span> <span class="nx">deck</span><span class="p">.</span><span class="nf">draw</span><span class="p">(</span><span class="nx">gameState</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">newAvailable</span> <span class="o">=</span> <span class="nx">deck</span><span class="p">.</span><span class="nf">draw</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
 <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="s2">`Now available: </span><span class="p">${</span><span class="nx">newAvailable</span><span class="p">.</span><span class="nx">length</span><span class="p">}</span><span class="s2"> cards`</span><span class="p">);</span>
 </code></pre></div></div>
 
@@ -226,6 +233,79 @@
 </ul>
 
 <p>Both architectures use the same <a href="./expressions.md">Expression Language</a> for defining quality requirements, ensuring consistent condition syntax regardless of which state management approach you choose.</p>
+
+<h2 id="reactive-best-practices">Reactive Best Practices</h2>
+
+<h3 id="batching-state-changes">Batching State Changes</h3>
+
+<p>When making multiple state changes at once, use <code class="language-javascript highlighter-rouge"><span class="nf">batch</span><span class="p">()</span></code> to group them into a single notification. Without batching, each call to <code class="language-javascript highlighter-rouge"><span class="nf">set</span><span class="p">()</span></code> or <code class="language-javascript highlighter-rouge"><span class="k">delete</span><span class="p">()</span></code> triggers all subscribers individually, which can cause unnecessary re-renders and redundant work.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Without batch — triggers 3 separate notifications</span>
+<span class="nx">gameState</span><span class="p">.</span><span class="nf">set</span><span class="p">(</span><span class="dl">'</span><span class="s1">health</span><span class="dl">'</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+<span class="nx">gameState</span><span class="p">.</span><span class="nf">set</span><span class="p">(</span><span class="dl">'</span><span class="s1">level</span><span class="dl">'</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span>
+<span class="nx">gameState</span><span class="p">.</span><span class="nf">set</span><span class="p">(</span><span class="dl">'</span><span class="s1">gold</span><span class="dl">'</span><span class="p">,</span> <span class="mi">200</span><span class="p">);</span>
+
+<span class="c1">// With batch — triggers only 1 notification after all changes</span>
+<span class="nx">gameState</span><span class="p">.</span><span class="nf">batch</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">gameState</span><span class="p">.</span><span class="nf">set</span><span class="p">(</span><span class="dl">'</span><span class="s1">health</span><span class="dl">'</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+  <span class="nx">gameState</span><span class="p">.</span><span class="nf">set</span><span class="p">(</span><span class="dl">'</span><span class="s1">level</span><span class="dl">'</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span>
+  <span class="nx">gameState</span><span class="p">.</span><span class="nf">set</span><span class="p">(</span><span class="dl">'</span><span class="s1">gold</span><span class="dl">'</span><span class="p">,</span> <span class="mi">200</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Nested batches are safe — the inner batch executes immediately and notifications are deferred until the outermost batch completes. If the batch function throws an error, any changes made before the error are kept and listeners are still notified.</p>
+
+<h3 id="the-dispose-lifecycle">The dispose() Lifecycle</h3>
+
+<p>All reactive classes (<code class="language-javascript highlighter-rouge"><span class="nx">ReactiveCard</span></code>, <code class="language-javascript highlighter-rouge"><span class="nx">ReactiveDeck</span></code>, <code class="language-javascript highlighter-rouge"><span class="nx">ReactiveExpression</span></code>, <code class="language-javascript highlighter-rouge"><span class="nx">ReactiveQualitySet</span></code>) maintain internal subscriptions to track state changes. When a reactive object is no longer needed, you <strong>must</strong> call <code class="language-javascript highlighter-rouge"><span class="nf">dispose</span><span class="p">()</span></code> to clean up these subscriptions and prevent memory leaks.</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">state</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ReactiveState</span><span class="p">();</span>
+<span class="kd">const</span> <span class="nx">card</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ReactiveCard</span><span class="p">(</span><span class="dl">'</span><span class="s1">Quest</span><span class="dl">'</span><span class="p">,</span> <span class="p">[</span><span class="dl">'</span><span class="s1">$level &gt;= 5</span><span class="dl">'</span><span class="p">],</span> <span class="nx">state</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">deck</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ReactiveDeck</span><span class="p">([</span><span class="nx">card</span><span class="p">],</span> <span class="nx">state</span><span class="p">);</span>
+
+<span class="nx">deck</span><span class="p">.</span><span class="nf">subscribe</span><span class="p">((</span><span class="nx">available</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">});</span>
+
+<span class="c1">// When done, dispose in order: deck first, then cards</span>
+<span class="nx">deck</span><span class="p">.</span><span class="nf">dispose</span><span class="p">();</span>   <span class="c1">// unbinds all cards, clears listeners</span>
+<span class="nx">card</span><span class="p">.</span><span class="nf">dispose</span><span class="p">();</span>   <span class="c1">// clears any remaining subscriptions</span>
+</code></pre></div></div>
+
+<p><strong>What <code class="language-javascript highlighter-rouge"><span class="nf">dispose</span><span class="p">()</span></code> does:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Class</th>
+      <th>Behavior</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nx">ReactiveCard</span></code></td>
+      <td>Unbinds from state, disposes internal <code class="language-javascript highlighter-rouge"><span class="nx">ReactiveQualitySet</span></code>, clears listeners.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nx">ReactiveDeck</span></code></td>
+      <td>Unbinds from state, disposes all child cards, clears listener list.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nx">ReactiveExpression</span></code></td>
+      <td>Unbinds from state, clears listeners.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nx">ReactiveQualitySet</span></code></td>
+      <td>Unbinds from state, disposes all child expressions, clears listeners.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Rules of thumb:</strong></p>
+
+<ul>
+  <li>Always dispose decks before their individual cards (the deck’s <code class="language-javascript highlighter-rouge"><span class="nf">dispose</span><span class="p">()</span></code> also disposes its cards).</li>
+  <li>After <code class="language-javascript highlighter-rouge"><span class="nf">dispose</span><span class="p">()</span></code>, the object should not be reused — create a new instance instead.</li>
+  <li>Use <code class="language-javascript highlighter-rouge"><span class="nf">unbind</span><span class="p">()</span></code> instead of <code class="language-javascript highlighter-rouge"><span class="nf">dispose</span><span class="p">()</span></code> if you intend to rebind the object to a different state later.</li>
+</ul>
 
 </div>
 
