@@ -51,8 +51,8 @@ For testing purposes, GitCDN.link can be used to pull the original build from Gi
                 // Find the element with the 
                 const el = document.querySelector('#log');
 
-                // Change its innerHTML
-                el.innerHTML = `Card: ${hand[0].content} `;
+                // Change its text content
+                el.textContent = `Card: ${hand[0].content} `;
             });
         </script>
     </body>
@@ -106,9 +106,9 @@ The reactive build provides automatic updates and event-driven state management.
 
                 // Change its innerHTML
                 if (drawnCard) {
-                    el.innerHTML = `Card: ${drawnCard.content}`;
+                    el.textContent = `Card: ${drawnCard.content}`;
                 } else {
-                    el.innerHTML = 'No cards available!';
+                    el.textContent = 'No cards available!';
                 }
             });
         </script>

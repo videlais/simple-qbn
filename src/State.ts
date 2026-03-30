@@ -31,6 +31,9 @@ export default class State {
    * @param {any} value - Value of pair
    */
   set(key: string, value: any): void {
+    if (key === '__proto__' || key === 'constructor' || key === 'prototype') {
+      throw new Error(`Setting '${key}' as a key is not allowed`);
+    }
     this._values[key] = value;
   }
 

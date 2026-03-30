@@ -22,7 +22,7 @@ Creating a **Deck** also creates an internal **State** as its *state* property. 
 // Create a new Deck
 const d = new Deck();
 // Add a key-value pair
-d.state.add('test', 1);
+d.state.set('test', 1);
 ```
 
 The method *addCard()* of **Deck** accepts a String (*content*) and array (*qualities*) of a new **Card**. Internally, a **Card** will also create a unique *hash* as well.

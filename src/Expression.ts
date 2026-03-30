@@ -58,7 +58,10 @@ export default class Expression {
     try {
       // Create a values callback function for quis
       const values = (name: string): any => {
-        return s.keys[name];
+        if (Object.prototype.hasOwnProperty.call(s.keys, name)) {
+          return s.keys[name];
+        }
+        return undefined;
       };
 
       // Use quis to evaluate the expression directly

@@ -22,12 +22,32 @@ If the position of **Cards** within the **Deck** is important, the method *getCa
 
 ### Additional Deck and Card Methods
 
-| Method | Description |
-|--------|-------------|
-| `Deck.size()` | Returns the number of cards in the deck. |
-| `Deck.state` | Getter/setter for the deck's internal **State**. |
-| `Card.hash` | Read-only UUID identifying the card. |
-| `Card.removeQuality(s)` | Removes a quality from the card's **QualitySet**. |
+#### Deck
+
+| Method / Property | Description |
+|---|---|
+| `Deck()` | Constructor — creates an empty deck with an internal **State**. |
+| `state` | Getter/setter for the deck's internal **State**. |
+| `cards` | Public array of all **Card** objects in the deck. |
+| `addCard(content, qualities)` | Creates and adds a **Card** with the given content and optional qualities array. |
+| `removeCard(c)` | Removes a **Card** from the deck. |
+| `updateCard(c)` | Replaces a card in the deck by matching its `hash`. |
+| `getCard(index)` | Returns the card at a position, or `null`. |
+| `size()` | Returns the number of cards in the deck. |
+| `shuffle()` | Fisher-Yates shuffle of all cards. |
+| `draw(size)` | Returns an array of available cards up to the given size (default 1). |
+
+#### Card
+
+| Method / Property | Description |
+|---|---|
+| `Card(content, qualities)` | Constructor — text content and optional qualities array. |
+| `content` | Getter/setter for the card's text content. |
+| `qualities` | Getter for the card's **QualitySet**; setter accepts `string[]`. |
+| `hash` | Read-only UUID identifying the card. |
+| `isAvailable(state)` | Returns `true` if all qualities pass against the given **State**. |
+| `addQuality(s)` | Adds a quality expression to the card. |
+| `removeQuality(s)` | Removes a quality expression from the card. |
 
 ---
 

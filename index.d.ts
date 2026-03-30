@@ -3,12 +3,21 @@ import Deck from './src/Deck.js';
 import Expression from './src/Expression.js';
 import QualitySet from './src/QualitySet.js';
 import State from './src/State.js';
+import ReactiveCard from './src/reactive/ReactiveCard.js';
+import ReactiveDeck from './src/reactive/ReactiveDeck.js';
+import ReactiveExpression from './src/reactive/ReactiveExpression.js';
+import ReactiveQualitySet from './src/reactive/ReactiveQualitySet.js';
+import ReactiveState from './src/reactive/ReactiveState.js';
 declare const _default: Readonly<{
     readonly Card: typeof Card;
     readonly Deck: typeof Deck;
     readonly Expression: typeof Expression;
     readonly QualitySet: typeof QualitySet;
     readonly State: typeof State;
+    readonly ReactiveCard: typeof ReactiveCard;
+    readonly ReactiveDeck: typeof ReactiveDeck;
+    readonly ReactiveExpression: typeof ReactiveExpression;
+    readonly ReactiveQualitySet: typeof ReactiveQualitySet;
+    readonly ReactiveState: typeof ReactiveState;
 }>;
 export default _default;
-//# sourceMappingURL=index.d.ts.map

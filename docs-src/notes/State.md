@@ -14,6 +14,18 @@ SimpleQBN provides two distinct state management architectures that serve differ
 
 The **State** class stores key-value pairs and provides methods for manipulation: *set()*, *exists()*, *delete()*, *get()*, and *size()*. This architecture requires explicit state passing and manual availability checking.
 
+### Original State API Summary
+
+| Method / Property | Description |
+|---|---|
+| `State()` | Constructor — creates an empty state. |
+| `keys` | Read-only getter — returns the internal key-value object. |
+| `set(key, value)` | Sets a key-value pair. Rejects `__proto__`, `constructor`, and `prototype` as keys. |
+| `get(key)` | Returns the value for a key, or `null` if not found. |
+| `exists(key)` | Returns `true` if the key exists in the state. |
+| `delete(key)` | Removes a key and returns its value, or `null` if not found. |
+| `size()` | Returns the number of keys in the state. |
+
 ### Original State Characteristics
 
 - **Manual state passing**: You must explicitly pass the state to methods that need it
@@ -64,6 +76,20 @@ console.log(`Now available: ${newAvailable.length} cards`);
 ## Reactive State Architecture
 
 The **ReactiveState** class extends the original State functionality with event-driven, automatic updates. When paired with reactive components, it provides real-time state synchronization.
+
+### Reactive State API Summary
+
+| Method / Property | Description |
+|---|---|
+| `ReactiveState()` | Constructor — creates an empty reactive state with a listener set. |
+| `set(key, value)` | Sets a key-value pair and notifies listeners if the value changed. |
+| `delete(key)` | Removes a key and notifies listeners if a value was removed. |
+| `subscribe(listener)` | Subscribes to state changes; returns an unsubscribe function. |
+| `batch(fn)` | Executes a function, deferring notifications until it completes. |
+| `listenerCount()` | Returns the number of active listeners. |
+| `clearListeners()` | Removes all listeners. |
+
+All methods inherited from **State** (`get`, `exists`, `keys`, `size`) are also available.
 
 ### Reactive State Usage Patterns
 
