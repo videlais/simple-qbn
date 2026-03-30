@@ -1,0 +1,2 @@
+---
+BUNDLE_BUILD__EVENTMACHINE: "--with-cppflags=-I/Library/Developer/CommandLineTools/SDKs/MacOSX26.0.sdk/usr/include/c++/v1"
