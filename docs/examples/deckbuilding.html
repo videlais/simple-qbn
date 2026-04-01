@@ -129,7 +129,7 @@
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Create a new Deck</span>
 <span class="kd">const</span> <span class="nx">d</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Deck</span><span class="p">();</span>
 <span class="c1">// Add a key-value pair</span>
-<span class="nx">d</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="dl">'</span><span class="s1">test</span><span class="dl">'</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="nx">d</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nf">set</span><span class="p">(</span><span class="dl">'</span><span class="s1">test</span><span class="dl">'</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
 </code></pre></div></div>
 
 <p>The method <em>addCard()</em> of <strong>Deck</strong> accepts a String (<em>content</em>) and array (<em>qualities</em>) of a new <strong>Card</strong>. Internally, a <strong>Card</strong> will also create a unique <em>hash</em> as well.</p>

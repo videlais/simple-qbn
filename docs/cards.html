@@ -129,29 +129,96 @@
 
 <h3 id="additional-deck-and-card-methods">Additional Deck and Card Methods</h3>
 
+<h4 id="deck">Deck</h4>
+
 <table>
   <thead>
     <tr>
-      <th>Method</th>
+      <th>Method / Property</th>
       <th>Description</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td><code class="language-javascript highlighter-rouge"><span class="nx">Deck</span><span class="p">.</span><span class="nf">size</span><span class="p">()</span></code></td>
-      <td>Returns the number of cards in the deck.</td>
+      <td><code class="language-javascript highlighter-rouge"><span class="nc">Deck</span><span class="p">()</span></code></td>
+      <td>Constructor — creates an empty deck with an internal <strong>State</strong>.</td>
     </tr>
     <tr>
-      <td><code class="language-javascript highlighter-rouge"><span class="nx">Deck</span><span class="p">.</span><span class="nx">state</span></code></td>
+      <td><code class="language-javascript highlighter-rouge"><span class="nx">state</span></code></td>
       <td>Getter/setter for the deck’s internal <strong>State</strong>.</td>
     </tr>
     <tr>
-      <td><code class="language-javascript highlighter-rouge"><span class="nx">Card</span><span class="p">.</span><span class="nx">hash</span></code></td>
+      <td><code class="language-javascript highlighter-rouge"><span class="nx">cards</span></code></td>
+      <td>Public array of all <strong>Card</strong> objects in the deck.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">addCard</span><span class="p">(</span><span class="nx">content</span><span class="p">,</span> <span class="nx">qualities</span><span class="p">)</span></code></td>
+      <td>Creates and adds a <strong>Card</strong> with the given content and optional qualities array.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">removeCard</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span></code></td>
+      <td>Removes a <strong>Card</strong> from the deck.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">updateCard</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span></code></td>
+      <td>Replaces a card in the deck by matching its <code class="language-javascript highlighter-rouge"><span class="nx">hash</span></code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">getCard</span><span class="p">(</span><span class="nx">index</span><span class="p">)</span></code></td>
+      <td>Returns the card at a position, or <code class="language-javascript highlighter-rouge"><span class="kc">null</span></code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">size</span><span class="p">()</span></code></td>
+      <td>Returns the number of cards in the deck.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">shuffle</span><span class="p">()</span></code></td>
+      <td>Fisher-Yates shuffle of all cards.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">draw</span><span class="p">(</span><span class="nx">size</span><span class="p">)</span></code></td>
+      <td>Returns an array of available cards up to the given size (default 1).</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="card">Card</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Method / Property</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nc">Card</span><span class="p">(</span><span class="nx">content</span><span class="p">,</span> <span class="nx">qualities</span><span class="p">)</span></code></td>
+      <td>Constructor — text content and optional qualities array.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nx">content</span></code></td>
+      <td>Getter/setter for the card’s text content.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nx">qualities</span></code></td>
+      <td>Getter for the card’s <strong>QualitySet</strong>; setter accepts <code class="language-javascript highlighter-rouge"><span class="nx">string</span><span class="p">[]</span></code>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nx">hash</span></code></td>
       <td>Read-only UUID identifying the card.</td>
     </tr>
     <tr>
-      <td><code class="language-javascript highlighter-rouge"><span class="nx">Card</span><span class="p">.</span><span class="nf">removeQuality</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span></code></td>
-      <td>Removes a quality from the card’s <strong>QualitySet</strong>.</td>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">isAvailable</span><span class="p">(</span><span class="nx">state</span><span class="p">)</span></code></td>
+      <td>Returns <code class="language-javascript highlighter-rouge"><span class="kc">true</span></code> if all qualities pass against the given <strong>State</strong>.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">addQuality</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span></code></td>
+      <td>Adds a quality expression to the card.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">removeQuality</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span></code></td>
+      <td>Removes a quality expression from the card.</td>
     </tr>
   </tbody>
 </table>

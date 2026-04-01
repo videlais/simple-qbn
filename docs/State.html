@@ -121,6 +121,47 @@
 
 <p>The <strong>State</strong> class stores key-value pairs and provides methods for manipulation: <em>set()</em>, <em>exists()</em>, <em>delete()</em>, <em>get()</em>, and <em>size()</em>. This architecture requires explicit state passing and manual availability checking.</p>
 
+<h3 id="original-state-api-summary">Original State API Summary</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Method / Property</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nc">State</span><span class="p">()</span></code></td>
+      <td>Constructor — creates an empty state.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nx">keys</span></code></td>
+      <td>Read-only getter — returns the internal key-value object.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">set</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span></code></td>
+      <td>Sets a key-value pair. Rejects <code class="language-javascript highlighter-rouge"><span class="nx">__proto__</span></code>, <code class="language-javascript highlighter-rouge"><span class="kd">constructor</span></code>, and <code class="language-javascript highlighter-rouge"><span class="nx">prototype</span></code> as keys.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">get</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span></code></td>
+      <td>Returns the value for a key, or <code class="language-javascript highlighter-rouge"><span class="kc">null</span></code> if not found.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">exists</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span></code></td>
+      <td>Returns <code class="language-javascript highlighter-rouge"><span class="kc">true</span></code> if the key exists in the state.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="k">delete</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span></code></td>
+      <td>Removes a key and returns its value, or <code class="language-javascript highlighter-rouge"><span class="kc">null</span></code> if not found.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">size</span><span class="p">()</span></code></td>
+      <td>Returns the number of keys in the state.</td>
+    </tr>
+  </tbody>
+</table>
+
 <h3 id="original-state-characteristics">Original State Characteristics</h3>
 
 <ul>
@@ -172,6 +213,49 @@
 <h2 id="reactive-state-architecture">Reactive State Architecture</h2>
 
 <p>The <strong>ReactiveState</strong> class extends the original State functionality with event-driven, automatic updates. When paired with reactive components, it provides real-time state synchronization.</p>
+
+<h3 id="reactive-state-api-summary">Reactive State API Summary</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Method / Property</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nc">ReactiveState</span><span class="p">()</span></code></td>
+      <td>Constructor — creates an empty reactive state with a listener set.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">set</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span></code></td>
+      <td>Sets a key-value pair and notifies listeners if the value changed.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="k">delete</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span></code></td>
+      <td>Removes a key and notifies listeners if a value was removed.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">subscribe</span><span class="p">(</span><span class="nx">listener</span><span class="p">)</span></code></td>
+      <td>Subscribes to state changes; returns an unsubscribe function.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">batch</span><span class="p">(</span><span class="nx">fn</span><span class="p">)</span></code></td>
+      <td>Executes a function, deferring notifications until it completes.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">listenerCount</span><span class="p">()</span></code></td>
+      <td>Returns the number of active listeners.</td>
+    </tr>
+    <tr>
+      <td><code class="language-javascript highlighter-rouge"><span class="nf">clearListeners</span><span class="p">()</span></code></td>
+      <td>Removes all listeners.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>All methods inherited from <strong>State</strong> (<code class="language-javascript highlighter-rouge"><span class="kd">get</span></code>, <code class="language-javascript highlighter-rouge"><span class="nx">exists</span></code>, <code class="language-javascript highlighter-rouge"><span class="nx">keys</span></code>, <code class="language-javascript highlighter-rouge"><span class="nx">size</span></code>) are also available.</p>
 
 <h3 id="reactive-state-usage-patterns">Reactive State Usage Patterns</h3>
 
