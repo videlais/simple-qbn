@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Episodes and Sequences (1989) - SimpleQBN</title>
+    <title>Programmed and Branching Texts (1930) - SimpleQBN</title>
     <meta name="description" content="Because nothing about quality-based narratives is actually simple.">
     <link rel="stylesheet" href="/simple-qbn/assets/css/style.css">
 </head>
@@ -127,35 +127,31 @@
                 <div class="page-wrapper">
                     <div class="page-inner">
                         <div class="markdown-section">
-<h1 id="episodes-and-sequences-1989">Episodes and Sequences (1989)</h1>
+<h1 id="programmed-and-branching-texts-1930">Programmed and Branching Texts (1930)</h1>
 
 <h2 id="term">Term</h2>
 
-<p>In a blog post now only available from the Internet Archive, Doug Sharp (1989) describes the “battle” of interactive fiction from a GDC 1989 talk on the same topic. Within the post, Sharp (1989) mentions a project called <em>King of Chicago</em> (1989) and how it is an “honorable failure.” Toward the end of the post, Sharp (1989) writes about a design of a “big bags with smaller bags inside which hold clips, which I called episodes.” Each one of these <em>episodes</em> would:</p>
+<p>Before computers selected content based on stored values, the same idea appeared in print as <em>branching</em> and <em>programmed</em> texts. A reader was sent to different content depending on a choice or an answer, with their position in the book acting as a simple, manual form of <em>state</em>.</p>
 
-<blockquote>
-  <p>specif[y] things like who is to be onscreen, chooses background graphics, switches between close-ups and medium shots, drives the character’s animation and facial expression, and feeds dialog to them. The episode script reads a lot like a playscript or screenplay. A single episode might put Pinky and his girlfriend Lola in her bedroom, and have her badger Pinky about earning more money. This episode might take two minutes of screen time.</p>
+<h3 id="print-examples">Print Examples</h3>
 
-  <p>- Sharp (1989)</p>
-</blockquote>
+<p>The earliest widely cited branching book is <em>Consider the Consequences!</em> by Doris Webster and Mary Alden (1930). Readers chose between options and turned to a numbered passage, decades before the <em>Choose Your Own Adventure</em> series (1979) popularized the format. There is no tracked state — only branches — but it established the pattern of content gated by reader choice.</p>
 
-<p>In the following paragraphs, Sharp (1989) relates the interface between the <em>state</em> (collection of values) and how it affects episode navigation. As Sharp (1989) writes it: “The episode selector looks at all the keys of available episodes and selects the one that most closely matches current game variables. Its method is to look for a least square fit.”</p>
+<p>A closer ancestor to quality-based narrative was Norman Crowder’s <em>intrinsic programming</em>, used in branching teaching books such as <em>TutorTexts</em> (Crowder, 1959). The reader answered a multiple-choice question, and each answer pointed to a different page that responded to that choice. The reader’s prior answers (their <em>state</em>) decided which content became available next — the core “prerequisite gates content” mechanism later formalized as storylet prerequisites.</p>
 
-<p>In pulling from the model Sharp (1989) writes about, there are several major concepts:</p>
+<h3 id="digital-example">Digital Example</h3>
 
-<ul>
-  <li><strong>Story</strong>: Multiple episodes, each govern by character</li>
-  <li><strong>Episode</strong>: Selection of sequences influenced by player actions within rules of player interactions</li>
-  <li><strong>Narrator</strong>: decides episode order and when each ends</li>
-  <li><strong>Sequences</strong>: set of phases (act-like structure within an episode)</li>
-  <li><strong>Actions</strong>: player input</li>
-</ul>
+<p>The conceptual root of the digital side is Vannevar Bush’s <em>Memex</em> (1945). In “As We May Think,” Bush described a device for linking documents into associative <em>trails</em> the reader could follow and revisit. While never built, it set out the linked, conditionally navigable structure that hypertext, the <a href="./sculpturalmodel.md">sculptural model</a>, and quality-based narratives would later make interactive and state-driven.</p>
 
-<p>A <em>story</em> starts with an <em>episode</em>, composed of <em>sequences</em>. The player takes <em>actions</em>, which changes the values watched by the <em>Narrator</em>. This affects which <em>sequences</em> are chosen next, if the episode ends, and any future changes carried over into future episodes. When the episodes are exhausted, play ends.</p>
+<p>These pre-1970 examples share two ideas central to SimpleQBN: content exists as discrete chunks, and which chunk a reader reaches depends on prior choices.</p>
 
 <h2 id="references">References</h2>
 
-<p>Sharp, D. (1989). Story vs. Game: The Battle of Interactive Fiction. Computer Game Developer’s Convention 1989. Retrieved from <code class="language-javascript highlighter-rouge"><span class="nx">https</span><span class="p">:</span><span class="c1">//web.archive.org/web/20040404061317/http://www.channelzilch.com/doug/battle.htm</span></code></p>
+<p>Bush, V. (1945). As We May Think. The Atlantic Monthly, 176(1), 101–108. Retrieved from <code class="language-javascript highlighter-rouge"><span class="nx">https</span><span class="p">:</span><span class="c1">//www.theatlantic.com/magazine/archive/1945/07/as-we-may-think/303881/</span></code></p>
+
+<p>Crowder, N. A. (1959). Automatic Tutoring by Means of Intrinsic Programming. In E. Galanter (Ed.), Automatic Teaching: The State of the Art (pp. 109–116). John Wiley &amp; Sons.</p>
+
+<p>Webster, D., &amp; Alden, M. (1930). Consider the Consequences! New York: The Century Co.</p>
 
 </div>
 

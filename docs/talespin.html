@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Episodes and Sequences (1989) - SimpleQBN</title>
+    <title>Simulation and Goals (1977) - SimpleQBN</title>
     <meta name="description" content="Because nothing about quality-based narratives is actually simple.">
     <link rel="stylesheet" href="/simple-qbn/assets/css/style.css">
 </head>
@@ -127,35 +127,36 @@
                 <div class="page-wrapper">
                     <div class="page-inner">
                         <div class="markdown-section">
-<h1 id="episodes-and-sequences-1989">Episodes and Sequences (1989)</h1>
+<h1 id="simulation-and-goals-1977">Simulation and Goals (1977)</h1>
 
 <h2 id="term">Term</h2>
 
-<p>In a blog post now only available from the Internet Archive, Doug Sharp (1989) describes the “battle” of interactive fiction from a GDC 1989 talk on the same topic. Within the post, Sharp (1989) mentions a project called <em>King of Chicago</em> (1989) and how it is an “honorable failure.” Toward the end of the post, Sharp (1989) writes about a design of a “big bags with smaller bags inside which hold clips, which I called episodes.” Each one of these <em>episodes</em> would:</p>
+<p>One of the earliest computational models of story production was <em>TALE-SPIN</em>, created by James Meehan (1977) as part of doctoral research at Yale University under Roger Schank. Rather than writing branches in advance, <em>TALE-SPIN</em> generated short fables by simulating characters who pursued <em>goals</em> within a small world of values. Each character had relationships, needs, and knowledge, and the program tried to satisfy their goals through a chain of plausible actions.</p>
+
+<p>The story emerged from the interaction between a <em>world state</em> and a set of preconditions. As Meehan (1977) described it, an action could only be taken if its conditions were met, and taking it changed the values that other actions depended on:</p>
 
 <blockquote>
-  <p>specif[y] things like who is to be onscreen, chooses background graphics, switches between close-ups and medium shots, drives the character’s animation and facial expression, and feeds dialog to them. The episode script reads a lot like a playscript or screenplay. A single episode might put Pinky and his girlfriend Lola in her bedroom, and have her badger Pinky about earning more money. This episode might take two minutes of screen time.</p>
+  <p>A character does something for a reason. The reasons are goals. To satisfy a goal, the character makes a plan, and the plan is a series of actions, each of which depends on the state of the world.</p>
 
-  <p>- Sharp (1989)</p>
+  <p>- Meehan (1977)</p>
 </blockquote>
 
-<p>In the following paragraphs, Sharp (1989) relates the interface between the <em>state</em> (collection of values) and how it affects episode navigation. As Sharp (1989) writes it: “The episode selector looks at all the keys of available episodes and selects the one that most closely matches current game variables. Its method is to look for a least square fit.”</p>
-
-<p>In pulling from the model Sharp (1989) writes about, there are several major concepts:</p>
+<p>In pulling from this model, there are several major concepts that anticipate later quality-based narratives:</p>
 
 <ul>
-  <li><strong>Story</strong>: Multiple episodes, each govern by character</li>
-  <li><strong>Episode</strong>: Selection of sequences influenced by player actions within rules of player interactions</li>
-  <li><strong>Narrator</strong>: decides episode order and when each ends</li>
-  <li><strong>Sequences</strong>: set of phases (act-like structure within an episode)</li>
-  <li><strong>Actions</strong>: player input</li>
+  <li><strong>World state</strong>: collection of values describing characters and their relationships.</li>
+  <li><strong>Goals</strong>: conditions a character is trying to make true.</li>
+  <li><strong>Preconditions</strong>: requirements that must be met before an action can occur.</li>
+  <li><strong>Effects</strong>: changes to the world state once an action is taken.</li>
 </ul>
 
-<p>A <em>story</em> starts with an <em>episode</em>, composed of <em>sequences</em>. The player takes <em>actions</em>, which changes the values watched by the <em>Narrator</em>. This affects which <em>sequences</em> are chosen next, if the episode ends, and any future changes carried over into future episodes. When the episodes are exhausted, play ends.</p>
+<p>The pattern of “preconditions → content → effects on state” used by <em>TALE-SPIN</em> (1977) is the same three-part structure later formalized for storylets. While <em>TALE-SPIN</em> produced text procedurally rather than selecting authored chunks, it established the idea that available content should be gated by a shared, mutable state.</p>
 
 <h2 id="references">References</h2>
 
-<p>Sharp, D. (1989). Story vs. Game: The Battle of Interactive Fiction. Computer Game Developer’s Convention 1989. Retrieved from <code class="language-javascript highlighter-rouge"><span class="nx">https</span><span class="p">:</span><span class="c1">//web.archive.org/web/20040404061317/http://www.channelzilch.com/doug/battle.htm</span></code></p>
+<p>Meehan, J. R. (1977). TALE-SPIN, An Interactive Program that Writes Stories. Proceedings of the Fifth International Joint Conference on Artificial Intelligence, 91–98. Retrieved from <code class="language-javascript highlighter-rouge"><span class="nx">https</span><span class="p">:</span><span class="c1">//www.ijcai.org/Proceedings/77-1/Papers/013.pdf</span></code></p>
+
+<p>Schank, R. C., &amp; Abelson, R. P. (1977). Scripts, Plans, Goals and Understanding: An Inquiry into Human Knowledge Structures. Lawrence Erlbaum Associates. <code class="language-javascript highlighter-rouge"><span class="nx">https</span><span class="p">:</span><span class="c1">//doi.org/10.4324/9780203781036</span></code></p>
 
 </div>
 

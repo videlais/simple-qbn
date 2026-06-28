@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Episodes and Sequences (1989) - SimpleQBN</title>
+    <title>Plot Fragments and Author Goals (1985) - SimpleQBN</title>
     <meta name="description" content="Because nothing about quality-based narratives is actually simple.">
     <link rel="stylesheet" href="/simple-qbn/assets/css/style.css">
 </head>
@@ -127,35 +127,36 @@
                 <div class="page-wrapper">
                     <div class="page-inner">
                         <div class="markdown-section">
-<h1 id="episodes-and-sequences-1989">Episodes and Sequences (1989)</h1>
+<h1 id="plot-fragments-and-author-goals-1985">Plot Fragments and Author Goals (1985)</h1>
 
 <h2 id="term">Term</h2>
 
-<p>In a blog post now only available from the Internet Archive, Doug Sharp (1989) describes the “battle” of interactive fiction from a GDC 1989 talk on the same topic. Within the post, Sharp (1989) mentions a project called <em>King of Chicago</em> (1989) and how it is an “honorable failure.” Toward the end of the post, Sharp (1989) writes about a design of a “big bags with smaller bags inside which hold clips, which I called episodes.” Each one of these <em>episodes</em> would:</p>
+<p>Michael Lebowitz (1984, 1985) created <em>Universe</em>, a story-generation system designed to produce ongoing, soap-opera-style narratives. Where earlier work simulated characters from the inside, <em>Universe</em> selected from a library of authored <em>plot fragments</em> whose use depended on whether their conditions matched the current cast of characters and the system’s <em>author goals</em>.</p>
+
+<p>A <em>plot fragment</em> in <em>Universe</em> carried preconditions, a set of characters it required, and constraints those characters had to satisfy. Lebowitz (1985) described how fragments were chosen to advance author-level goals rather than character goals, fitting available fragments to the current state of the world:</p>
 
 <blockquote>
-  <p>specif[y] things like who is to be onscreen, chooses background graphics, switches between close-ups and medium shots, drives the character’s animation and facial expression, and feeds dialog to them. The episode script reads a lot like a playscript or screenplay. A single episode might put Pinky and his girlfriend Lola in her bedroom, and have her badger Pinky about earning more money. This episode might take two minutes of screen time.</p>
+  <p>Plot fragments include the characters needed, constraints on those characters, subgoals to be achieved, and the events that make up the fragment. A fragment can be used only when its constraints are satisfied by the current cast and situation.</p>
 
-  <p>- Sharp (1989)</p>
+  <p>- Lebowitz (1985)</p>
 </blockquote>
 
-<p>In the following paragraphs, Sharp (1989) relates the interface between the <em>state</em> (collection of values) and how it affects episode navigation. As Sharp (1989) writes it: “The episode selector looks at all the keys of available episodes and selects the one that most closely matches current game variables. Its method is to look for a least square fit.”</p>
-
-<p>In pulling from the model Sharp (1989) writes about, there are several major concepts:</p>
+<p>This produced several concepts central to later quality-based narratives:</p>
 
 <ul>
-  <li><strong>Story</strong>: Multiple episodes, each govern by character</li>
-  <li><strong>Episode</strong>: Selection of sequences influenced by player actions within rules of player interactions</li>
-  <li><strong>Narrator</strong>: decides episode order and when each ends</li>
-  <li><strong>Sequences</strong>: set of phases (act-like structure within an episode)</li>
-  <li><strong>Actions</strong>: player input</li>
+  <li><strong>Plot fragment</strong>: an authored chunk of story, comparable to a storylet.</li>
+  <li><strong>Constraints</strong>: requirements on character attributes and world values before a fragment can be used.</li>
+  <li><strong>Author goals</strong>: higher-level objectives that guide which available fragment is chosen.</li>
+  <li><strong>Character attributes</strong>: the values mutated by fragments and checked by later constraints.</li>
 </ul>
 
-<p>A <em>story</em> starts with an <em>episode</em>, composed of <em>sequences</em>. The player takes <em>actions</em>, which changes the values watched by the <em>Narrator</em>. This affects which <em>sequences</em> are chosen next, if the episode ends, and any future changes carried over into future episodes. When the episodes are exhausted, play ends.</p>
+<p>By gating authored fragments behind constraints over a stored cast of values, <em>Universe</em> (1985) is one of the closest pre-1990s ancestors of the quality-based and storylet structures, differing mainly in that selection was driven by author goals instead of player choice.</p>
 
 <h2 id="references">References</h2>
 
-<p>Sharp, D. (1989). Story vs. Game: The Battle of Interactive Fiction. Computer Game Developer’s Convention 1989. Retrieved from <code class="language-javascript highlighter-rouge"><span class="nx">https</span><span class="p">:</span><span class="c1">//web.archive.org/web/20040404061317/http://www.channelzilch.com/doug/battle.htm</span></code></p>
+<p>Lebowitz, M. (1984). Creating Characters in a Story-Telling Universe. Poetics, 13(3), 171–194. <code class="language-javascript highlighter-rouge"><span class="nx">https</span><span class="p">:</span><span class="c1">//doi.org/10.1016/0304-422X(84)90001-9</span></code></p>
+
+<p>Lebowitz, M. (1985). Story-Telling as Planning and Learning. Poetics, 14(6), 483–502. <code class="language-javascript highlighter-rouge"><span class="nx">https</span><span class="p">:</span><span class="c1">//doi.org/10.1016/0304-422X(85)90015-4</span></code></p>
 
 </div>
 
