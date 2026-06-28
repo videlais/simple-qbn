@@ -18,7 +18,7 @@ A closer ancestor to quality-based narrative was Norman Crowder's *intrinsic pro
 
 ### Digital Example
 
-The conceptual root of the digital side is Vannevar Bush's *Memex* (1945). In "As We May Think," Bush described a device for linking documents into associative *trails* the reader could follow and revisit. While never built, it set out the linked, conditionally navigable structure that hypertext, the [sculptural model](./sculpturalmodel.md), and quality-based narratives would later make interactive and state-driven.
+The conceptual root of the digital side is Vannevar Bush's *Memex* (1945). In "As We May Think," Bush described a device for linking documents into associative *trails* the reader could follow and revisit. While never built, it set out the linked, conditionally navigable structure that hypertext, the [sculptural model]({{ '/sculpturalmodel' | relative_url }}), and quality-based narratives would later make interactive and state-driven.
 
 These pre-1970 examples share two ideas central to SimpleQBN: content exists as discrete chunks, and which chunk a reader reaches depends on prior choices.
 

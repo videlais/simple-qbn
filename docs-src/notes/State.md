@@ -6,7 +6,7 @@ permalink: /State
 
 # State Management
 
-The [sculptural model](./sculpturalmodel.md) defines a *context* cards can access and manipulate. The QBN model also describes *qualities* as conditional statements testing against some values. In SimpleQBN, this is explicitly called **State**.
+The [sculptural model]({{ '/sculpturalmodel' | relative_url }}) defines a *context* cards can access and manipulate. The QBN model also describes *qualities* as conditional statements testing against some values. In SimpleQBN, this is explicitly called **State**.
 
 SimpleQBN provides two distinct state management architectures that serve different use cases:
 
@@ -149,7 +149,7 @@ doorCard.dispose();
 - Reactive classes (`ReactiveState`, `ReactiveCard`, `ReactiveDeck`) cannot be used with original classes
 - Choose one architecture for your entire application
 
-Both architectures use the same [Expression Language](./expressions.md) for defining quality requirements, ensuring consistent condition syntax regardless of which state management approach you choose.
+Both architectures use the same [Expression Language]({{ '/expressions' | relative_url }}) for defining quality requirements, ensuring consistent condition syntax regardless of which state management approach you choose.
 
 ## Reactive Best Practices
 

@@ -19,7 +19,7 @@ There are several major concepts that connect directly to quality-based narrativ
 * **Drama manager**: selector that monitors state and chooses among available beats.
 * **Selection score / salience**: weighting used to pick the most appropriate available beat.
 
-This idea of monitoring values and selecting only currently *available* content is the same mechanism described elsewhere as [storylet](./storylet.md) prerequisites. The drama manager's scoring of available beats is the direct origin of the salience-based narrative (SBN) approach later proposed by Short (2016) as a sibling to quality-based narrative.
+This idea of monitoring values and selecting only currently *available* content is the same mechanism described elsewhere as [storylet]({{ '/storylet' | relative_url }}) prerequisites. The drama manager's scoring of available beats is the direct origin of the salience-based narrative (SBN) approach later proposed by Short (2016) as a sibling to quality-based narrative.
 
 ## References
 

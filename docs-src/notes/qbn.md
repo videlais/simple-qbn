@@ -8,7 +8,7 @@ permalink: /qbn
 
 ## Term
 
-In the same blog post defining [storylet](./storylet.md), Failbetter Games (2010) also describes the use of *qualities* as something that "tell storylets what to do" (para. 4; original emphasis). In this definition, *qualities* exist as a form of conditional statements. For example, the player may need 4 Jade and to be at a location named Edge City to access a storylet. The condition `>= 4 Jade AND location = ‘Edge City'` exists as a combination *quality* for a particular storylet.
+In the same blog post defining [storylet]({{ '/storylet' | relative_url }}), Failbetter Games (2010) also describes the use of *qualities* as something that "tell storylets what to do" (para. 4; original emphasis). In this definition, *qualities* exist as a form of conditional statements. For example, the player may need 4 Jade and to be at a location named Edge City to access a storylet. The condition `>= 4 Jade AND location = ‘Edge City'` exists as a combination *quality* for a particular storylet.
 
 A *quality-based narrative* (QBN) is one where storylet selection is based based on its *qualities* (prerequisites).
 

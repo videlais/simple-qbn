@@ -6,7 +6,7 @@ permalink: /cards
 
 # Deck and Cards
 
-Both [sculptural](./sculpturalmodel.md) and [QBN](./qbn.md) models have used the terms "deck-based" and "card-based". Building from the metaphors used in TinyQBN by Grams (2019), SimpleQBN makes these explicit.
+Both [sculptural]({{ '/sculpturalmodel' | relative_url }}) and [QBN]({{ '/qbn' | relative_url }}) models have used the terms "deck-based" and "card-based". Building from the metaphors used in TinyQBN by Grams (2019), SimpleQBN makes these explicit.
 
 In order to use SimpleQBN, a **Deck** must be created. (Internally, upon creation, each **Deck** has its own [**State**](./state.md)).
 

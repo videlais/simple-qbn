@@ -8,7 +8,7 @@ permalink: /expressions
 
 ## Qualities as Expressions
 
-While both the [sculptural](./sculpturalmodel.md) and [QBN](./qbn.md) models define their own terms of how sections of a story might become available (constraints and qualities, respectively), neither explain how to *express* these.
+While both the [sculptural]({{ '/sculpturalmodel' | relative_url }}) and [QBN]({{ '/qbn' | relative_url }}) models define their own terms of how sections of a story might become available (constraints and qualities, respectively), neither explain how to *express* these.
 
 ### Grams Format
 
