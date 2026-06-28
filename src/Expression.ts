@@ -1,7 +1,7 @@
 import pkg from 'quis';
 import type State from './State.js';
 
-const { parse } = pkg;
+const { evaluate } = pkg;
 
 export default class Expression {
   private _expression: string;
@@ -56,16 +56,8 @@ export default class Expression {
     }
 
     try {
-      // Create a values callback function for quis
-      const values = (name: string): any => {
-        if (Object.prototype.hasOwnProperty.call(s.keys, name)) {
-          return s.keys[name];
-        }
-        return undefined;
-      };
-
-      // Use quis to evaluate the expression directly
-      return parse(this._expression, { values: values });
+      // Use quis to evaluate the expression directly against state values
+      return evaluate(this._expression, s.keys);
     } catch (error) {
       console.warn('Expression check failed:', error);
       return false;

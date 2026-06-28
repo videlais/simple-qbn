@@ -64,10 +64,18 @@ navigation:
     url: /
   - title: History of Related Terms
     items:
+      - title: Programmed and Branching Texts (1930)
+        url: /branchingtexts
+      - title: Simulation and Goals (1977)
+        url: /talespin
       - title: Scenes and Cycles (1983)
         url: /scenes
+      - title: Plot Fragments and Author Goals (1985)
+        url: /universe
       - title: Episodes and Sequences (1989)
         url: /episodes
+      - title: Drama Manager and Beats (1992)
+        url: /dramamanager
       - title: Sculptural Hypertext Model (2001)
         url: /sculpturalmodel
       - title: Storylet (2010)
